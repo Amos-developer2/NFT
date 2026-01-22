@@ -116,13 +116,14 @@
 
 .deposit-input {
     width: 100%;
-    padding: 20px 0 8px 5px;
+    padding: 15px 12px;
     border: 1px solid #e5e7eb;
     border-radius: 10px;
-    font-size: 13px;
+    font-size: 15px;
     background: #f9fafb;
     color: #1f2937;
     appearance: none;
+    box-sizing: border-box;
 }
 
 .deposit-input:focus {
@@ -154,7 +155,7 @@
 
 .quick-amount-btn {
     flex: 1;
-    padding: 9px 6px;
+    padding: 15px 6px;
     background: #f3f4f6;
     border: 1px solid #e5e7eb;
     border-radius: 10px;
@@ -176,7 +177,7 @@
 .deposit-form .btn {
     width: 100%;
     margin-top: 6px;
-    padding: 13px;
+    padding: 15px;
     border-radius: 9999px;
     font-size: 14px;
     font-weight: 800;
