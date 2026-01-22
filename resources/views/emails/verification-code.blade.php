@@ -22,7 +22,7 @@
                         <td style="padding:32px 24px;text-align:center;">
                             <div style="margin-bottom:18px;font-size:16px;color:#374151;">
                                 Hello <strong>{{ $userName }}</strong>,<br>
-                                Your email <span style="color:#2563eb;font-weight:600;">{{ $userEmail ?? 'your@email.com' }}</span> is being used to register on VortexNFT.
+                                Your email is being used to register on VortexNFT.
                             </div>
                             <div style="background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);border-radius:16px;padding:20px 0;margin-bottom:18px;">
                                 <div style="font-size:13px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:1px;">Verification Code</div>
