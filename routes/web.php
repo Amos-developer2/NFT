@@ -28,6 +28,8 @@ Route::post('/2fa', [TwoFactorController::class, 'verify'])->name('2fa.verify');
 // About Us page route
 Route::view('/about', 'about')->name('about');
 
+// Load admin routes
+require_once __DIR__ . '/admin.php';
 // Protected routes - require authentication
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

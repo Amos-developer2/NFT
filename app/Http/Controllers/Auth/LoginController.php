@@ -59,5 +59,11 @@ class LoginController extends Controller
             Auth::logout();
             return redirect()->route('2fa.index');
         }
+        // Redirect admin users to admin dashboard
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+        // Default redirect for normal users
+        return redirect($this->redirectTo);
     }
 }
