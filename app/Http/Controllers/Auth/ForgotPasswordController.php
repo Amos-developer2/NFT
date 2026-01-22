@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\Log;
 
 
-class ForgotPasswordController extends Controller{
+class ForgotPasswordController extends Controller
+{
 
     /**
      * Show the form to request a password reset code (email input).
@@ -100,7 +101,7 @@ class ForgotPasswordController extends Controller{
         }
         // Generate and store code in verification_codes table
         $code = str_pad(random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
-        \App\Models\VerificationCode::generateCode($email, 'password_reset');
+        \App\Models\VerificationCode::generateCode($email, 'password_reset', $code);
         session(['password_reset_code' => $code, 'password_reset_email' => $email]);
         \Mail::raw("Your password reset code is: $code", function ($message) use ($email) {
             $message->to($email)

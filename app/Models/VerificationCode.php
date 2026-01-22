@@ -23,7 +23,7 @@ class VerificationCode extends Model
     /**
      * Generate a new verification code for an email
      */
-    public static function generateCode(string $email, string $type = 'registration'): self
+    public static function generateCode(string $email, string $type = 'registration', ?string $code = null): self
     {
         // Invalidate any existing codes for this email and type
         self::where('email', $email)
@@ -31,12 +31,12 @@ class VerificationCode extends Model
             ->where('is_used', false)
             ->update(['is_used' => true]);
 
-        // Generate a 6-digit code
-        $code = str_pad(random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
+        // Use provided code or generate a new one
+        $finalCode = $code ?? str_pad(random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
 
         return self::create([
             'email' => $email,
-            'code' => $code,
+            'code' => $finalCode,
             'type' => $type,
             'expires_at' => now()->addMinutes(10),
         ]);
