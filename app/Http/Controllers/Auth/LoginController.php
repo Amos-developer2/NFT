@@ -69,18 +69,20 @@ class LoginController extends Controller
         $user = \App\Models\User::where($this->username(), $request->input($this->username()))->first();
         if ($user && $user->verification_code !== null) {
             // User is not verified
+            session(['registration_user_id' => $user->id]);
             return redirect()->route('register.verify')->withErrors([
-                $this->username() => 'Please verify your email before logging in. Check your email for the verification code.',
+                $this->username() => 'Verify email first.',
             ]);
-        }
-        $username = $request->input('name');
-        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+        } else {
+            $username = $request->input('name');
+            if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+                return back()
+                    ->withInput($request->only('name', 'remember'))
+                    ->withErrors(['name' => 'Please use your username to login, not your email address.']);
+            }
             return back()
                 ->withInput($request->only('name', 'remember'))
-                ->withErrors(['name' => 'Please use your username to login, not your email address.']);
+                ->withErrors(['name' => trans('auth.failed')]);
         }
-        return back()
-            ->withInput($request->only('name', 'remember'))
-            ->withErrors(['name' => trans('auth.failed')]);
     }
 }

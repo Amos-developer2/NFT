@@ -38,12 +38,12 @@
             <p class="nft-form-subtitle">Fill in your details to get started</p>
         </div>
 
-        @if($errors->any())
+        <!-- @if($errors->any())
         <div class="nft-alert nft-alert-error">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="12" y1="8" x2="12" y2="12"/>
-                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
             <div class="alert-messages">
                 @foreach ($errors->all() as $error)
@@ -51,7 +51,7 @@
                 @endforeach
             </div>
         </div>
-        @endif
+        @endif -->
 
         <form method="POST" action="{{ route('register') }}" class="nft-register-form">
             @csrf
@@ -79,14 +79,14 @@
                         required
                         autocomplete="username"
                         autofocus
-                        placeholder="Choose a username">
+                        placeholder="Choose username">
                 </div>
                 @error('name')
                 <span class="nft-error">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="12" y1="8" x2="12" y2="12"/>
-                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
                     {{ $message }}
                 </span>
@@ -120,9 +120,9 @@
                 @error('email')
                 <span class="nft-error">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="12" y1="8" x2="12" y2="12"/>
-                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
                     {{ $message }}
                 </span>
@@ -155,9 +155,9 @@
                 @error('password')
                 <span class="nft-error">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="12" y1="8" x2="12" y2="12"/>
-                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
                     {{ $message }}
                 </span>
@@ -219,9 +219,9 @@
                 @error('referral_code')
                 <span class="nft-error">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="12" y1="8" x2="12" y2="12"/>
-                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
                     {{ $message }}
                 </span>
@@ -240,9 +240,9 @@
                 @error('terms')
                 <span class="nft-error">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="12" y1="8" x2="12" y2="12"/>
-                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
                     {{ $message }}
                 </span>
@@ -288,518 +288,539 @@
 </div>
 
 <style>
-/* NFT Register Page Styles - Light Theme */
-.nft-register-wrapper {
-    min-height: 100vh;
-    min-height: 100dvh;
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
-    padding: 0 0 20px;
-}
-
-/* Animated Background Effects */
-.nft-bg-effects {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.nft-grid-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        linear-gradient(rgba(42, 108, 246, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(42, 108, 246, 0.04) 1px, transparent 1px);
-    background-size: 50px 50px;
-}
-
-.nft-glow-line {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #2A6CF6, #3B8CFF, #2A6CF6, transparent);
-    animation: glowPulse 3s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-}
-
-/* Header */
-.nft-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    position: relative;
-    z-index: 10;
-}
-
-.nft-back-btn {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border-radius: 14px;
-    color: #475569;
-    text-decoration: none;
-    border: 1px solid rgba(42, 108, 246, 0.15);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.nft-back-btn:active {
-    transform: scale(0.95);
-    background: #fff;
-}
-
-.nft-header-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: rgba(42, 108, 246, 0.1);
-    border-radius: 20px;
-    border: 1px solid rgba(42, 108, 246, 0.2);
-}
-
-.badge-dot {
-    width: 8px;
-    height: 8px;
-    background: #2A6CF6;
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
-}
-
-.nft-header-badge span:last-child {
-    font-size: 12px;
-    font-weight: 600;
-    color: #2A6CF6;
-    letter-spacing: 0.5px;
-}
-
-/* Logo Section */
-.nft-logo-section {
-    text-align: center;
-    padding: 15px 20px 20px;
-    position: relative;
-    z-index: 10;
-}
-
-.vortex-logo {
-    max-width: 220px;
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-    filter: drop-shadow(0 4px 12px rgba(42, 108, 246, 0.2));
-}
-
-.nft-tagline {
-    font-size: 14px;
-    color: #64748b;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.tagline-icon {
-    font-size: 12px;
-}
-
-/* Form Wrapper */
-.nft-form-wrapper {
-    margin: 0 20px;
-    padding: 0 4px;
-    position: relative;
-    z-index: 10;
-}
-
-.nft-form-header {
-    text-align: center;
-    margin-bottom: 24px;
-}
-
-.nft-form-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #1e293b;
-    margin: 0 0 6px;
-}
-
-.nft-form-subtitle {
-    font-size: 14px;
-    color: #64748b;
-    margin: 0;
-}
-
-/* Alert */
-.nft-alert {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 14px 16px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    font-size: 14px;
-}
-
-.nft-alert-error {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    color: #dc2626;
-}
-
-.nft-alert svg {
-    flex-shrink: 0;
-    margin-top: 2px;
-}
-
-.alert-messages {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-/* Form Styles */
-.nft-register-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.nft-input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.nft-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #334155;
-    letter-spacing: 0.3px;
-}
-
-.nft-label svg {
-    color: #2A6CF6;
-    opacity: 0.9;
-}
-
-.required-badge {
-    font-size: 10px;
-    font-weight: 600;
-    color: #fff;
-    background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
-    padding: 2px 8px;
-    border-radius: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.nft-input-wrapper {
-    position: relative;
-}
-
-.nft-input-wrapper::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 8px;
-    padding: 2px;
-    background: linear-gradient(135deg, #e2e8f0, #f1f5f9);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    transition: all 0.3s ease;
-    opacity: 0.6;
-}
-
-.nft-input-wrapper:focus-within::before {
-    background: linear-gradient(135deg, #2A6CF6, #3B8CFF, #60a5fa);
-    opacity: 1;
-}
-
-.nft-input {
-    width: 100%;
-    padding: 16px 18px 16px 50px;
-    background: rgba(255, 255, 255, 0.6);
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #1e293b;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-    box-shadow: 
-        inset 0 2px 4px rgba(0, 0, 0, 0.02),
-        0 4px 12px rgba(42, 108, 246, 0.06);
-}
-
-.nft-input-wrapper .input-icon {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    color: #94a3b8;
-    transition: all 0.3s ease;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.nft-input-wrapper:focus-within .input-icon {
-    color: #2A6CF6;
-}
-
-.nft-input::placeholder {
-    color: #94a3b8;
-    font-weight: 400;
-}
-
-.nft-input:focus {
-    outline: none;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 
-        inset 0 2px 4px rgba(42, 108, 246, 0.04),
-        0 8px 24px rgba(42, 108, 246, 0.12);
-}
-
-.nft-input-wrapper.has-error::before {
-    background: linear-gradient(135deg, #f43f5e, #fb7185);
-    opacity: 1;
-}
-
-.nft-input-wrapper.has-error .nft-input {
-    background: rgba(254, 242, 242, 0.7);
-}
-
-.nft-input-wrapper.has-error .input-icon {
-    color: #f43f5e;
-}
-
-.nft-error {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #e11d48;
-    margin-top: 4px;
-    padding: 8px 12px;
-    background: linear-gradient(135deg, #fef2f2, #fff1f2);
-    border-radius: 6px;
-    border-left: 3px solid #e11d48;
-}
-
-/* Terms Group */
-.nft-terms-group {
-    margin-top: 4px;
-}
-
-.nft-checkbox {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    cursor: pointer;
-}
-
-.nft-checkbox input {
-    display: none;
-}
-
-.checkbox-custom {
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    border: 2px solid #cbd5e1;
-    border-radius: 6px;
-    position: relative;
-    transition: all 0.3s ease;
-    background: #ffffff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    margin-top: 2px;
-}
-
-.nft-checkbox input:checked + .checkbox-custom {
-    background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
-    border-color: transparent;
-}
-
-.nft-checkbox input:checked + .checkbox-custom::after {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 6px;
-    width: 5px;
-    height: 10px;
-    border: solid #fff;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-}
-
-.checkbox-label {
-    font-size: 13px;
-    color: #64748b;
-    line-height: 1.5;
-}
-
-.nft-link {
-    color: #2A6CF6;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.nft-link:hover {
-    color: #3B8CFF;
-}
-
-/* Submit Button */
-.nft-submit-btn {
-    position: relative;
-    width: 100%;
-    padding: 16px 24px;
-    border: none;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    overflow: hidden;
-    margin-top: 8px;
-}
-
-.btn-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 50%, #60a5fa 100%);
-    transition: opacity 0.3s ease;
-}
-
-.btn-bg::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: btnShimmer 2s infinite;
-}
-
-@keyframes btnShimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-
-.btn-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    color: #fff;
-}
-
-.nft-submit-btn:active {
-    transform: scale(0.98);
-}
-
-/* Login Link */
-.nft-login-link {
-    text-align: center;
-    margin-top: 24px;
-    font-size: 14px;
-    color: #64748b;
-}
-
-.nft-login-link a {
-    color: #2A6CF6;
-    text-decoration: none;
-    font-weight: 600;
-    margin-left: 4px;
-    transition: color 0.3s ease;
-}
-
-.nft-login-link a:hover {
-    color: #3B8CFF;
-}
-
-.nft-login-link .arrow {
-    display: inline-block;
-    transition: transform 0.3s ease;
-}
-
-.nft-login-link a:hover .arrow {
-    transform: translateX(4px);
-}
-
-/* Stats Bar */
-.nft-stats-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    margin-top: 24px;
-    padding: 16px 20px;
-    position: relative;
-    z-index: 10;
-}
-
-.stat-item {
-    text-align: center;
-}
-
-.stat-value {
-    display: block;
-    font-size: 18px;
-    font-weight: 700;
-    background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.stat-label {
-    font-size: 11px;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.stat-divider {
-    width: 1px;
-    height: 30px;
-    background: linear-gradient(180deg, transparent, #cbd5e1, transparent);
-}
+    /* NFT Register Page Styles - Light Theme */
+    .nft-register-wrapper {
+        min-height: 100vh;
+        min-height: 100dvh;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+        padding: 0 0 20px;
+    }
+
+    /* Animated Background Effects */
+    .nft-bg-effects {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .nft-grid-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+            linear-gradient(rgba(42, 108, 246, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(42, 108, 246, 0.04) 1px, transparent 1px);
+        background-size: 50px 50px;
+    }
+
+    .nft-glow-line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #2A6CF6, #3B8CFF, #2A6CF6, transparent);
+        animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+
+        0%,
+        100% {
+            opacity: 0.6;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    /* Header */
+    .nft-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .nft-back-btn {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 14px;
+        color: #475569;
+        text-decoration: none;
+        border: 1px solid rgba(42, 108, 246, 0.15);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .nft-back-btn:active {
+        transform: scale(0.95);
+        background: #fff;
+    }
+
+    .nft-header-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(42, 108, 246, 0.1);
+        border-radius: 20px;
+        border: 1px solid rgba(42, 108, 246, 0.2);
+    }
+
+    .badge-dot {
+        width: 8px;
+        height: 8px;
+        background: #2A6CF6;
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.5;
+            transform: scale(1.2);
+        }
+    }
+
+    .nft-header-badge span:last-child {
+        font-size: 12px;
+        font-weight: 600;
+        color: #2A6CF6;
+        letter-spacing: 0.5px;
+    }
+
+    /* Logo Section */
+    .nft-logo-section {
+        text-align: center;
+        padding: 15px 20px 20px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .vortex-logo {
+        max-width: 220px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+        filter: drop-shadow(0 4px 12px rgba(42, 108, 246, 0.2));
+    }
+
+    .nft-tagline {
+        font-size: 14px;
+        color: #64748b;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .tagline-icon {
+        font-size: 12px;
+    }
+
+    /* Form Wrapper */
+    .nft-form-wrapper {
+        margin: 0 20px;
+        padding: 0 4px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .nft-form-header {
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    .nft-form-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0 0 6px;
+    }
+
+    .nft-form-subtitle {
+        font-size: 14px;
+        color: #64748b;
+        margin: 0;
+    }
+
+    /* Alert */
+    .nft-alert {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    .nft-alert-error {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        color: #dc2626;
+    }
+
+    .nft-alert svg {
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .alert-messages {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    /* Form Styles */
+    .nft-register-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nft-input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .nft-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #334155;
+        letter-spacing: 0.3px;
+    }
+
+    .nft-label svg {
+        color: #2A6CF6;
+        opacity: 0.9;
+    }
+
+    .required-badge {
+        font-size: 10px;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+        padding: 2px 8px;
+        border-radius: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .nft-input-wrapper {
+        position: relative;
+    }
+
+    .nft-input-wrapper::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 8px;
+        padding: 2px;
+        background: linear-gradient(135deg, #e2e8f0, #f1f5f9);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        opacity: 0.6;
+    }
+
+    .nft-input-wrapper:focus-within::before {
+        background: linear-gradient(135deg, #2A6CF6, #3B8CFF, #60a5fa);
+        opacity: 1;
+    }
+
+    .nft-input {
+        width: 100%;
+        padding: 16px 18px 16px 50px;
+        background: rgba(255, 255, 255, 0.6);
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #1e293b;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        box-shadow:
+            inset 0 2px 4px rgba(0, 0, 0, 0.02),
+            0 4px 12px rgba(42, 108, 246, 0.06);
+    }
+
+    .nft-input-wrapper .input-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        color: #94a3b8;
+        transition: all 0.3s ease;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .nft-input-wrapper:focus-within .input-icon {
+        color: #2A6CF6;
+    }
+
+    .nft-input::placeholder {
+        color: #94a3b8;
+        font-weight: 400;
+    }
+
+    .nft-input:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow:
+            inset 0 2px 4px rgba(42, 108, 246, 0.04),
+            0 8px 24px rgba(42, 108, 246, 0.12);
+    }
+
+    .nft-input-wrapper.has-error::before {
+        background: linear-gradient(135deg, #f43f5e, #fb7185);
+        opacity: 1;
+    }
+
+    .nft-input-wrapper.has-error .nft-input {
+        background: rgba(254, 242, 242, 0.7);
+    }
+
+    .nft-input-wrapper.has-error .input-icon {
+        color: #f43f5e;
+    }
+
+    .nft-error {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #e11d48;
+        margin-top: 4px;
+        padding: 8px 12px;
+        background: linear-gradient(135deg, #fef2f2, #fff1f2);
+        border-radius: 6px;
+        border-left: 3px solid #e11d48;
+    }
+
+    /* Terms Group */
+    .nft-terms-group {
+        margin-top: 4px;
+    }
+
+    .nft-checkbox {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        cursor: pointer;
+    }
+
+    .nft-checkbox input {
+        display: none;
+    }
+
+    .checkbox-custom {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        border: 2px solid #cbd5e1;
+        border-radius: 6px;
+        position: relative;
+        transition: all 0.3s ease;
+        background: #ffffff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        margin-top: 2px;
+    }
+
+    .nft-checkbox input:checked+.checkbox-custom {
+        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+        border-color: transparent;
+    }
+
+    .nft-checkbox input:checked+.checkbox-custom::after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 6px;
+        width: 5px;
+        height: 10px;
+        border: solid #fff;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+
+    .checkbox-label {
+        font-size: 13px;
+        color: #64748b;
+        line-height: 1.5;
+    }
+
+    .nft-link {
+        color: #2A6CF6;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .nft-link:hover {
+        color: #3B8CFF;
+    }
+
+    /* Submit Button */
+    .nft-submit-btn {
+        position: relative;
+        width: 100%;
+        padding: 16px 24px;
+        border: none;
+        border-radius: 14px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        overflow: hidden;
+        margin-top: 8px;
+    }
+
+    .btn-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 50%, #60a5fa 100%);
+        transition: opacity 0.3s ease;
+    }
+
+    .btn-bg::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: btnShimmer 2s infinite;
+    }
+
+    @keyframes btnShimmer {
+        0% {
+            left: -100%;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+
+    .btn-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: #fff;
+    }
+
+    .nft-submit-btn:active {
+        transform: scale(0.98);
+    }
+
+    /* Login Link */
+    .nft-login-link {
+        text-align: center;
+        margin-top: 24px;
+        font-size: 14px;
+        color: #64748b;
+    }
+
+    .nft-login-link a {
+        color: #2A6CF6;
+        text-decoration: none;
+        font-weight: 600;
+        margin-left: 4px;
+        transition: color 0.3s ease;
+    }
+
+    .nft-login-link a:hover {
+        color: #3B8CFF;
+    }
+
+    .nft-login-link .arrow {
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .nft-login-link a:hover .arrow {
+        transform: translateX(4px);
+    }
+
+    /* Stats Bar */
+    .nft-stats-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        margin-top: 24px;
+        padding: 16px 20px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-value {
+        display: block;
+        font-size: 18px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .stat-label {
+        font-size: 11px;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .stat-divider {
+        width: 1px;
+        height: 30px;
+        background: linear-gradient(180deg, transparent, #cbd5e1, transparent);
+    }
 </style>
 @endsection

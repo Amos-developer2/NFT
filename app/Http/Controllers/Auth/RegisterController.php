@@ -37,34 +37,35 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        // Check if this is verification step
-        if ($request->has('verification_code')) {
-            return $this->verifyAndCreate($request);
-        }
-
         // Step 1: Validate registration data
+
         $this->validator($request->all())->validate();
 
         // Generate verification code
         $verification = VerificationCode::generateCode($request->email, 'registration');
 
+        // Always generate a unique referral code for the new user
+        $uniqueReferralCode = User::generateReferralCode();
+
+        // Create user immediately with verification_code and verification_expires_at
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'referral_code' => $uniqueReferralCode,
+            'verification_code' => $verification->code,
+            'verification_expires_at' => $verification->expires_at,
+        ]);
+
         // Send verification email
         try {
             Mail::to($request->email)->send(new VerificationCodeMail($verification->code, $request->name));
         } catch (\Exception $e) {
-            // Log the error but continue (for development without mail setup)
             \Log::error('Failed to send verification email: ' . $e->getMessage());
         }
 
-        // Store registration data in session
-        session([
-            'registration_data' => [
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password,
-                'referral_code' => $request->referral_code,
-            ],
-        ]);
+        // Store user id in session for verification step
+        session(['registration_user_id' => $user->id]);
 
         return redirect()->route('register.verify');
     }
@@ -74,12 +75,13 @@ class RegisterController extends Controller
      */
     public function showVerificationForm()
     {
-        if (!session('registration_data')) {
+        $userId = session('registration_user_id');
+        $user = $userId ? User::find($userId) : null;
+        if (!$user) {
             return redirect()->route('register');
         }
-
         return view('auth.verify', [
-            'email' => session('registration_data.email'),
+            'email' => $user->email,
         ]);
     }
 
@@ -92,14 +94,14 @@ class RegisterController extends Controller
             'verification_code' => 'required|string|size:6',
         ]);
 
-        $registrationData = session('registration_data');
-
-        if (!$registrationData) {
+        $userId = session('registration_user_id');
+        $user = $userId ? User::find($userId) : null;
+        if (!$user) {
             return redirect()->route('register')->withErrors(['email' => 'Session expired. Please register again.']);
         }
 
         // Verify the code
-        $verification = \App\Models\VerificationCode::where('email', $registrationData['email'])
+        $verification = \App\Models\VerificationCode::where('email', $user->email)
             ->where('code', $request->verification_code)
             ->where('type', 'registration')
             ->where('is_used', false)
@@ -112,19 +114,12 @@ class RegisterController extends Controller
 
         $verification->update(['is_used' => true]);
 
-        // Create the user and store verification_code and verification_expires_at
-        $user = $this->create(array_merge($registrationData, [
-            'verification_code' => $verification->code,
-            'verification_expires_at' => $verification->expires_at,
-        ]));
-
-        // Immediately nullify verification_code and verification_expires_at after verification
-        $user->verification_code = null;
-        $user->verification_expires_at = null;
+        // Mark user as verified (set email_verified_at)
+        $user->email_verified_at = now();
         $user->save();
 
         // Clear session
-        session()->forget(['registration_data', 'verification_code_preview']);
+        session()->forget(['registration_user_id', 'verification_code_preview']);
 
         // Fire registered event and login
         event(new Registered($user));
@@ -159,12 +154,19 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255', 'unique:users'],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:users',
+                'regex:/^(?=.*[A-Za-z])[A-Za-z0-9 _.-]+$/'
+            ],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'referral_code' => ['required', 'string', 'exists:users,referral_code'],
             'terms' => ['accepted'],
         ], [
+            'name.regex' => 'Name must contain at least one English letter and may include numbers, spaces, and .-_ characters. It cannot be only numbers or only special characters.',
             'name.unique' => 'This username is already taken.',
             'terms.accepted' => 'You must accept the terms and conditions.',
             'referral_code.required' => 'A referral code is required to register.',

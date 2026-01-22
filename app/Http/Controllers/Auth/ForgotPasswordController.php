@@ -92,7 +92,7 @@ class ForgotPasswordController extends Controller
         $request->validate(['email' => 'required|email']);
         // Rate limit: max 5 requests per 10 minutes per IP
         if (\Illuminate\Support\Facades\RateLimiter::tooManyAttempts('password-reset:' . $request->ip(), 3)) {
-            return back()->withErrors(['email' => 'Too many password reset requests. Please try again later.'])->withInput();
+            return back()->withErrors(['email' => 'Too many password reset requests. Please contact support@vortexnft.com.'])->withInput();
         }
         \Illuminate\Support\Facades\RateLimiter::hit('password-reset:' . $request->ip(), 600);
         $email = $request->input('email');
