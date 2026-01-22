@@ -27,6 +27,8 @@ class User extends Authenticatable
         'referral_count',
         'role',
         'balance',
+        'verification_code',
+        'verification_expires_at',
     ];
 
     /**
