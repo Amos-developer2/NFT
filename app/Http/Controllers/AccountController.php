@@ -120,7 +120,7 @@ class AccountController extends Controller
                 'pin' => 'required|digits:4|confirmed',
             ]);
 
-            if ($user->withdrawal_pin !== $request->current_pin) {
+            if (!\Hash::check($request->current_pin, $user->withdrawal_pin)) {
                 return back()->withErrors(['current_pin' => 'Current PIN is incorrect.']);
             }
         } else {
@@ -129,7 +129,7 @@ class AccountController extends Controller
             ]);
         }
 
-        $user->withdrawal_pin = $request->pin;
+        $user->withdrawal_pin = \Hash::make($request->pin);
         $user->save();
 
         return redirect()->route('account')->with('success', 'Withdrawal PIN updated successfully!');
