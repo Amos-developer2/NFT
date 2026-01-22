@@ -29,7 +29,6 @@ Route::post('/2fa', [TwoFactorController::class, 'verify'])->name('2fa.verify');
 Route::view('/about', 'about')->name('about');
 
 // Load admin routes
-require_once __DIR__ . '/admin.php';
 // Protected routes - require authentication
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -73,6 +72,12 @@ Route::middleware(['auth'])->group(function () {
     // Auction routes
     Route::get('/auction', [App\Http\Controllers\AuctionController::class, 'index'])->name('auction');
     Route::post('/auction/{id}/bid', [App\Http\Controllers\AuctionController::class, 'bid'])->name('auction.bid');
+});
+
+
+Route::middleware(['web', 'auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
 });
 
 // NOWPayments webhook route (no auth middleware)
