@@ -1,0 +1,823 @@
+/* Withdrawal Page Styles - Mobile First Design */
+/* Matches Home/Deposit Blue Color Scheme */
+
+/* ========================================
+   Fixed Page Header - Mobile First
+   ======================================== */
+.page-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 420px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 16px;
+    background: #f4f7fb;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.page-header-spacer {
+    height: 64px;
+}
+
+.page-header .back-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.page-header .back-btn:active {
+    transform: scale(0.95);
+    background: #f3f4f6;
+}
+
+/* Back Icon - Properly sized */
+.page-header .back-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.page-header .page-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.page-header .header-spacer {
+    width: 36px;
+}
+
+/* Tablet+ responsive adjustments */
+@media (min-width: 481px) {
+    .page-header {
+        padding: 14px 20px;
+    }
+
+    .page-header .back-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+    }
+
+    .page-header .back-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .page-header .page-title {
+        font-size: 18px;
+    }
+
+    .page-header .header-spacer {
+        width: 40px;
+    }
+
+    .page-header-spacer {
+        height: 72px;
+    }
+}
+
+/* ========================================
+   Header Card - Same as Deposit
+   ======================================== */
+.total-card {
+    margin: 35px 10px 0 10px;
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    border-radius: 20px;
+    padding: 35px;
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(37, 99, 235, 0.3);
+}
+
+.total-card .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.total-card .info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.total-card .available {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.total-card .avail-label {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+.total-card .avail-value {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.total-card .main {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.total-card .sub {
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+.total-card .sub strong {
+    color: #fef08a;
+}
+
+.icon-white {
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+}
+
+/* Info Icon - Properly sized */
+.icon-sm {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+
+/* Form Container */
+.withdraw-form {
+    margin: 12px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 18px 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group:last-of-type {
+    margin-bottom: 0;
+}
+
+.form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.label-row .form-label {
+    margin-bottom: 0;
+}
+
+/* Network Selection - Simple Toggle */
+.network-select {
+    display: flex;
+    gap: 10px;
+}
+
+.network-item {
+    flex: 1;
+    cursor: pointer;
+}
+
+.network-item input {
+    display: none;
+}
+
+.network-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 10px;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.network-item input:checked+.network-btn {
+    background: #eff6ff;
+    border-color: #2563eb;
+}
+
+.net-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.net-fee {
+    font-size: 10px;
+    color: #6b7280;
+    margin-top: 2px;
+}
+
+.network-item input:checked+.network-btn .net-name {
+    color: #2563eb;
+}
+
+/* Form Input */
+.form-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 14px;
+    background: #f9fafb;
+    color: #1f2937;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-input::placeholder {
+    color: #9ca3af;
+}
+
+/* Input with Button */
+.input-with-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-btn .form-input {
+    padding-right: 70px;
+}
+
+.input-btn {
+    position: absolute;
+    right: 6px;
+    padding: 8px 14px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.input-btn:hover {
+    background: #1d4ed8;
+}
+
+.input-btn:active {
+    transform: scale(0.95);
+}
+
+/* Max Link */
+.max-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: #2563eb;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.max-link:hover {
+    text-decoration: underline;
+}
+
+/* Input Footer */
+.input-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 12px;
+}
+
+.hint-text {
+    color: #ef4444;
+    font-weight: 500;
+}
+
+.receive-text {
+    color: #059669;
+    font-weight: 600;
+}
+
+/* PIN Container - 4 digits */
+.pin-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.pin-box {
+    flex: 0 0 50px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    background: #f9fafb;
+    color: #1f2937;
+    transition: all 0.2s;
+    -webkit-appearance: none;
+}
+
+.pin-box:focus {
+    outline: none;
+    border-color: #2563eb;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Summary Box */
+.summary-box {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-top: 16px;
+}
+
+.sum-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.sum-row span:last-child {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.sum-row.total {
+    border-top: 1px solid #e5e7eb;
+    margin-top: 6px;
+    padding-top: 10px;
+    font-weight: 600;
+}
+
+.sum-row.total span:first-child {
+    color: #1f2937;
+}
+
+.sum-row.total span:last-child {
+    font-size: 15px;
+    font-weight: 800;
+    color: #059669;
+}
+
+/* ========================================
+   Submit Button - Mobile First
+   Matches total-card blue gradient
+   ======================================== */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 13px 18px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+}
+
+.btn-primary {
+    /* Same gradient as total-card */
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+    margin-top: 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-primary:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(37, 99, 235, 0.5);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: scale(0.97);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+}
+
+.btn-primary:disabled {
+    /* Muted blue instead of gray - still shows blue theme */
+    background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+/* Button responsive - tablet+ */
+@media (min-width: 481px) {
+    .btn {
+        padding: 16px 24px;
+        border-radius: 16px;
+        font-size: 16px;
+    }
+
+    .btn-primary {
+        margin-top: 24px;
+    }
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+/* How to Withdraw Info Section */
+.deposit-info {
+    margin: 16px 12px;
+    padding: 16px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: 16px;
+    border: 1px solid #bae6fd;
+    position: relative;
+    overflow: hidden;
+}
+
+.deposit-info::before {
+    content: '💡';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 50px;
+    opacity: 0.1;
+}
+
+.deposit-info h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0369a1;
+    margin: 0 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.deposit-info h3::before {
+    content: '';
+    width: 4px;
+    height: 18px;
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    border-radius: 2px;
+}
+
+.deposit-info ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.deposit-info li {
+    position: relative;
+    padding: 6px 0 6px 26px;
+    font-size: 12px;
+    color: #374151;
+    line-height: 1.5;
+    border-bottom: 1px dashed #bae6fd;
+}
+
+.deposit-info li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.deposit-info li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    border-radius: 50%;
+}
+
+.deposit-info li::after {
+    content: '✓';
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 9px;
+    color: #fff;
+    font-weight: 700;
+}
+
+/* Legacy info-section support */
+.info-section {
+    margin: 16px;
+    padding: 16px 18px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.info-section h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #374151;
+    margin: 0 0 10px 0;
+}
+
+.info-section ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.8;
+}
+
+.info-section li {
+    margin-bottom: 2px;
+}
+
+/* Responsive - Mobile First */
+/* Extra small devices adjustments */
+@media (max-width: 359px) {
+    .total-card {
+        margin: 8px 10px;
+        padding: 14px;
+    }
+
+    .total-card .main {
+        font-size: 22px;
+    }
+
+    .withdraw-form {
+        margin: 10px;
+        padding: 16px 14px;
+    }
+
+    .pin-box {
+        flex: 0 0 44px;
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+
+    .deposit-info {
+        margin: 12px 10px;
+        padding: 14px;
+    }
+
+    .btn {
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+}
+
+/* Standard mobile (375px+) - base styles already defined above */
+
+/* Large mobile / small tablet (480px+) */
+@media (min-width: 480px) {
+    .total-card {
+        margin: 12px 16px;
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .total-card .main {
+        font-size: 26px;
+    }
+
+    .total-card .sub {
+        font-size: 13px;
+    }
+
+    .withdraw-form {
+        margin: 14px 16px;
+        padding: 22px 20px;
+        border-radius: 20px;
+    }
+
+    .form-label {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .network-btn {
+        padding: 14px 12px;
+        border-radius: 14px;
+    }
+
+    .net-name {
+        font-size: 15px;
+    }
+
+    .net-fee {
+        font-size: 11px;
+    }
+
+    .form-input {
+        padding: 14px 16px;
+        font-size: 15px;
+        border-radius: 14px;
+    }
+
+    .pin-box {
+        flex: 0 0 55px;
+        width: 55px;
+        height: 55px;
+        font-size: 22px;
+        border-radius: 12px;
+    }
+
+    .summary-box {
+        padding: 14px 16px;
+        border-radius: 14px;
+    }
+
+    .sum-row {
+        font-size: 13px;
+    }
+
+    .sum-row.total span:last-child {
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 15px 22px;
+        font-size: 15px;
+        border-radius: 14px;
+    }
+
+    .deposit-info {
+        margin: 18px 16px;
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .deposit-info h3 {
+        font-size: 15px;
+    }
+
+    .deposit-info li {
+        font-size: 13px;
+        padding: 8px 0 8px 28px;
+    }
+
+    .deposit-info li::before {
+        width: 18px;
+        height: 18px;
+    }
+
+    .deposit-info li::after {
+        left: 4px;
+        font-size: 10px;
+    }
+
+    .icon-sm {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+/* Tablet+ (600px+) */
+@media (min-width: 600px) {
+
+    .total-card,
+    .withdraw-form,
+    .deposit-info {
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .total-card {
+        padding: 24px;
+        border-radius: 24px;
+    }
+
+    .total-card .main {
+        font-size: 28px;
+    }
+
+    .withdraw-form {
+        padding: 26px 24px;
+        border-radius: 22px;
+    }
+
+    .btn {
+        padding: 16px 24px;
+        font-size: 16px;
+        border-radius: 16px;
+    }
+
+    .deposit-info {
+        padding: 22px;
+        border-radius: 20px;
+    }
+
+    .deposit-info h3 {
+        font-size: 16px;
+        margin-bottom: 14px;
+    }
+
+    .deposit-info li {
+        font-size: 14px;
+        padding: 10px 0 10px 32px;
+    }
+
+    .deposit-info li::before {
+        width: 20px;
+        height: 20px;
+    }
+
+    .deposit-info li::after {
+        left: 5px;
+        font-size: 11px;
+    }
+
+    .icon-sm {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Remove number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Touch-friendly */
+@media (hover: none) and (pointer: coarse) {
+
+    .form-input,
+    .pin-box {
+        font-size: 16px;
+    }
+
+    .btn {
+        min-height: 52px;
+    }
+}

@@ -1,0 +1,427 @@
+/* ========================================
+   NFT Purchase Page - Mobile First CSS
+   ======================================== */
+
+/* Header */
+.purchase-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.back-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1f2937;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: background 0.2s;
+}
+
+.back-btn:active {
+    background: #f3f4f6;
+}
+
+.header-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.header-spacer {
+    width: 40px;
+}
+
+/* NFT Display Card */
+.nft-display-card {
+    margin: 25px 16px 16px;
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.nft-display-bg {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Pattern Overlays */
+.pattern-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.pattern-money {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ctext x='10' y='35' font-size='30' fill='%23ffffff' opacity='0.5'%3E💵%3C/text%3E%3C/svg%3E");
+    background-size: 50px 50px;
+}
+
+.pattern-stars {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ctext x='10' y='35' font-size='25' fill='%23ffffff' opacity='0.5'%3E⭐%3C/text%3E%3C/svg%3E");
+    background-size: 45px 45px;
+}
+
+.pattern-sparkles {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ctext x='10' y='35' font-size='25' fill='%23ffffff' opacity='0.5'%3E✨%3C/text%3E%3C/svg%3E");
+    background-size: 45px 45px;
+}
+
+.pattern-cyber {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ctext x='10' y='35' font-size='25' fill='%23ffffff' opacity='0.5'%3E💜%3C/text%3E%3C/svg%3E");
+    background-size: 45px 45px;
+}
+
+.pattern-gems {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ctext x='10' y='35' font-size='25' fill='%23ffffff' opacity='0.5'%3E💎%3C/text%3E%3C/svg%3E");
+    background-size: 45px 45px;
+}
+
+.pattern-flames {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ctext x='10' y='35' font-size='25' fill='%23ffffff' opacity='0.5'%3E🔥%3C/text%3E%3C/svg%3E");
+    background-size: 45px 45px;
+}
+
+.nft-display-image {
+    position: relative;
+    z-index: 1;
+    width: 55%;
+    height: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nft-display-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.2));
+}
+
+.nft-display-info {
+    padding: 20px;
+    text-align: center;
+    background: #fff;
+}
+
+.nft-display-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 4px;
+}
+
+.nft-display-id {
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 16px 20px;
+    background: #fff;
+    margin: 0 16px;
+    border-radius: 16px;
+}
+
+.action-btn-round {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 28px;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 14px;
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transition: all 0.2s;
+}
+
+.action-btn-round svg {
+    opacity: 0.6;
+}
+
+.action-btn-round:not(:disabled) {
+    cursor: pointer;
+    opacity: 1;
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.action-btn-round:not(:disabled):active {
+    transform: scale(0.95);
+}
+
+/* NFT Details Card */
+.nft-details-card {
+    margin: 16px;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-size: 14px;
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+.detail-value {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detail-value.owner {
+    gap: 10px;
+}
+
+.owner-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fde68a 0%, #fbbf24 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.owner-avatar img {
+    width: 18px;
+    height: 18px;
+    opacity: 0.7;
+}
+
+.owner-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.detail-name {
+    font-size: 14px;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.detail-name.bold {
+    font-weight: 700;
+}
+
+.detail-percent {
+    font-size: 11px;
+    color: #9ca3af;
+    background: #f3f4f6;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.detail-price {
+    font-size: 14px;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+/* Purchase Section */
+.purchase-section {
+    position: fixed;
+    bottom: 70px;
+    left: 0;
+    right: 0;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 16px;
+    background: #fff;
+    border-top: 1px solid #f3f4f6;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.purchase-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.price-label {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.price-amount {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.price-amount .ton-icon {
+    width: 20px;
+    height: 20px;
+    filter: invert(45%) sepia(97%) saturate(1000%) hue-rotate(196deg) brightness(97%) contrast(94%);
+}
+
+.confirm-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.confirm-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.4);
+}
+
+/* ========================================
+   Responsive Breakpoints
+   ======================================== */
+
+/* 480px+ */
+@media (min-width: 480px) {
+    .purchase-header {
+        padding: 14px 20px;
+    }
+
+    .header-title {
+        font-size: 18px;
+    }
+
+    .nft-display-card {
+        margin: 12px 20px 20px;
+        border-radius: 28px;
+    }
+
+    .nft-display-name {
+        font-size: 26px;
+    }
+
+    .nft-display-id {
+        font-size: 15px;
+    }
+
+    .action-buttons {
+        gap: 16px;
+        margin: 0 20px;
+        padding: 0 20px 24px;
+    }
+
+    .action-btn-round {
+        padding: 16px 32px;
+        font-size: 13px;
+    }
+
+    .nft-details-card {
+        margin: 20px;
+        border-radius: 24px;
+    }
+
+    .detail-row {
+        padding: 18px 24px;
+    }
+
+    .detail-label {
+        font-size: 15px;
+    }
+
+    .detail-name {
+        font-size: 15px;
+    }
+
+    .detail-price {
+        font-size: 15px;
+    }
+
+    .purchase-section {
+        padding: 20px;
+    }
+
+    .price-amount {
+        font-size: 22px;
+    }
+
+    .confirm-btn {
+        padding: 18px;
+        font-size: 17px;
+        border-radius: 16px;
+    }
+}
+
+/* 600px+ */
+@media (min-width: 600px) {
+    .nft-display-card {
+        max-width: 380px;
+        margin: 16px auto 24px;
+    }
+
+    .action-buttons {
+        max-width: 380px;
+        margin: 0 auto;
+    }
+
+    .nft-details-card {
+        max-width: 400px;
+        margin: 24px auto;
+    }
+
+    .purchase-section {
+        max-width: 400px;
+        border-radius: 20px 20px 0 0;
+    }
+}
+
+/* Extra padding at bottom for fixed purchase section */
+.pb-20 {
+    padding-bottom: 180px !important;
+}

@@ -1,0 +1,670 @@
+/* Base Styles */
+body,
+html {
+    font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    color: #1f2937;
+    background: #f6f8fa;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Referral Hero Card */
+.referral-hero-card {
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    border-radius: 16px;
+    padding: 14px;
+    margin: 25px 10px 10px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(37, 99, 235, 0.25);
+}
+
+.referral-hero-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.referral-hero-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+}
+
+.referral-hero-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 3px;
+}
+
+.referral-hero-desc {
+    font-size: 11px;
+    opacity: 0.9;
+    margin: 0 0 10px;
+    line-height: 1.4;
+}
+
+.referral-code-display {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.code-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.85;
+}
+
+.code-value {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+}
+
+.referral-link-container {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.referral-link-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 11px;
+    color: #374151;
+    min-width: 0;
+}
+
+.copy-link-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.copy-link-btn:hover {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.copy-link-btn:active {
+    transform: scale(0.98);
+}
+
+/* Share Buttons */
+.share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.share-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.share-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+}
+
+.share-btn:active {
+    transform: scale(0.95);
+}
+
+.share-btn.whatsapp {
+    background: #25D366;
+    color: white;
+}
+
+.share-btn.telegram {
+    background: #0088cc;
+    color: white;
+}
+
+.share-btn.twitter {
+    background: #000;
+    color: white;
+}
+
+.share-btn.copy {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Summary Stats */
+.summary-stats {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 10px 10px;
+    padding: 10px 12px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.summary-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.summary-label {
+    font-size: 8px;
+    color: #9ca3af;
+    margin-top: 1px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.summary-divider {
+    width: 1px;
+    height: 24px;
+    background: #e5e7eb;
+}
+
+/* Commission Info */
+.commission-info {
+    margin: 0 10px 10px;
+    padding: 10px 12px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.commission-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.commission-rates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.commission-rates .rate {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #2563eb;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+/* Level Tabs */
+.level-tabs-container {
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.level-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.level-tab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    background: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.level-tab:hover {
+    background: #f0f9ff;
+}
+
+.level-tab.active {
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+}
+
+.level-num {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.level-tab.active .level-num {
+    color: white;
+}
+
+.level-count {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.level-tab.active .level-count {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.level-tab.active .level-count {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Level Panel */
+.level-panel {
+    margin: 0 10px;
+}
+
+.level-panel.hidden {
+    display: none;
+}
+
+/* Level Stats Grid */
+.level-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.level-stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.level-stat-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.level-stat-icon.members {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #2563eb;
+}
+
+.level-stat-icon.active {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #059669;
+}
+
+.level-stat-icon.deposits {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #d97706;
+}
+
+.level-stat-icon.commission {
+    background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+    color: #7c3aed;
+}
+
+.level-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.level-stat-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.level-stat-label {
+    font-size: 9px;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-weight: 500;
+}
+
+/* Members List */
+.members-list {
+    background: white;
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 80px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.list-header h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.list-count {
+    font-size: 10px;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+
+/* Member Card */
+.member-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 10px;
+    transition: background 0.2s;
+}
+
+.member-card:hover {
+    background: #f9fafb;
+}
+
+.member-card+.member-card {
+    border-top: 1px solid #f3f4f6;
+}
+
+.member-avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.member-avatar span {
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.member-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.member-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1f2937;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.member-date {
+    font-size: 9px;
+    color: #9ca3af;
+}
+
+.member-referrer {
+    font-size: 8px;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 2px 5px;
+    border-radius: 4px;
+    width: fit-content;
+}
+
+.member-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.member-deposit {
+    font-size: 11px;
+    font-weight: 700;
+    color: #059669;
+}
+
+.member-status {
+    font-size: 8px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.member-status.active {
+    background: #d1fae5;
+    color: #059669;
+}
+
+.member-status.inactive {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 24px 14px;
+    color: #9ca3af;
+}
+
+.empty-state svg {
+    margin-bottom: 8px;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    margin: 0 0 4px;
+}
+
+.empty-state span {
+    font-size: 10px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 360px) {
+    .referral-hero-card {
+        padding: 12px;
+    }
+
+    .referral-hero-title {
+        font-size: 14px;
+    }
+
+    .code-value {
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    .copy-link-btn span {
+        display: none;
+    }
+
+    .copy-link-btn {
+        padding: 8px;
+    }
+
+    .share-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .level-tab {
+        min-width: 46px;
+        padding: 6px 8px;
+    }
+
+    .summary-value {
+        font-size: 12px;
+    }
+
+    .level-stat-value {
+        font-size: 12px;
+    }
+}
+
+/* Large mobile (480px+) */
+@media (min-width: 480px) {
+    .referral-hero-card {
+        margin: 10px 12px;
+        padding: 16px;
+    }
+
+    .summary-stats {
+        margin: 0 12px 10px;
+        padding: 12px 16px;
+    }
+
+    .commission-info {
+        margin: 0 12px 10px;
+    }
+
+    .level-tabs-container {
+        padding: 0 12px;
+    }
+
+    .level-panel {
+        margin: 0 12px;
+    }
+
+    .level-stat-card {
+        padding: 12px;
+    }
+
+    .members-list {
+        padding: 14px;
+    }
+
+    .summary-value {
+        font-size: 14px;
+    }
+
+    .level-stat-value {
+        font-size: 15px;
+    }
+}
+
+/* Tablet+ (600px+) */
+@media (min-width: 600px) {
+    .referral-hero-card {
+        margin: 12px 16px;
+        padding: 18px;
+    }
+
+    .summary-stats {
+        margin: 0 16px 12px;
+    }
+
+    .commission-info {
+        margin: 0 16px 12px;
+    }
+
+    .level-tabs-container {
+        padding: 0 16px;
+    }
+
+    .level-panel {
+        margin: 0 16px;
+    }
+
+    .level-stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .level-stat-card {
+        padding: 14px;
+    }
+
+    .members-list {
+        padding: 16px;
+    }
+
+    .summary-value {
+        font-size: 16px;
+    }
+
+    .level-stat-value {
+        font-size: 16px;
+    }
+}

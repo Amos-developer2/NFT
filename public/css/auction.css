@@ -1,0 +1,471 @@
+/* =========================
+   VERTICAL AUCTION CARD (screenshot match)
+   ========================= */
+.vertical-auction-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(37, 99, 235, 0.07);
+    padding: 28px 18px 18px 18px;
+    position: relative;
+    min-width: 0;
+    min-height: 380px;
+    margin: 0 auto 18px auto;
+    max-width: 340px;
+}
+
+.auction-days-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: #222;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 4px 14px;
+    z-index: 2;
+    opacity: 0.95;
+}
+
+.auction-img-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 18px;
+    margin-top: 8px;
+}
+
+.auction-nft-img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #e5e7eb;
+    box-shadow: 0 2px 8px #0001;
+}
+
+.auction-content-center {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.auction-nft-title {
+    font-size: 19px;
+    font-weight: 800;
+    color: #222;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.auction-nft-id {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.auction-percent-badge {
+    font-size: 22px;
+    font-weight: 800;
+    color: #16a34a;
+    background: none;
+    margin: 8px 0 0 0;
+    text-align: center;
+}
+
+.auction-percent-badge:not(.up) {
+    color: #dc2626;
+}
+
+.auction-prices {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0 0 0;
+    gap: 0;
+}
+
+.auction-price-label {
+    font-size: 13px;
+    color: #888;
+    margin-top: 8px;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.auction-price-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+}
+
+.auction-price-value.now {
+    color: #16a34a;
+}
+
+.auction-arrow {
+    font-size: 22px;
+    color: #bbb;
+    margin: 6px 0 0 0;
+    text-align: center;
+}
+
+.auction-profit {
+    font-size: 17px;
+    font-weight: 700;
+    color: #16a34a;
+    margin: 8px 0 0 0;
+    text-align: center;
+}
+
+.auction-profit:before {
+    content: '';
+}
+
+.auction-action-row {
+    width: 100%;
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+}
+
+.vertical-auction-card .sell-btn {
+    width: 100%;
+    padding: 14px 0;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 999px;
+    margin-top: 0;
+    margin-bottom: 0;
+    box-shadow: none;
+}
+
+.vertical-auction-card .sell-btn.ready {
+    background: #22c55e;
+    color: #fff;
+    box-shadow: 0 2px 8px #22c55e22;
+}
+
+.vertical-auction-card .sell-btn.disabled {
+    background: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .vertical-auction-card {
+        max-width: 98vw;
+        padding: 18px 4vw 18px 4vw;
+    }
+
+    .auction-nft-img {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+/* =========================
+   GLOBAL
+   ========================= */
+body {
+    background: #f4f7fb;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #111827;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* =========================
+   BALANCE CARD
+   ========================= */
+.balance-card {
+    margin: 12px 8px 0;
+    background: linear-gradient(135deg, #6366f1, #2563eb);
+    border-radius: 18px;
+    padding: 16px;
+    color: #ffffff;
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+}
+
+.balance-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.balance-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0.95;
+}
+
+.refresh-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.balance-amount-large {
+    font-size: 28px;
+    font-weight: 900;
+    margin-top: 10px;
+}
+
+.balance-crypto {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    margin-top: 6px;
+    opacity: 0.95;
+}
+
+.badge-stars {
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* =========================
+   QUICK STATS
+   ========================= */
+.quick-stats {
+    margin: 12px 8px 0;
+    background: #ffffff;
+    border-radius: 16px;
+    display: flex;
+    padding: 14px 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.stat-item {
+    flex: 1;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: #2563eb;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 36px;
+    background: #e5e7eb;
+}
+
+/* =========================
+   NFT LIST
+   ========================= */
+.nfts-list {
+    margin: 14px 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* =========================
+   NFT CARD (PRO)
+   ========================= */
+.nft-card {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    min-height: 130px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.nft-card:active {
+    transform: scale(0.98);
+}
+
+/* LEFT IMAGE */
+
+
+
+/* STATUS BADGES */
+.days-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #ffffff;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+.profit-badge {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #ffffff;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+/* RIGHT CONTENT */
+.nft-details {
+    flex: 1;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nft-title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nft-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.nft-id {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+/* PRICES */
+.price-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.price-item {
+    flex: 1;
+}
+
+.price-label {
+    font-size: 10px;
+    color: #6b7280;
+}
+
+.price-value {
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.price-arrow {
+    font-size: 16px;
+    color: #9ca3af;
+}
+
+/* ACTION BUTTON */
+.action-row {
+    margin-top: 10px;
+}
+
+.sell-btn {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 13px;
+    font-weight: 800;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+}
+
+.sell-btn.ready {
+    background: linear-gradient(135deg, #60a5fa, #2563eb);
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+}
+
+.sell-btn.disabled {
+    background: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+.empty-state {
+    text-align: center;
+    padding: 40px 16px;
+    color: #6b7280;
+}
+
+.empty-icon {
+    width: 60px;
+    margin: 0 auto 12px;
+    opacity: 0.7;
+}
+
+.empty-state h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #111827;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media (min-width: 480px) {
+
+    .balance-card,
+    .quick-stats,
+    .nfts-list {
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .nft-card {
+        min-height: 150px;
+    }
+
+    .nft-image {
+        width: 140px;
+        min-width: 140px;
+    }
+}

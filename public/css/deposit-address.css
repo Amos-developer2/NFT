@@ -1,0 +1,319 @@
+/* ================================
+   Deposit Address – Mobile First
+   ================================ */
+
+:root {
+    --primary: #2563eb;
+    --primary-light: #60a5fa;
+    --success: #16a34a;
+    --warning: #f59e0b;
+    --danger: #dc2626;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --bg-light: #f8fafc;
+    --card-bg: #ffffff;
+}
+
+/* ================================
+   Asset & Amount Card
+   ================================ */
+.address-card {
+    margin: 14px 10px 0;
+    padding: 16px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    color: #fff;
+    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.25);
+}
+
+.address-card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.currency-badge,
+.network-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.badge-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.address-card-amount {
+    text-align: center;
+}
+
+.amount-label {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.amount-value {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+/* ================================
+   QR Code Section
+   ================================ */
+.qr-section {
+    margin: 14px 10px 0;
+    background: var(--card-bg);
+    border-radius: 18px;
+    padding: 18px 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.qr-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qr-code {
+    background: #fff;
+    padding: 14px;
+    border-radius: 16px;
+    border: 2px dashed #e5e7eb;
+}
+
+.qr-code img {
+    width: 160px;
+    height: 160px;
+}
+
+.qr-instruction {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* ================================
+   Address Section
+   ================================ */
+.address-section {
+    margin: 14px 10px 0;
+    background: var(--card-bg);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.address-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.address-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: #f1f5f9;
+    border: 1px solid #e5e7eb;
+}
+
+.address-text {
+    flex: 1;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    color: #1e293b;
+    word-break: break-all;
+    line-height: 1.5;
+}
+
+.copy-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.copy-btn img {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) invert(1);
+}
+
+.copy-btn:active {
+    transform: scale(0.95);
+}
+
+.copy-feedback {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    border-radius: 12px;
+    background: #ecfdf5;
+    color: var(--success);
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: all 0.25s ease;
+}
+
+.copy-feedback.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.feedback-icon {
+    width: 14px;
+    height: 14px;
+}
+
+/* ================================
+   Important Notice
+   ================================ */
+.deposit-info {
+    margin: 14px 10px 0;
+    background: var(--card-bg);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.deposit-info h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text-main);
+}
+
+.warning-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.deposit-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.deposit-info ul li {
+    position: relative;
+    padding-left: 26px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.deposit-info ul li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    color: #fff;
+    font-size: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ================================
+   Status Badge (Enhancement Ready)
+   ================================ */
+.deposit-status {
+    margin-top: 14px;
+    text-align: center;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.status-confirmed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* ================================
+   Countdown Timer (Optional)
+   ================================ */
+.deposit-timer {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.deposit-timer strong {
+    color: var(--danger);
+}
+
+/* ================================
+   Responsive Enhancements
+   ================================ */
+@media (min-width: 480px) {
+
+    .address-card,
+    .qr-section,
+    .address-section,
+    .deposit-info {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 420px;
+    }
+
+    .amount-value {
+        font-size: 32px;
+    }
+
+    .qr-code img {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media (hover: none) {
+    .copy-btn {
+        min-height: 44px;
+    }
+}

@@ -1,0 +1,602 @@
+/* Withdrawal History Page - Mobile First Design */
+/* Matches Withdrawal Page Blue Color Scheme */
+
+/* ========================================
+   Fixed Page Header - Mobile First
+   ======================================== */
+.page-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 420px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #f4f7fb;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.page-header-spacer {
+    height: 56px;
+}
+
+.page-header .back-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.page-header .back-btn:active {
+    transform: scale(0.95);
+    background: #f3f4f6;
+}
+
+.page-header .back-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.page-header .page-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.page-header .header-spacer {
+    width: 36px;
+}
+
+/* ========================================
+   Summary Card - Mobile First
+   ======================================== */
+.total-card {
+    margin: 45px 10px 0 10px;
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    border-radius: 16px;
+    padding: 40px;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+}
+
+.total-card .top {
+    margin-bottom: 10px;
+}
+
+.total-card .info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.icon-sm {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+}
+
+.icon-white {
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+}
+
+/* Stats Row */
+.stats-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 10px 6px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.stat-value.pending {
+    color: #fef08a;
+}
+
+.stat-value.completed {
+    color: #86efac;
+}
+
+.stat-label {
+    font-size: 10px;
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ========================================
+   Filter Tabs - Mobile First
+   ======================================== */
+.filter-tabs {
+    display: flex;
+    gap: 4px;
+    margin: 8px 10px 0;
+    padding: 3px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 8px 6px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+.tab-btn:not(.active):active {
+    background: #f3f4f6;
+}
+
+/* ========================================
+   Success Alert
+   ======================================== */
+.success-alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 12px 0;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    border: 1px solid #86efac;
+    border-radius: 12px;
+    color: #166534;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.alert-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   History List - Mobile First
+   ======================================== */
+.history-list {
+    margin: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+}
+
+.history-item:active {
+    transform: scale(0.99);
+    background: #f9fafb;
+}
+
+.item-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.item-icon svg {
+    width: 14px;
+    height: 14px;
+}
+
+.item-icon.pending {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.item-icon.completed {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.item-icon.failed {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.item-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.item-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.network-tag {
+    font-size: 9px;
+    font-weight: 700;
+    color: #2563eb;
+    background: #eff6ff;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.item-date {
+    font-size: 10px;
+    color: #9ca3af;
+}
+
+.item-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.item-amount {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.item-status {
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+}
+
+.item-status.pending {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.item-status.completed {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.item-status.failed {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* ========================================
+   Empty State
+   ======================================== */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.empty-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 4px;
+}
+
+.empty-text {
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+/* ========================================
+   Action Button - Mobile First
+   ======================================== */
+.action-container {
+    margin: 12px 10px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+}
+
+.btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    color: #fff;
+    box-shadow: 0 3px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+.btn-block {
+    display: flex;
+    /* border: 2px solid red; */
+    width: 90%;
+}
+
+/* ========================================
+   Responsive - Mobile First
+   ======================================== */
+
+/* Extra small devices */
+@media (max-width: 359px) {
+    .total-card {
+        margin: 8px 10px;
+        padding: 14px;
+    }
+
+    .stats-row {
+        padding: 10px 6px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .filter-tabs {
+        margin: 10px 10px 0;
+    }
+
+    .tab-btn {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    .history-list {
+        margin: 10px 10px;
+    }
+
+    .history-item {
+        padding: 12px;
+    }
+
+    .item-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .item-title {
+        font-size: 13px;
+    }
+
+    .item-amount {
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+}
+
+/* Large mobile (480px+) */
+@media (min-width: 480px) {
+    .page-header {
+        padding: 12px 16px;
+    }
+
+    .page-header .back-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .page-header .back-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .page-header .page-title {
+        font-size: 17px;
+    }
+
+    .page-header-spacer {
+        height: 60px;
+    }
+
+    .total-card {
+        margin: 8px 12px 12px;
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .total-card .info {
+        font-size: 13px;
+    }
+
+    .stat-value {
+        font-size: 22px;
+    }
+
+    .stat-label {
+        font-size: 11px;
+    }
+
+    .filter-tabs {
+        margin: 10px 12px 0;
+        border-radius: 12px;
+    }
+
+    .tab-btn {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .history-list {
+        margin: 10px 12px;
+        gap: 8px;
+    }
+
+    .history-item {
+        padding: 12px 14px;
+        border-radius: 14px;
+    }
+
+    .item-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+    }
+
+    .item-title {
+        font-size: 14px;
+    }
+
+    .item-date {
+        font-size: 11px;
+    }
+
+    .item-amount {
+        font-size: 14px;
+    }
+
+    .item-status {
+        font-size: 10px;
+    }
+
+    .action-container {
+        margin: 14px 12px;
+    }
+
+    .btn {
+        padding: 14px 18px;
+        font-size: 14px;
+        border-radius: 14px;
+    }
+
+    .icon-sm {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* Tablet+ (600px+) */
+@media (min-width: 600px) {
+
+    .total-card,
+    .filter-tabs,
+    .history-list,
+    .action-container,
+    .success-alert {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .total-card {
+        padding: 18px;
+        border-radius: 20px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+
+    .history-item {
+        padding: 14px 16px;
+    }
+
+    .btn {
+        padding: 15px 20px;
+        font-size: 15px;
+    }
+}
+
+/* Touch-friendly */
+@media (hover: none) and (pointer: coarse) {
+
+    .history-item,
+    .tab-btn,
+    .btn {
+        min-height: 44px;
+    }
+}
