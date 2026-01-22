@@ -15,11 +15,11 @@
         @include('partials.header', ['title' => 'Deposit'])
 
         <!-- Deposit Card -->
-        <div class="total-card" style="padding: 25px 16px;">
+        <div class="total-card">
             <div class="top">
-                <div class="info">Deposit Funds <img src="/icons/info.svg" alt="Info" class="icon-sm icon-white"></div>
+                <div class="info"style="font-size: 15px; font-weight: 700;">Deposit Funds  <img src="/icons/info.svg" alt="Info" class="icon-sm icon-white"></div>
             </div>
-            <div class="main">Deposit</div>
+            <!-- <div class="main">Deposit</div> -->
             <div class="sub">Choose your currency, network, and amount</div>
         </div>
 
@@ -61,12 +61,12 @@
                     <button type="button" class="quick-amount-btn" data-amount="200">$200</button>
                 </div>
                 <div class="min-deposit-note" style="font-size:12px;color:#ef4444;margin-top:6px;">
-                    <svg width="14" height="14" style="vertical-align:middle;margin-right:3px;" fill="none" stroke="#ef4444" stroke-width="2" viewBox="0 0 24 24">
+                    <!-- <svg width="14" height="14" style="vertical-align:middle;margin-right:3px;" fill="none" stroke="#ef4444" stroke-width="2" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="10" />
                         <line x1="12" y1="8" x2="12" y2="12" />
                         <line x1="12" y1="16" x2="12.01" y2="16" />
-                    </svg>
-                    Minimum deposit is 25 USDT
+                    </svg> -->
+                    <!-- Minimum deposit is 25 USDT -->
                 </div>
             </div>
 
