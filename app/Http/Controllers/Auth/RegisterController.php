@@ -99,12 +99,29 @@ class RegisterController extends Controller
         }
 
         // Verify the code
-        if (!VerificationCode::verifyCode($registrationData['email'], $request->verification_code, 'registration')) {
+        $verification = \App\Models\VerificationCode::where('email', $registrationData['email'])
+            ->where('code', $request->verification_code)
+            ->where('type', 'registration')
+            ->where('is_used', false)
+            ->where('expires_at', '>', now())
+            ->first();
+
+        if (!$verification) {
             return back()->withErrors(['verification_code' => 'Invalid or expired verification code.']);
         }
 
-        // Create the user
-        $user = $this->create($registrationData);
+        $verification->update(['is_used' => true]);
+
+        // Create the user and store verification_code and verification_expires_at
+        $user = $this->create(array_merge($registrationData, [
+            'verification_code' => $verification->code,
+            'verification_expires_at' => $verification->expires_at,
+        ]));
+
+        // Immediately nullify verification_code and verification_expires_at after verification
+        $user->verification_code = null;
+        $user->verification_expires_at = null;
+        $user->save();
 
         // Clear session
         session()->forget(['registration_data', 'verification_code_preview']);
@@ -163,6 +180,14 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'email_verified_at' => now(), // Mark as verified since they verified the code
         ];
+
+        // Add verification_code and verification_expires_at if present
+        if (isset($data['verification_code'])) {
+            $userData['verification_code'] = $data['verification_code'];
+        }
+        if (isset($data['verification_expires_at'])) {
+            $userData['verification_expires_at'] = $data['verification_expires_at'];
+        }
 
         // Check if user was referred by someone
         if (!empty($data['referral_code'])) {

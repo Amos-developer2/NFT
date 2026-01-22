@@ -10,17 +10,6 @@ use PragmaRX\Google2FALaravel\Support\Authenticator;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
     /**
@@ -51,6 +40,14 @@ class LoginController extends Controller
         return 'name';
     }
 
+    protected function credentials(Request $request)
+    {
+        $credentials = $request->only($this->username(), 'password');
+        // Only allow login if verification_code is null (i.e., user is verified)
+        $credentials['verification_code'] = null;
+        return $credentials;
+    }
+
     protected function authenticated(Request $request, $user)
     {
         if ($user->two_factor_enabled) {
@@ -69,6 +66,13 @@ class LoginController extends Controller
 
     protected function sendFailedLoginResponse(Request $request)
     {
+        $user = \App\Models\User::where($this->username(), $request->input($this->username()))->first();
+        if ($user && $user->verification_code !== null) {
+            // User is not verified
+            return redirect()->route('register.verify')->withErrors([
+                $this->username() => 'Please verify your email before logging in. Check your email for the verification code.',
+            ]);
+        }
         $username = $request->input('name');
         if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
             return back()
