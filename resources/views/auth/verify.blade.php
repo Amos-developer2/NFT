@@ -633,18 +633,30 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const pastedData = e.clipboardData.getData('text').replace(/[^0-9]/g, '').slice(0, 6);
 
-            pastedData.split('').forEach((char, i) => {
-                if (codeInputs[i]) {
-                    codeInputs[i].value = char;
-                    codeInputs[i].classList.add('filled');
+            // Always fill from the first input when pasting
+            codeInputs.forEach((inp, i) => {
+                if (pastedData[i]) {
+                    inp.value = pastedData[i];
+                    inp.classList.add('filled');
+                } else {
+                    inp.value = '';
+                    inp.classList.remove('filled');
                 }
             });
 
             updateHiddenInput();
 
-            if (pastedData.length > 0) {
-                const focusIndex = Math.min(pastedData.length, codeInputs.length - 1);
-                codeInputs[focusIndex].focus();
+            // Focus the last filled input or the next empty one
+            if (pastedData.length >= 6) {
+                codeInputs[5].focus();
+                // Auto-submit if all 6 digits are filled
+                setTimeout(() => {
+                    if (hiddenInput.value.length === 6) {
+                        document.getElementById('verifyForm').submit();
+                    }
+                }, 300);
+            } else if (pastedData.length > 0) {
+                codeInputs[pastedData.length].focus();
             }
         });
     });
