@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('email')->index();
             $table->string('code', 6);
-            $table->enum('type', ['registration', 'password_reset', 'email_change'])->default('registration');
+            $table->enum('type', ['registration', 'password_reset'])->default('registration');
             $table->boolean('is_used')->default(false);
             $table->timestamp('expires_at');
             $table->timestamps();

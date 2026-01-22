@@ -91,13 +91,13 @@ class ForgotPasswordController extends Controller
         ]);
         $request->validate(['email' => 'required|email']);
         // Rate limit: max 5 requests per 10 minutes per IP
-        if (\Illuminate\Support\Facades\RateLimiter::tooManyAttempts('password-reset:' . $request->ip(), 5)) {
+        if (\Illuminate\Support\Facades\RateLimiter::tooManyAttempts('password-reset:' . $request->ip(), 3)) {
             return back()->withErrors(['email' => 'Too many password reset requests. Please try again later.'])->withInput();
         }
         \Illuminate\Support\Facades\RateLimiter::hit('password-reset:' . $request->ip(), 600);
         $email = $request->input('email');
         if (!\App\Models\User::where('email', $email)->exists()) {
-            return back()->withErrors(['email' => 'If your email is registered, you will receive a password reset code.'])->withInput();
+            return back()->withErrors(['email' => 'Please, enter a valid registered email address.'])->withInput();
         }
         // Generate and store code in verification_codes table
         $code = str_pad(random_int(100000, 999999), 6, '0', STR_PAD_LEFT);

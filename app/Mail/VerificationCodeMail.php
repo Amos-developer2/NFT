@@ -31,7 +31,7 @@ class VerificationCodeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your TradeX Verification Code',
+            subject: 'Vortex Verification Code',
         );
     }
 
