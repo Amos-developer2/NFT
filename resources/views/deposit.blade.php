@@ -49,13 +49,24 @@
             </div>
 
             <div class="form-group">
-                <label for="amount" class="deposit-label">Amount</label>
-                <input type="number" id="amount" name="amount" class="deposit-input" placeholder="Enter amount" min="1" step="any">
-                <div class="quick-amounts">
+                <label for="amount" class="deposit-label">Amount (Minimum 25 USDT)</label>
+                <div class="deposit-amount-wrapper" style="display: flex; align-items: center; gap: 10px;">
+                    <input type="number" id="amount" name="amount" class="deposit-input" placeholder="Enter amount" min="25" step="any" style="flex:2;">
+                    <!-- <span style="background:linear-gradient(135deg,#60a5fa,#2563eb);color:#fff;padding:7px 14px;border-radius:8px;font-weight:700;font-size:13px;">USDT</span> -->
+                </div>
+                <div class="quick-amounts" style="margin-top:8px;">
+                    <button type="button" class="quick-amount-btn" data-amount="25">$25</button>
                     <button type="button" class="quick-amount-btn" data-amount="50">$50</button>
                     <button type="button" class="quick-amount-btn" data-amount="100">$100</button>
                     <button type="button" class="quick-amount-btn" data-amount="200">$200</button>
-                    <button type="button" class="quick-amount-btn" data-amount="400">$400</button>
+                </div>
+                <div class="min-deposit-note" style="font-size:12px;color:#ef4444;margin-top:6px;">
+                    <svg width="14" height="14" style="vertical-align:middle;margin-right:3px;" fill="none" stroke="#ef4444" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    Minimum deposit is 25 USDT
                 </div>
             </div>
 
@@ -68,9 +79,9 @@
         <div class="deposit-info">
             <h3>Important Information</h3>
             <ul>
-                <li>Minimum deposit: $10</li>
+                <li>Minimum deposit: $25</li>
                 <li>Ensure you select the correct network to avoid loss of funds.</li>
-                <li>Deposits may take up to 20 minutes to reflect in your account.</li>
+                <li>Deposits is automatic.</li>
             </ul>
         </div>
 
@@ -104,6 +115,12 @@
                 // Add active class to clicked button
                 this.classList.add('active');
             });
+        });
+        // Enforce minimum deposit
+        document.getElementById('amount').addEventListener('input', function() {
+            if (this.value && parseFloat(this.value) < 25) {
+                this.value = 25;
+            }
         });
     </script>
 </body>
