@@ -66,4 +66,17 @@ class LoginController extends Controller
         // Default redirect for normal users
         return redirect($this->redirectTo);
     }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $username = $request->input('name');
+        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            return back()
+                ->withInput($request->only('name', 'remember'))
+                ->withErrors(['name' => 'Please use your username to login, not your email address.']);
+        }
+        return back()
+            ->withInput($request->only('name', 'remember'))
+            ->withErrors(['name' => trans('auth.failed')]);
+    }
 }
