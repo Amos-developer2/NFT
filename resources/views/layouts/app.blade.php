@@ -38,13 +38,7 @@
         <!-- Header -->
         <div class="header">
             <div style="display: flex; align-items: center; gap: 8px;">
-                <div class="profile-icon">
-                    <img src="/icons/user.svg" alt="Profile" width="20" height="20">
-                </div>
-                <span class="profile-star">
-                    <img src="/icons/star.svg" alt="Stars" width="14" height="14" style="filter: invert(76%) sepia(64%) saturate(500%) hue-rotate(359deg) brightness(103%) contrast(104%);">
-                    100
-                </span>
+              <img src="{{ asset('images/vortex.png') }}" alt="" style="width:60%">
             </div>
             <div class="balance-box">
                 <span class="balance-amount">

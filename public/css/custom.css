@@ -311,7 +311,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 18px;
+    padding: 2px 18px;
     background: #f4f7fb;
     z-index: 100;
     max-width: 420px;
@@ -354,6 +354,7 @@ body {
     color: #3b82f6;
     font-weight: bold;
     font-size: 17px;
+    white-space: nowrap;
 }
 
 .balance-add {
