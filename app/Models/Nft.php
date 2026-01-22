@@ -11,7 +11,9 @@ class Nft extends Model
         'image',
         'background',
         'value',
-        'rarity'
+        'rarity',
+        'user_id',
+        'price',
     ];
 
     public function auctions()
