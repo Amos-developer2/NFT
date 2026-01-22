@@ -97,6 +97,7 @@ class DepositController extends Controller
                 $user = $deposit->user;
                 $user->balance += $deposit->amount;
                 $user->save();
+                
             });
         }
         return response('OK', 200);
