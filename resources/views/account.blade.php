@@ -25,7 +25,13 @@
                     <div class="account-card-email">{{ Auth::user()->email }}</div>
                     <div class="account-card-status">
                         @if(Auth::user()->hasVerifiedEmail())
-                        <span class="verified-badge">Verified</span>
+                        <span class="verified-badge" style="text-align: left; display: inline-flex; align-items: flex-start; gap: 6px; justify-content: flex-start;">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;">
+                                <circle cx="9" cy="9" r="7" fill="#22c55e" stroke="#fff" stroke-width="1.2" />
+                                <path d="M5.2 9.5L8 12.3L12.8 7.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span style="font-weight: bold;">Verified</span>
+                        </span>
                         @else
                         <span class="unverified-badge">Unverified</span>
                         @endif
