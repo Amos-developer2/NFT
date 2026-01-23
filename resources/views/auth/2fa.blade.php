@@ -64,7 +64,7 @@
         confirmButtonColor: '#2563eb',
     });
     @endif
-    @if($errors -> any())
+    @if($errors->any())
     Swal.fire({
         icon: 'error',
         title: 'Error',

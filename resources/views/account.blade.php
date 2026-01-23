@@ -70,7 +70,7 @@
                     toast: true,
                     position: 'center',
                     icon: 'error',
-                    title: @json(implode("\n", $errors -> all())),
+                    title: @json(implode("\n", $errors - > all())),
                     iconColor: 'white',
                     customClass: {
                         popup: 'colored-toast'

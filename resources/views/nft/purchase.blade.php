@@ -31,44 +31,40 @@
 
 <body>
     @include('partials.header', ['title' => 'NFT Purchase'])
+    <!-- Footer -->
+    @include('partials.footer')
+    <div class="pb-20"></div>
+
+
+
+    <!-- SweetAlert colored popup logic (moved to end of body for session availability) -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            @if(session('error'))
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: @json(session('error')),
-                confirmButtonColor: '#fbbf24', // gold accent
-                background: '#1a1a1a', // dark background
-                color: '#fee2e2', // error text color
-                iconColor: '#f87171', // red icon
+        window.addEventListener('DOMContentLoaded', function() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'center',
+                iconColor: 'white',
                 customClass: {
-                    popup: 'swal2-nft-popup',
-                    title: 'swal2-nft-title',
-                    confirmButton: 'swal2-nft-confirm',
+                    popup: 'colored-toast',
                 },
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+            });
+            @if(session('error'))
+            Toast.fire({
+                icon: 'error',
+                title: @json(session('error')),
             });
             @endif
             @if(session('success'))
-            Swal.fire({
+            Toast.fire({
                 icon: 'success',
-                title: 'Success',
-                html: @json(session('success')) + '<br><small>Redirecting to your collection...</small>',
-                confirmButtonColor: '#34d399', // green accent
-                background: '#1a1a1a', // dark background
-                color: '#dcfce7', // success text color
-                iconColor: '#34d399', // green icon
-                customClass: {
-                    popup: 'swal2-nft-popup',
-                    title: 'swal2-nft-title',
-                    confirmButton: 'swal2-nft-confirm',
-                },
-                timer: 3000,
-                timerProgressBar: true,
-                willClose: () => {
-                    window.location.href = "{{ route('collection') }}";
-                }
+                title: @json(session('success')),
             });
+            setTimeout(function() {
+                window.location.href = "{{ route('collection') }}";
+            }, 1600);
             @endif
         });
     </script>
@@ -78,18 +74,18 @@
 
         <!-- NFT Display Card -->
         <div class="nft-display-card">
-            <div class="nft-display-bg" style="background: {{ $nft['background'] }};">
+            <div class="nft-display-bg">
                 <!-- Pattern Overlay -->
                 <div class="pattern-overlay pattern-{{ $nft['backdrop_pattern'] ?? 'money' }}"></div>
-                <!-- NFT Image -->
-                <div class="nft-display-image">
-                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
+                <!-- NFT Image as background -->
+                <div class="nft-display-image" style="position:absolute; inset:0; width:100%; height:100%;">
+                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">
                 </div>
             </div>
             <!-- NFT Title -->
             <div class="nft-display-info">
                 <h2 class="nft-display-name">{{ $nft['name'] }}</h2>
-                <span class="nft-display-id">#{{ $nft['id'] }}</span>
+                <span class="nft-display-id">#{{ str_pad($nft['id'], 6, '0', STR_PAD_LEFT) }}</span>
             </div>
         </div>
 
@@ -124,7 +120,11 @@
                     <div class="owner-avatar">
                         <img src="/icons/user.svg" alt="User">
                     </div>
+                    @if(isset($nft['owner']) && $nft['owner'])
+                    <span class="owner-name">{{ $nft['owner'] }}</span>
+                    @else
                     <span class="owner-name">You (After Purchase)</span>
+                    @endif
                 </div>
             </div>
 
@@ -134,7 +134,7 @@
                 <div class="detail-value">
                     <span class="detail-name">{{ $nft['model'] ?? $nft['name'] }}</span>
                     <span class="detail-percent">2%</span>
-                    <span class="detail-price">{{ number_format($nft['price'], 2) }} USDT</span>
+                    <span class="detail-price">{{ number_format($nft['purchase_price'], 2) }} USDT</span>
                 </div>
             </div>
 
@@ -144,7 +144,7 @@
                 <div class="detail-value">
                     <span class="detail-name">{{ $nft['symbol'] ?? 'Default' }}</span>
                     <span class="detail-percent">2%</span>
-                    <span class="detail-price">{{ number_format($nft['price'], 2) }} USDT</span>
+                    <span class="detail-price">{{ number_format($nft['purchase_price'], 2) }} USDT</span>
                 </div>
             </div>
 
@@ -154,7 +154,7 @@
                 <div class="detail-value">
                     <span class="detail-name">{{ $nft['backdrop'] ?? 'Standard' }}</span>
                     <span class="detail-percent">2%</span>
-                    <span class="detail-price">{{ number_format($nft['price'], 2) }} USDT</span>
+                    <span class="detail-price">{{ number_format($nft['purchase_price'], 2) }} USDT</span>
                 </div>
             </div>
 
@@ -162,7 +162,12 @@
             <div class="detail-row">
                 <span class="detail-label">Supply</span>
                 <div class="detail-value">
-                    <span class="detail-name bold">{{ $nft['supply'] ?? '100K' }}</span>
+                    <span class="detail-name bold">
+                        {{ $nft['supply'] ?? '100K' }}
+                        <span style="font-size:11px; color:#64748b; font-weight:400;">
+                            ({{ isset($nft['available']) ? $nft['available'] : ($nft['supply'] ?? '100K') }} available)
+                        </span>
+                    </span>
                 </div>
             </div>
 
@@ -170,7 +175,7 @@
             <div class="detail-row">
                 <span class="detail-label">Floor Price</span>
                 <div class="detail-value">
-                    <span class="detail-name bold">{{ number_format($nft['price'], 2) }} USDT</span>
+                    <span class="detail-name bold">{{ number_format($nft['purchase_price'], 2) }} USDT</span>
                 </div>
             </div>
         </div>
@@ -181,7 +186,7 @@
                 <span class="price-label">Purchase Price</span>
                 <div class="price-amount">
                     <img src="/icons/ton.svg" alt="USDT" class="ton-icon">
-                    <span>{{ number_format($nft['price'], 2) }} USDT</span>
+                    <span>{{ number_format($nft['purchase_price'], 2) }} USDT</span>
                 </div>
             </div>
             <form action="{{ route('nft.buy', $nft['id']) }}" method="POST">
