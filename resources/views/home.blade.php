@@ -148,53 +148,22 @@
         $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
         @endphp
         <div class="nft-market-card" data-rarity="{{ $nft['rarity'] }}" data-name="{{ strtolower($nft['name']) }}">
-            <div class="card-image-wrapper">
-                <div class="card-image-bg" style="background: {{ $nft['background'] }};"></div>
+            <div class="card-image-section">
                 <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}" class="card-image">
-                <div class="card-badges">
-                    <span class="rarity-badge {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
-                    <span class="profit-badge {{ $profitPercent >= 0 ? 'up' : 'down' }}">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            @if($profitPercent >= 0)
-                            <path d="M18 15l-6-6-6 6"/>
-                            @else
-                            <path d="M6 9l6 6 6-6"/>
-                            @endif
-                        </svg>
-                        {{ $profitPercent >= 0 ? '+' : '' }}{{ number_format($profitPercent, 0) }}%
-                    </span>
-                </div>
-                <button class="favorite-btn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                    </svg>
-                </button>
+                <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
+                <span class="profit-tag {{ $profitPercent >= 0 ? 'up' : 'down' }}">
+                    {{ $profitPercent >= 0 ? '+' : '' }}{{ number_format($profitPercent, 0) }}%
+                </span>
             </div>
-            
-            <div class="card-content">
-                <div class="card-header">
-                    <h3 class="card-title">{{ $nft['name'] }}</h3>
-                    <span class="card-id">#{{ $nft['id'] }}</span>
+            <div class="card-details">
+                <div class="details-left">
+                    <h3 class="nft-name">{{ $nft['name'] }}</h3>
+                    <span class="nft-id">#{{ $nft['id'] }}</span>
                 </div>
-                <div class="card-price">
-                    <div class="price-row">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v12M8 10h8M8 14h8"/>
-                        </svg>
-                        <span class="price-value">{{ number_format($nft['purchase_price'], 2) }}</span>
-                        <span class="price-currency">USDT</span>
-                    </div>
+                <div class="details-right">
+                    <div class="nft-price">{{ number_format($nft['purchase_price'], 2) }} <span>USDT</span></div>
+                    <a href="{{ route('nft.purchase', $nft['id']) }}" class="buy-btn">Buy</a>
                 </div>
-                <a href="{{ route('nft.purchase', $nft['id']) }}" class="buy-now-btn">
-                    <span class="btn-bg"></span>
-                    <span class="btn-content">
-                        <span>Buy Now</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </span>
-                </a>
             </div>
         </div>
         @empty
@@ -581,215 +550,157 @@
 .nft-market-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 12px;
     margin-bottom: 24px;
 }
 
 .nft-market-card {
     background: #fff;
-    border-radius: 20px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     border: 1px solid rgba(42, 108, 246, 0.08);
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 .nft-market-card:active {
     transform: scale(0.98);
 }
 
-.card-image-wrapper {
+.nft-market-card .card-image-section {
     position: relative;
     aspect-ratio: 1;
     overflow: hidden;
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
 }
 
-.card-image-bg {
-    position: absolute;
-    inset: 0;
-    opacity: 0.3;
-}
-
-.card-image {
+.nft-market-card .card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.card-badges {
+.nft-market-card .rarity-tag {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.rarity-badge {
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-size: 10px;
+    top: 8px;
+    left: 8px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 9px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.rarity-badge.common {
-    background: linear-gradient(135deg, #94a3b8, #64748b);
+.rarity-tag.legendary {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
     color: #fff;
 }
 
-.rarity-badge.rare {
+.rarity-tag.epic {
+    background: linear-gradient(135deg, #a855f7, #8b5cf6);
+    color: #fff;
+}
+
+.rarity-tag.rare {
     background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: #fff;
 }
 
-.rarity-badge.epic {
-    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-    color: #fff;
+.rarity-tag.common {
+    background: #e2e8f0;
+    color: #64748b;
 }
 
-.rarity-badge.legendary {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #fff;
-}
-
-.profit-badge {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    padding: 4px 8px;
-    border-radius: 8px;
+.nft-market-card .profit-tag {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 6px;
+    border-radius: 6px;
     font-size: 10px;
     font-weight: 700;
 }
 
-.profit-badge.up {
+.profit-tag.up {
     background: rgba(34, 197, 94, 0.9);
     color: #fff;
 }
 
-.profit-badge.down {
+.profit-tag.down {
     background: rgba(239, 68, 68, 0.9);
     color: #fff;
 }
 
-.favorite-btn {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.9);
-    backdrop-filter: blur(10px);
-    border: none;
-    color: #94a3b8;
+.nft-market-card .card-details {
     display: flex;
-    align-items: center;
+    padding: 10px;
+    gap: 8px;
+}
+
+.nft-market-card .details-left {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.favorite-btn.active svg {
-    fill: #ef4444;
-    stroke: #ef4444;
-}
-
-.card-content {
-    padding: 14px;
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-}
-
-.card-title {
-    font-size: 14px;
+.nft-market-card .nft-name {
+    font-size: 12px;
     font-weight: 700;
     color: #1e293b;
-    margin: 0;
+    margin: 0 0 2px 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 75%;
 }
 
-.card-id {
-    font-size: 11px;
+.nft-market-card .nft-id {
+    font-size: 10px;
     color: #94a3b8;
     font-weight: 500;
 }
 
-.card-price {
-    margin-bottom: 12px;
-}
-
-.price-row {
+.nft-market-card .details-right {
     display: flex;
-    align-items: center;
-    gap: 6px;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
 }
 
-.price-row svg {
-    color: #22c55e;
-}
-
-.price-value {
-    font-size: 16px;
+.nft-market-card .nft-price {
+    font-size: 12px;
     font-weight: 700;
     color: #1e293b;
+    white-space: nowrap;
 }
 
-.price-currency {
-    font-size: 12px;
+.nft-market-card .nft-price span {
+    font-size: 9px;
     color: #64748b;
+    font-weight: 500;
 }
 
-.buy-now-btn {
-    position: relative;
-    display: flex;
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    overflow: hidden;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.buy-now-btn .btn-bg {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #2A6CF6, #3B8CFF, #60a5fa);
-}
-
-.buy-now-btn .btn-bg::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: shimmer 2s infinite;
-}
-
-.buy-now-btn .btn-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
+.nft-market-card .buy-btn {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    width: 100%;
-    font-size: 13px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+    border: none;
+    border-radius: 6px;
+    font-size: 11px;
     font-weight: 600;
     color: #fff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.nft-market-card .buy-btn:active {
+    transform: scale(0.95);
+    background: linear-gradient(135deg, #1d5ed9, #2a7cf6);
 }
 
 .empty-state {
@@ -917,7 +828,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.querySelectorAll('.favorite-btn').forEach(btn => {
+    document.querySelectorAll('.card-favorite-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
