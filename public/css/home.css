@@ -119,12 +119,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
+    padding: 10px 12px;
     background: rgba(255, 255, 255, 0.18);
     border-radius: 10px;
     text-decoration: none;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     transition: all 0.2s;
 }
