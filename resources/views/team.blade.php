@@ -267,18 +267,18 @@
 
             // Share functions
             function shareWhatsApp() {
-                const text = "Join TradeX - The best NFT trading platform! Use my referral code: {{ Auth::user()->referral_code }}\n" + document.getElementById('referralLink').value;
+                const text = "Join VortexNFT - The best NFT trading platform! Use my referral code: {{ Auth::user()->referral_code }}\n" + document.getElementById('referralLink').value;
                 window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
             }
 
             function shareTelegram() {
-                const text = "Join TradeX - The best NFT trading platform! Use my referral code: {{ Auth::user()->referral_code }}";
+                const text = "Join VortexNFT - The best NFT trading platform! Use my referral code: {{ Auth::user()->referral_code }}";
                 const url = document.getElementById('referralLink').value;
                 window.open('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text), '_blank');
             }
 
             function shareTwitter() {
-                const text = "Join TradeX - The best NFT trading platform! Use my referral code: {{ Auth::user()->referral_code }}";
+                const text = "Join VortexNFT - The best NFT trading platform! Use my referral code: {{ Auth::user()->referral_code }}";
                 const url = document.getElementById('referralLink').value;
                 window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url), '_blank');
             }

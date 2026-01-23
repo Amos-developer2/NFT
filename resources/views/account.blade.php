@@ -289,7 +289,7 @@
                         </div>
                         <div class="action-text">
                             <span class="action-title">About Us</span>
-                            <span class="action-desc">Learn more about TradeX</span>
+                            <span class="action-desc">Learn more about VortexNFT</span>
                         </div>
                         <img src="/icons/arrow-left.svg" alt="Go" class="action-arrow">
                     </a>
