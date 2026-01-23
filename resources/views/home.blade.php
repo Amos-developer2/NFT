@@ -156,11 +156,11 @@
                 </span>
             </div>
             <div class="card-details">
-                <div class="details-left">
+                <div class="details-row">
                     <h3 class="nft-name">{{ $nft['name'] }}</h3>
                     <span class="nft-id">#{{ $nft['id'] }}</span>
                 </div>
-                <div class="details-right">
+                <div class="details-row">
                     <div class="nft-price">{{ number_format($nft['purchase_price'], 2) }} <span>USDT</span></div>
                     <a href="{{ route('nft.purchase', $nft['id']) }}" class="buy-btn">Buy</a>
                 </div>
@@ -634,40 +634,35 @@
 
 .nft-market-card .card-details {
     display: flex;
+    flex-direction: column;
     padding: 10px;
-    gap: 8px;
+    gap: 6px;
 }
 
-.nft-market-card .details-left {
-    flex: 1;
-    min-width: 0;
+.nft-market-card .details-row {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
 }
 
 .nft-market-card .nft-name {
     font-size: 12px;
     font-weight: 700;
     color: #1e293b;
-    margin: 0 0 2px 0;
+    margin: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
 }
 
 .nft-market-card .nft-id {
     font-size: 10px;
     color: #94a3b8;
     font-weight: 500;
-}
-
-.nft-market-card .details-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 4px;
+    flex-shrink: 0;
 }
 
 .nft-market-card .nft-price {
@@ -696,6 +691,7 @@
     color: #fff;
     text-decoration: none;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .nft-market-card .buy-btn:active {
