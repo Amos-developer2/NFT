@@ -27,24 +27,44 @@
         <form class="deposit-form" action="{{ route('user.deposit.address') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="currency" class="deposit-label">Currency</label>
-                <div class="custom-select-wrapper">
-                    <select id="currency" name="currency" class="deposit-input">
-                        <option value="usdt" data-icon="/icons/usdt.svg">USDT - Tether USD</option>
-                        <option value="usdc" data-icon="/icons/usdc.svg">USDC - USD Coin</option>
-                    </select>
-                    <img src="/icons/usdt.svg" alt="" class="select-icon" id="currency-icon">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="network" class="deposit-label">Network</label>
-                <div class="custom-select-wrapper">
-                    <select id="network" name="network" class="deposit-input">
-                        <option value="trc20" data-icon="/icons/trc20.svg">TRC20 - Tron Network</option>
-                        <option value="bep20" data-icon="/icons/bep20.svg">BEP20 - Binance Smart Chain</option>
-                    </select>
-                    <img src="/icons/trc20.svg" alt="" class="select-icon" id="network-icon">
+                <label class="deposit-label">Select Network</label>
+                <div class="network-list" style="display: flex; flex-direction: column; gap: 16px;">
+                    <label class="network-card" style="display: flex; align-items: center; background: #fff; border-radius: 12px; padding: 16px; cursor: pointer; border: 2px solid #e5e7eb; transition: border 0.2s; color: #18181b; position:relative;">
+                        <input type="radio" name="currency_network" value="usdt_bep20" style="display:none;" required>
+                        <img src="/icons/usdt.svg" alt="USDT" style="width:40px;height:40px;margin-right:16px;">
+                        <div style="flex:1;">
+                            <div style="font-weight:700; color:#18181b;">USDT</div>
+                            <div style="font-size:13px; color:#71717a;">BEP20 (BSC)</div>
+                        </div>
+                        <span class="selected-check" style="display:none;position:absolute;top:10px;right:10px;background:#2563eb;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:16px;">&#10003;</span>
+                    </label>
+                    <label class="network-card" style="display: flex; align-items: center; background: #fff; border-radius: 12px; padding: 16px; cursor: pointer; border: 2px solid #e5e7eb; transition: border 0.2s; color: #18181b; position:relative;">
+                        <input type="radio" name="currency_network" value="usdc_bep20" style="display:none;">
+                        <img src="/icons/usdc.svg" alt="USDC" style="width:40px;height:40px;margin-right:16px;">
+                        <div style="flex:1;">
+                            <div style="font-weight:700; color:#18181b;">USDC</div>
+                            <div style="font-size:13px; color:#71717a;">BEP20 (BSC)</div>
+                        </div>
+                        <span class="selected-check" style="display:none;position:absolute;top:10px;right:10px;background:#2563eb;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:16px;">&#10003;</span>
+                    </label>
+                    <label class="network-card" style="display: flex; align-items: center; background: #fff; border-radius: 12px; padding: 16px; cursor: pointer; border: 2px solid #e5e7eb; transition: border 0.2s; color: #18181b; position:relative;">
+                        <input type="radio" name="currency_network" value="usdt_trc20" style="display:none;">
+                        <img src="/icons/usdt.svg" alt="USDT" style="width:40px;height:40px;margin-right:16px;">
+                        <div style="flex:1;">
+                            <div style="font-weight:700; color:#18181b;">USDT</div>
+                            <div style="font-size:13px; color:#71717a;">TRC20</div>
+                        </div>
+                        <span class="selected-check" style="display:none;position:absolute;top:10px;right:10px;background:#2563eb;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:16px;">&#10003;</span>
+                    </label>
+                    <label class="network-card" style="display: flex; align-items: center; background: #fff; border-radius: 12px; padding: 16px; cursor: pointer; border: 2px solid #e5e7eb; transition: border 0.2s; color: #18181b; position:relative;">
+                        <input type="radio" name="currency_network" value="bnb_bsc" style="display:none;">
+                        <img src="/icons/bnb.svg" alt="BNB" style="width:40px;height:40px;margin-right:16px;">
+                        <div style="flex:1;">
+                            <div style="font-weight:700; color:#18181b;">BNB</div>
+                            <div style="font-size:13px; color:#71717a;">BSC</div>
+                        </div>
+                        <span class="selected-check" style="display:none;position:absolute;top:10px;right:10px;background:#2563eb;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:16px;">&#10003;</span>
+                    </label>
                 </div>
             </div>
 
@@ -73,6 +93,68 @@
             <button type="submit" class="btn btn-primary btn-block">
                 Deposit
             </button>
+
+            <script>
+                // Highlight selected card and show checkmark
+                function updateCardSelection() {
+                    document.querySelectorAll('.network-card').forEach(function(card) {
+                        card.style.border = '2px solid #e5e7eb';
+                        card.querySelector('.selected-check').style.display = 'none';
+                    });
+                    var selected = document.querySelector('input[name="currency_network"]:checked');
+                    if (selected) {
+                        var card = selected.parentElement;
+                        card.style.border = '2px solid #2563eb';
+                        card.querySelector('.selected-check').style.display = 'flex';
+                    }
+                }
+                document.querySelectorAll('.network-card input[type="radio"]').forEach(function(radio) {
+                    radio.addEventListener('change', function() {
+                        updateCardSelection();
+                        // No summary text
+                    });
+                });
+                // No button change
+                // Only allow one card to be selected
+                document.querySelectorAll('.network-card').forEach(function(card) {
+                    card.addEventListener('click', function() {
+                        var radio = this.querySelector('input[type="radio"]');
+                        radio.checked = true;
+                        radio.dispatchEvent(new Event('change'));
+                    });
+                });
+                // On page load, update selection if any
+                updateCardSelection();
+                // Require amount to be filled or selected
+                document.querySelector('form.deposit-form').addEventListener('submit', function(e) {
+                    var amount = document.getElementById('amount').value;
+                    if (!amount || parseFloat(amount) < 25) {
+                        e.preventDefault();
+                        alert('Please enter a valid amount (minimum 25) or select a quick amount.');
+                    }
+                    var selected = document.querySelector('input[name="currency_network"]:checked');
+                    if (!selected) {
+                        e.preventDefault();
+                        alert('Please select a currency and network.');
+                    }
+                });
+
+                // Quick amount buttons (moved here to ensure DOM is ready)
+                document.querySelectorAll('.quick-amount-btn').forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        const amount = this.getAttribute('data-amount');
+                        var input = document.getElementById('amount');
+                        input.value = amount;
+                        input.focus();
+                        // Remove active class from all buttons
+                        document.querySelectorAll('.quick-amount-btn').forEach(function(b) {
+                            b.classList.remove('active');
+                        });
+                        // Add active class to clicked button
+                        this.classList.add('active');
+                    });
+                });
+            </script>
         </form>
 
         <!-- Deposit Information -->
@@ -91,31 +173,6 @@
     </div>
 
     <script>
-        // Update currency icon when selection changes
-        document.getElementById('currency').addEventListener('change', function() {
-            const icon = this.options[this.selectedIndex].getAttribute('data-icon');
-            document.getElementById('currency-icon').src = icon;
-        });
-
-        // Update network icon when selection changes
-        document.getElementById('network').addEventListener('change', function() {
-            const icon = this.options[this.selectedIndex].getAttribute('data-icon');
-            document.getElementById('network-icon').src = icon;
-        });
-
-        // Quick amount buttons
-        document.querySelectorAll('.quick-amount-btn').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                const amount = this.getAttribute('data-amount');
-                document.getElementById('amount').value = amount;
-                // Remove active class from all buttons
-                document.querySelectorAll('.quick-amount-btn').forEach(function(b) {
-                    b.classList.remove('active');
-                });
-                // Add active class to clicked button
-                this.classList.add('active');
-            });
-        });
         // Enforce minimum deposit
         document.getElementById('amount').addEventListener('input', function() {
             if (this.value && parseFloat(this.value) < 25) {

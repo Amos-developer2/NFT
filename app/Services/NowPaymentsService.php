@@ -15,11 +15,21 @@ class NowPaymentsService
     public function createPayment($currencyNetwork, $orderId)
     {
         [$currency, $network] = $this->parseCurrencyNetwork($currencyNetwork);
+        // Map frontend network names to NOWPayments API values
         $networkMap = [
             'trc20' => 'tron',
+            'TRC20' => 'tron',
             'bep20' => 'bsc',
+            'BEP20' => 'bsc',
+            'bsc' => 'bsc',
+            'BSC' => 'bsc',
             'erc20' => 'ethereum',
+            'ERC20' => 'ethereum',
+            // Display names as seen in UI
+            'BEP20 (BSC)' => 'bsc',
+            'TRC20' => 'tron',
         ];
+        \Log::info('NOWPayments debug: raw network', ['network' => $network, 'currencyNetwork' => $currencyNetwork]);
         $paymentData = [
             'price_amount' => 10000, // minimum USD
             'price_currency' => 'usd',
@@ -28,8 +38,13 @@ class NowPaymentsService
             'order_description' => 'Deposit to TradeX',
             'ipn_callback_url' => route('nowpayments.ipn'),
         ];
+        // Ensure correct network mapping
         if ($network && isset($networkMap[$network])) {
             $paymentData['network'] = $networkMap[$network];
+            \Log::info('NOWPayments debug: mapped network', ['mapped_network' => $networkMap[$network]]);
+        } else if (in_array(strtolower($network), ['tron', 'bsc', 'ethereum'])) {
+            $paymentData['network'] = strtolower($network);
+            \Log::info('NOWPayments debug: mapped network (fallback)', ['mapped_network' => strtolower($network)]);
         }
         $response = Http::withHeaders([
             'x-api-key' => config('services.nowpayments.api_key'),
@@ -59,7 +74,7 @@ class NowPaymentsService
     public function parseCurrencyNetwork($currencyNetwork)
     {
         // e.g. usdttrc20 => ['usdt', 'trc20']
-        if (preg_match('/^(usdt|usdc|bnb)(trc20|bsc|erc20)$/', $currencyNetwork, $m)) {
+        if (preg_match('/^(usdt|usdc|bnb)(trc20|bsc|erc20|tron|bsc|ethereum)$/', $currencyNetwork, $m)) {
             return [$m[1], $m[2]];
         }
         return [$currencyNetwork, null];
