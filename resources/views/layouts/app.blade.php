@@ -41,7 +41,7 @@
               <img src="{{ asset('images/vortex.png') }}" alt="" style="width:80%">
             </div>
             <div class="balance-box">
-                <span class="balance-amount">
+                <span class="balance-amount" style="margin-bottom:0">
                     <img src="/icons/diamond.svg" alt="Balance" width="16" height="16" style="filter: invert(56%) sepia(67%) saturate(500%) hue-rotate(176deg) brightness(96%) contrast(91%);">
                     {{ Auth::user()->germs }}
                 </span>

@@ -480,11 +480,16 @@
 
 .nft-search-section {
     margin-bottom: 24px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .search-wrapper {
     position: relative;
     margin-bottom: 14px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .search-wrapper::before {
@@ -509,11 +514,12 @@
 
 .search-icon {
     position: absolute;
-    left: 16px;
+    left: 14px;
     top: 50%;
     transform: translateY(-50%);
     color: #94a3b8;
     z-index: 1;
+    flex-shrink: 0;
 }
 
 .search-wrapper:focus-within .search-icon {
@@ -522,13 +528,14 @@
 
 .nft-search-input {
     width: 100%;
-    padding: 16px 52px;
+    padding: 14px 56px 14px 44px;
     background: #fff;
     border: none;
     border-radius: 14px;
-    font-size: 15px;
+    font-size: 14px;
     color: #1e293b;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-sizing: border-box;
 }
 
 .nft-search-input::placeholder {
@@ -541,11 +548,11 @@
 
 .filter-toggle {
     position: absolute;
-    right: 8px;
+    right: 6px;
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 10px;
     background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
     border: none;
@@ -554,6 +561,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .filter-chips {
