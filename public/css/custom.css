@@ -311,7 +311,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 18px;
+    padding: 10px 18px;
     background: #f4f7fb;
     z-index: 100;
     max-width: 420px;
