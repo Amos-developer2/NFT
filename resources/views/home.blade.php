@@ -33,11 +33,17 @@
                         </svg>
                         <span>{{ Auth::user()->germs ?? 0 }} Germs</span>
                     </div>
-                    <div class="crypto-item stars">
+                    <!-- <div class="crypto-item stars">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                         </svg>
                         <span>{{ $userStats['stars'] ?? 100 }} Stars</span>
+                    </div> -->
+                    <div class="daily-checkin-btn-wrapper-small">
+                        <a href="{{ route('daily.checkin') }}" class="daily-checkin-btn-small">
+                            <span class="btn-icon">🎁</span>
+                            <span>Daily Check-In</span>
+                        </a>
                     </div>
                 </div>
                 <div class="balance-actions">
@@ -85,7 +91,7 @@
         </div>
 
         <!-- Gamification Section -->
-        <div class="nft-gamification-card">
+        <!-- <div class="nft-gamification-card">
             <h3 class="gamification-title">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
@@ -116,7 +122,8 @@
                     <span class="challenge-reward completed">Completed!</span>
                 </li>
             </ul>
-        </div>
+        </div> -->
+
 
         <!-- Search Section -->
         <div class="nft-search-section">
@@ -238,6 +245,97 @@
     </div>
 
     <style>
+        .daily-checkin-btn-wrapper,
+        .daily-checkin-btn-wrapper-small {
+            display: flex;
+            justify-content: center;
+            margin-top: 0;
+        }
+
+        .daily-checkin-btn-small {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            background: linear-gradient(90deg, #fbbf24, #2A6CF6, #3B8CFF);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 16px;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(42, 108, 246, 0.10);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 4px;
+            margin-bottom: 0;
+            animation: bounce 1.2s infinite alternate;
+        }
+
+        .daily-checkin-btn-small .btn-icon {
+            font-size: 15px;
+            animation: spin 2s linear infinite;
+        }
+
+        .daily-checkin-btn-small:hover {
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(42, 108, 246, 0.18);
+        }
+
+        .daily-checkin-btn-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .daily-checkin-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(90deg, #fbbf24, #2A6CF6, #3B8CFF);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 800;
+            border-radius: 30px;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(42, 108, 246, 0.10);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: bounce 1.2s infinite alternate;
+        }
+
+        .daily-checkin-btn .btn-icon {
+            font-size: 22px;
+            animation: spin 2s linear infinite;
+        }
+
+        .daily-checkin-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 8px 24px rgba(42, 108, 246, 0.18);
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         .nft-home-wrapper {
             padding: 0 16px 100px;
             background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);

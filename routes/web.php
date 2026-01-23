@@ -38,6 +38,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/deposit/address', [App\Http\Controllers\DepositController::class, 'showAddress'])->name('user.deposit.address');
     Route::get('/deposit/history', [App\Http\Controllers\DepositController::class, 'history'])->name('user.deposit.history');
 
+    // Daily Check-In routes
+    Route::get('/daily-checkin', [App\Http\Controllers\DailyCheckinController::class, 'show'])->name('daily.checkin');
+    Route::post('/daily-checkin', [App\Http\Controllers\DailyCheckinController::class, 'checkin'])->name('daily.checkin.submit');
+
     // Withdrawal routes
     Route::get('/withdrawal', [App\Http\Controllers\WithdrawalController::class, 'show'])->name('user.withdrawal');
     Route::post('/withdrawal/process', [App\Http\Controllers\WithdrawalController::class, 'process'])->name('user.withdrawal.process');
