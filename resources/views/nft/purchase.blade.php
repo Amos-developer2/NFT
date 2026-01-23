@@ -159,14 +159,16 @@
                 <div class="detail-value">
                     <span class="detail-name">{{ $nft['model'] ?? $nft['name'] }}</span>
                     <span class="detail-percent">2%</span>
-                    .colored-toast.swal2-icon-success,
-                    .colored-toast.swal2-icon-error,
-                    .colored-toast.swal2-icon-warning,
-                    .colored-toast.swal2-icon-info,
-                    .colored-toast.swal2-icon-question {
-                    background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 100%) !important;
-                    color: #fff !important;
-                    }
+                    <span class="detail-price">{{ number_format($nft['purchase_price'], 2) }} USDT</span>
+                </div>
+            </div>
+
+            <!-- Rarity Row -->
+            <div class="detail-row">
+                <span class="detail-label">Rarity</span>
+                <div class="detail-value">
+                    <span class="detail-name">{{ $nft['rarity'] ?? 'Common' }}</span>
+                    <span class="detail-percent">2%</span>
                     <span class="detail-price">{{ number_format($nft['purchase_price'], 2) }} USDT</span>
                 </div>
             </div>
