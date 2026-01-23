@@ -78,36 +78,36 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['web', 'auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard
     Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('dashboard');
-    
+
     // Users Management
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
     Route::post('/users/{user}/add-balance', [App\Http\Controllers\Admin\UserController::class, 'addBalance'])->name('users.addBalance');
     Route::post('/users/{user}/deduct-balance', [App\Http\Controllers\Admin\UserController::class, 'deductBalance'])->name('users.deductBalance');
-    
+
     // NFTs Management
     Route::resource('nfts', App\Http\Controllers\Admin\NftController::class);
     Route::post('/nfts/{nft}/transfer', [App\Http\Controllers\Admin\NftController::class, 'transfer'])->name('nfts.transfer');
-    
+
     // Auctions Management
     Route::resource('auctions', App\Http\Controllers\Admin\AuctionController::class);
     Route::post('/auctions/{auction}/end', [App\Http\Controllers\Admin\AuctionController::class, 'endAuction'])->name('auctions.end');
     Route::post('/auctions/{auction}/cancel', [App\Http\Controllers\Admin\AuctionController::class, 'cancelAuction'])->name('auctions.cancel');
-    
+
     // Bids Management
     Route::get('/bids', [App\Http\Controllers\Admin\BidController::class, 'index'])->name('bids.index');
     Route::post('/bids', [App\Http\Controllers\Admin\BidController::class, 'store'])->name('bids.store');
     Route::delete('/bids/{bid}', [App\Http\Controllers\Admin\BidController::class, 'destroy'])->name('bids.destroy');
-    
+
     // Deposits Management
     Route::get('/deposits', [App\Http\Controllers\Admin\DepositController::class, 'index'])->name('deposits.index');
     Route::post('/deposits', [App\Http\Controllers\Admin\DepositController::class, 'store'])->name('deposits.store');
     Route::post('/deposits/{deposit}/status', [App\Http\Controllers\Admin\DepositController::class, 'updateStatus'])->name('deposits.updateStatus');
     Route::delete('/deposits/{deposit}', [App\Http\Controllers\Admin\DepositController::class, 'destroy'])->name('deposits.destroy');
-    
+
     // Withdrawals Management
     Route::get('/withdrawals', [App\Http\Controllers\Admin\WithdrawalController::class, 'index'])->name('withdrawals.index');
     Route::post('/withdrawals/process', [App\Http\Controllers\Admin\WithdrawalController::class, 'process'])->name('withdrawals.process');
-    
+
     // Settings
     Route::get('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
     Route::put('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');

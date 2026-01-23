@@ -10,7 +10,7 @@ class CreateDepositsTable extends Migration {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->decimal('amount', 18, 8);
-            $table->string('currency')->nullable();
+            $table->string('currency', 32)->after('amount');
             $table->string('payment_id')->nullable();
             $table->string('pay_id')->nullable();
             $table->string('pay_currency')->nullable();

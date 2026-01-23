@@ -17,7 +17,7 @@
         <!-- Deposit Card -->
         <div class="total-card">
             <div class="top">
-                <div class="info"style="font-size: 15px; font-weight: 700;">Deposit Funds  <img src="/icons/info.svg" alt="Info" class="icon-sm icon-white"></div>
+                <div class="info" style="font-size: 15px; font-weight: 700;">Deposit Funds <img src="/icons/info.svg" alt="Info" class="icon-sm icon-white"></div>
             </div>
             <!-- <div class="main">Deposit</div> -->
             <div class="sub">Choose your currency, network, and amount</div>
@@ -51,7 +51,7 @@
             <div class="form-group">
                 <label for="amount" class="deposit-label">Amount (Minimum 25 USDT)</label>
                 <div class="deposit-amount-wrapper" style="display: flex; align-items: center; gap: 10px;">
-                    <input type="number" id="amount" name="amount" class="deposit-input" placeholder="Enter amount" min="25" step="any" style="flex:2;">
+                    <input type="number" id="amount" name="amount" class="deposit-input" placeholder="Enter amount" min="25" step="any" style="flex:2;" required>
                     <!-- <span style="background:linear-gradient(135deg,#60a5fa,#2563eb);color:#fff;padding:7px 14px;border-radius:8px;font-weight:700;font-size:13px;">USDT</span> -->
                 </div>
                 <div class="quick-amounts" style="margin-top:8px;">
