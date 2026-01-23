@@ -64,7 +64,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        html: @json($errors - > all()).join('<br>'),
+                        html: @json($errors->all()).join('<br>'),
                         background: '#fef2f2',
                         color: '#991b1b',
                         confirmButtonColor: '#ef4444',

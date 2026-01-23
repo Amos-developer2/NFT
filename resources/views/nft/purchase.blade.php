@@ -4,6 +4,31 @@
 <head>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
+        .colored-toast.swal2-icon-success {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+            color: #fff !important;
+        }
+
+        .colored-toast.swal2-icon-error {
+            background: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%) !important;
+            color: #fff !important;
+        }
+
+        .colored-toast.swal2-icon-warning {
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%) !important;
+            color: #fff !important;
+        }
+
+        .colored-toast.swal2-icon-info {
+            background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%) !important;
+            color: #fff !important;
+        }
+
+        .colored-toast.swal2-icon-question {
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%) !important;
+            color: #fff !important;
+        }
+
         .swal2-nft-popup {
             border-radius: 16px !important;
             box-shadow: 0 4px 32px 0 #0008 !important;
@@ -134,26 +159,14 @@
                 <div class="detail-value">
                     <span class="detail-name">{{ $nft['model'] ?? $nft['name'] }}</span>
                     <span class="detail-percent">2%</span>
-                    <span class="detail-price">{{ number_format($nft['purchase_price'], 2) }} USDT</span>
-                </div>
-            </div>
-
-            <!-- Symbol Row -->
-            <div class="detail-row">
-                <span class="detail-label">Symbol</span>
-                <div class="detail-value">
-                    <span class="detail-name">{{ $nft['symbol'] ?? 'Default' }}</span>
-                    <span class="detail-percent">2%</span>
-                    <span class="detail-price">{{ number_format($nft['purchase_price'], 2) }} USDT</span>
-                </div>
-            </div>
-
-            <!-- Backdrop Row -->
-            <div class="detail-row">
-                <span class="detail-label">Backdrop</span>
-                <div class="detail-value">
-                    <span class="detail-name">{{ $nft['backdrop'] ?? 'Standard' }}</span>
-                    <span class="detail-percent">2%</span>
+                    .colored-toast.swal2-icon-success,
+                    .colored-toast.swal2-icon-error,
+                    .colored-toast.swal2-icon-warning,
+                    .colored-toast.swal2-icon-info,
+                    .colored-toast.swal2-icon-question {
+                    background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 100%) !important;
+                    color: #fff !important;
+                    }
                     <span class="detail-price">{{ number_format($nft['purchase_price'], 2) }} USDT</span>
                 </div>
             </div>
