@@ -84,6 +84,40 @@
             </div>
         </div>
 
+        <!-- Gamification Section -->
+        <div class="nft-gamification-card">
+            <h3 class="gamification-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M8 12l2 2 4-4" />
+                </svg>
+                Daily & Weekly Challenges
+            </h3>
+            <ul class="gamification-list">
+                <li>
+                    <span class="challenge-name">Buy 3 NFTs today</span>
+                    <div class="challenge-progress">
+                        <div class="progress-bar" style="width: 66%"></div>
+                    </div>
+                    <span class="challenge-reward">+10 Stars</span>
+                </li>
+                <li>
+                    <span class="challenge-name">Refer a friend</span>
+                    <div class="challenge-progress">
+                        <div class="progress-bar" style="width: 0%"></div>
+                    </div>
+                    <span class="challenge-reward">+20 Germs</span>
+                </li>
+                <li>
+                    <span class="challenge-name">Sell 1 NFT this week</span>
+                    <div class="challenge-progress">
+                        <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                    <span class="challenge-reward completed">Completed!</span>
+                </li>
+            </ul>
+        </div>
+
         <!-- Search Section -->
         <div class="nft-search-section">
             <div class="search-wrapper">
@@ -208,6 +242,81 @@
             padding: 0 16px 100px;
             background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
             min-height: 100vh;
+        }
+
+        .nft-gamification-card {
+            background: #fff;
+            border-radius: 16px;
+            margin: 18px 0 24px 0;
+            padding: 18px 16px 14px 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(42, 108, 246, 0.08);
+        }
+
+        .gamification-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #2A6CF6;
+            margin-bottom: 12px;
+        }
+
+        .gamification-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .gamification-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 10px 12px;
+            gap: 10px;
+        }
+
+        .challenge-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+            flex: 2;
+        }
+
+        .challenge-progress {
+            flex: 2;
+            background: #e2e8f0;
+            border-radius: 6px;
+            height: 8px;
+            width: 100%;
+            margin: 0 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #2A6CF6, #3B8CFF);
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.4s;
+        }
+
+        .challenge-reward {
+            font-size: 12px;
+            font-weight: 700;
+            color: #22c55e;
+            flex: 1;
+            text-align: right;
+        }
+
+        .challenge-reward.completed {
+            color: #64748b;
         }
 
         .nft-balance-card {
