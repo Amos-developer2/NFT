@@ -263,7 +263,7 @@
 
     <!-- HERO -->
     <div class="about-hero">
-        <h1>About TradeX</h1>
+        <h1>About VortexNFT</h1>
         <p>Secure. Transparent. Next-Gen NFT Trading.</p>
     </div>
 
@@ -274,7 +274,7 @@
         <div>
             <div class="about-section-title">🎯 Our Mission</div>
             <div class="about-text">
-                TradeX exists to make NFT trading accessible, secure,
+                VortexNFT exists to make NFT trading accessible, secure,
                 and rewarding through cutting-edge blockchain technology.
             </div>
         </div>
@@ -352,7 +352,7 @@
         <!-- CONTACT -->
         <div class="about-contact">
             Have questions? Contact us at<br>
-            <a href="mailto:support@tradex.com">support@tradex.com</a>
+            <a href="mailto:support@VortexNFT.com">support@VortexNFT.com</a>
         </div>
 
     </div>
