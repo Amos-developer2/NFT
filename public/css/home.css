@@ -111,6 +111,7 @@
 .balance-actions {
     display: flex;
     gap: 8px;
+    font-size: 14px;
 }
 
 .action-btn {
