@@ -43,7 +43,7 @@
             <div class="balance-box">
                 <span class="balance-amount">
                     <img src="/icons/diamond.svg" alt="Balance" width="16" height="16" style="filter: invert(56%) sepia(67%) saturate(500%) hue-rotate(176deg) brightness(96%) contrast(91%);">
-                    23,32
+                    {{ Auth::user()->germs }}
                 </span>
                 <button class="balance-add">
                     <img src="/icons/plus.svg" alt="Add" width="16" height="16">

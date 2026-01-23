@@ -53,12 +53,12 @@
             </button>
         </div>
         <div class="balance-amount-large">
-            <span class="currency" style="font-size:2em;vertical-align:baseline;">$</span>
-            <span class="amount" style="font-size:2em;">{{ number_format(Auth::user()->balance ?? 0, 2) }}</span>
+            <span class="currency" style="font-size:2em;vertical-align:baseline;"></span>
+            <span class="amount" style="font-size:2em;">{{ number_format(Auth::user()->balance ?? 0, 2) }} USDT</span>
         </div>
         <div class="balance-crypto">
             <img src="/icons/diamond.svg" alt="USDT" width="14" height="14">
-            <span>{{ number_format($userStats['balance'] ?? 143.67, 2) }} USDT</span>
+            <span>{{ Auth::user()->germs }}</span>
             <span class="badge-stars">
                 <img src="/icons/star.svg" alt="Stars" width="12" height="12">
                 {{ $userStats['stars'] ?? 100 }}
