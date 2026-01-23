@@ -58,58 +58,29 @@
     </div>
 
     <!-- Quick Stats -->
-    <div class="nft-quick-stats">
-        <div class="stat-card">
-            <div class="stat-icon blue">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2"/>
-                    <path d="M9 9h6v6H9z"/>
-                </svg>
-            </div>
-            <div class="stat-info">
-                <span class="stat-value">{{ $userStats['nftsOwned'] ?? 0 }}</span>
-                <span class="stat-label">NFTs Owned</span>
-            </div>
+    <div class="nft-quick-stats-card">
+        <div class="stat-item">
+            <span class="stat-value">{{ $userStats['nftsOwned'] ?? 0 }}</span>
+            <span class="stat-label">NFTs</span>
         </div>
-        <div class="stat-card">
-            <div class="stat-icon gold">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M12 6v12M6 12h12"/>
-                </svg>
-            </div>
-            <div class="stat-info">
-                <span class="stat-value">${{ number_format($userStats['netWorth'] ?? 0, 0) }}</span>
-                <span class="stat-label">Net Worth</span>
-            </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-value">${{ number_format($userStats['netWorth'] ?? 0, 0) }}</span>
+            <span class="stat-label">Net Worth</span>
         </div>
-        <div class="stat-card">
-            <div class="stat-icon {{ ($userStats['profit'] ?? 0) >= 0 ? 'green' : 'red' }}">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M23 6l-9.5 9.5-5-5L1 18"/>
-                    <path d="M17 6h6v6"/>
-                </svg>
-            </div>
-            <div class="stat-info">
-                <span class="stat-value {{ ($userStats['profit'] ?? 0) >= 0 ? 'profit-up' : 'profit-down' }}">
-                    {{ ($userStats['profit'] ?? 0) >= 0 ? '+' : '' }}${{ number_format($userStats['profit'] ?? 0, 2) }}
-                </span>
-                <span class="stat-label">Profit/Loss</span>
-            </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-value {{ ($userStats['profit'] ?? 0) >= 0 ? 'profit-up' : 'profit-down' }}">
+                {{ ($userStats['profit'] ?? 0) >= 0 ? '+' : '' }}${{ number_format($userStats['profit'] ?? 0, 2) }}
+            </span>
+            <span class="stat-label">Profit</span>
         </div>
-        <div class="stat-card">
-            <div class="stat-icon purple">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12 6 12 12 16 14"/>
-                </svg>
-            </div>
-            <div class="stat-info">
-                <span class="stat-value" id="change2m-value">
-                    <span id="change2m-arrow"></span><span id="change2m-sign"></span><span id="change2m-num">{{ number_format($userStats['change24h'] ?? 0, 2) }}</span>%
-                </span>
-                <span class="stat-label">2m Change</span>
-            </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-value" id="change2m-value">
+                <span id="change2m-arrow"></span><span id="change2m-sign"></span><span id="change2m-num">{{ number_format($userStats['change24h'] ?? 0, 2) }}</span>%
+            </span>
+            <span class="stat-label">2m Change</span>
         </div>
     </div>
 
@@ -407,75 +378,48 @@
     transform: scale(0.98);
 }
 
-.nft-quick-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 24px;
-}
-
-.stat-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 16px;
+.nft-quick-stats-card {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px 12px;
+    margin-bottom: 24px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.04);
     border: 1px solid rgba(42, 108, 246, 0.08);
 }
 
-.stat-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.stat-icon.blue {
-    background: linear-gradient(135deg, rgba(42, 108, 246, 0.15), rgba(59, 140, 255, 0.15));
-    color: #2A6CF6;
-}
-
-.stat-icon.gold {
-    background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.15));
-    color: #f59e0b;
-}
-
-.stat-icon.green {
-    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(22, 163, 74, 0.15));
-    color: #22c55e;
-}
-
-.stat-icon.red {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.15));
-    color: #ef4444;
-}
-
-.stat-icon.purple {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(124, 58, 237, 0.15));
-    color: #8b5cf6;
-}
-
-.stat-info {
+.nft-quick-stats-card .stat-item {
+    flex: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 4px;
 }
 
-.stat-info .stat-value {
-    font-size: 18px;
+.nft-quick-stats-card .stat-value {
+    font-size: 16px;
     font-weight: 700;
     color: #1e293b;
+    white-space: nowrap;
 }
 
-.stat-info .stat-value.profit-up { color: #22c55e; }
-.stat-info .stat-value.profit-down { color: #ef4444; }
+.nft-quick-stats-card .stat-value.profit-up { color: #22c55e; }
+.nft-quick-stats-card .stat-value.profit-down { color: #ef4444; }
 
-.stat-info .stat-label {
-    font-size: 12px;
+.nft-quick-stats-card .stat-label {
+    font-size: 11px;
     color: #64748b;
+    margin-top: 2px;
+}
+
+.nft-quick-stats-card .stat-divider {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(180deg, transparent, #e2e8f0, transparent);
+    flex-shrink: 0;
 }
 
 .nft-search-section {
