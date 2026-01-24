@@ -54,6 +54,9 @@ class TwoFactorController extends Controller
         $user->two_factor_enabled = false;
         $user->google2fa_secret = null;
         $user->save();
-        return back()->with('success', 'Two-factor authentication disabled.');
+        \Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login')->with('success', 'Two-factor authentication disabled. Please log in again.');
     }
 }

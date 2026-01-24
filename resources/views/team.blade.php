@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    @include('partials.header', ['title' => 'Team'])
+    @include('partials.header', ['title' => 'Team Management'])
     <div class="mobile-container">
         <!-- Referral Card -->
         <div class="referral-hero-card">

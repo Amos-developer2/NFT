@@ -38,7 +38,7 @@
         <!-- Header -->
         <div class="header">
             <div style="display: flex; align-items: center; gap: 8px;">
-              <img src="{{ asset('images/vortex.png') }}" alt="" style="width:80%">
+                <img src="{{ asset('images/vortex.png') }}" alt="" style="width:80%">
             </div>
             <div class="balance-box">
                 <span class="balance-amount" style="margin-bottom:0">
@@ -55,6 +55,7 @@
 
         <!-- Dynamic Content -->
         <div class="content">
+            @include('partials.login_popup')
             @yield('content')
         </div>
 
