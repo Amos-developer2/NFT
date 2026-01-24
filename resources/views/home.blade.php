@@ -891,6 +891,10 @@
         white-space: nowrap;
     }
 
+    .nft-price {
+        position: relative;
+    }
+
     .nft-market-card .nft-price span {
         font-size: 9px;
         color: #64748b;
