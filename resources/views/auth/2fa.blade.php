@@ -61,8 +61,8 @@
 @section('content')
 <div style="width:100%;font-family:'Inter','Segoe UI',Arial,sans-serif;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;">
-        <a href="{{ url('/') }}" style="background:#f3f4f6;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <a href="{{ url('/') }}" class="nft-back-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
         </a>
@@ -95,6 +95,86 @@
         .badge-2fa-animated {
             animation: badgeFadeColor 2.2s cubic-bezier(.4, 2, .6, 1) 0.2s 1 both;
         }
+
+        .nft-back-btn {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            color: #475569;
+            text-decoration: none;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .nft-back-btn:active {
+            transform: scale(0.95);
+            background: #fff;
+        }
+
+        /* Submit Button */
+        .nft-submit-btn {
+            position: relative;
+            width: 100%;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .btn-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 50%, #60a5fa 100%);
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: btnShimmer 2s infinite;
+        }
+
+        @keyframes btnShimmer {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .btn-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .nft-submit-btn:active {
+            transform: scale(0.98);
+        }
     </style>
 </div>
 
@@ -125,12 +205,25 @@
             <span style="color:#ef4444;font-size:0.98rem;font-weight:500;display:block;margin-top:0.4rem;">{{ $message }}</span>
             @enderror
         </div>
-        <button type="submit" style="width:100%;padding:1rem 0;font-size:1.13rem;font-weight:700;border-radius:8px;background:linear-gradient(90deg,#22c55e 0%,#0ea5e9 100%);color:#fff;border:none;box-shadow:0 2px 8px rgba(34,197,94,0.10);cursor:pointer;transition:transform 0.18s cubic-bezier(.4,2,.6,1),box-shadow 0.18s;display:flex;align-items:center;justify-content:center;gap:0.7rem;">
+
+        <!-- <button type="submit" style="width:100%;padding:1rem 0;font-size:1.13rem;font-weight:700;border-radius:8px;background:linear-gradient(90deg,#22c55e 0%,#0ea5e9 100%);color:#fff;border:none;box-shadow:0 2px 8px rgba(34,197,94,0.10);cursor:pointer;transition:transform 0.18s cubic-bezier(.4,2,.6,1),box-shadow 0.18s;display:flex;align-items:center;justify-content:center;gap:0.7rem;">
             <span>Verify</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
+        </button> -->
+
+        <!-- Submit Button -->
+        <button type="submit" class="nft-submit-btn">
+            <span class="btn-bg"></span>
+            <span class="btn-content">
+                <span>Sign In</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </span>
         </button>
+
     </form>
 </div>
 <div style="display:flex;align-items:center;justify-content:center;gap:2.2rem;margin-top:2.2rem;">
