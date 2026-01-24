@@ -895,6 +895,9 @@
         color: #1e293b;
         white-space: nowrap;
         line-height:10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .nft-price {
