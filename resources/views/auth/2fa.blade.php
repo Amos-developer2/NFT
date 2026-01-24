@@ -180,29 +180,29 @@
 
 <div style="text-align:center;margin-bottom:1.2rem;">
     <img src="/images/vortex.png" alt="VortexNFT" style="height:54px;margin-bottom:0.5rem;">
-    <div style="margin:0.7rem 0 0.2rem 0;color:#0ea5e9;font-size:1.08rem;font-weight:500;display:flex;align-items:center;justify-content:center;gap:0.4rem;">
+    <div style="margin:0.7rem 0 0.2rem 0;color:#0ea5e9;font-size:0.98rem;font-weight:500;display:flex;align-items:center;justify-content:center;gap:0.4rem;">
         <span>🔑</span> Secure 2FA Verification <span>🔑</span>
     </div>
 </div>
 <div style="padding: 10px 10px;background:#fff;border-radius:18px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin:1.0rem;">
-    <h3 style="font-size:1.35rem;font-weight:700;margin-bottom:0.7rem;text-align:center;">Enter 2FA Code</h3>
-    <p style="color:#666;font-size:1.07rem;margin-bottom:1.2rem;text-align:center;">Enter the 6-digit code from your authenticator app to continue</p>
+    <h3 style="font-size:1.08rem;font-weight:700;margin-bottom:0.7rem;text-align:center;">Enter 2FA Code</h3>
+    <p style="color:#666;font-size:0.97rem;margin-bottom:1.2rem;text-align:center;">Enter the 6-digit code from your authenticator app to continue</p>
     @if(session('error'))
     <div style="background:#fee2e2;color:#b91c1c;padding:0.7rem 1rem;border-radius:8px;margin-bottom:1rem;text-align:center;font-weight:500;">{{ session('error') }}</div>
     @endif
     <form method="POST" action="{{ route('2fa.verify') }}" autocomplete="off">
         @csrf
         <div style="margin-bottom:1.2rem;">
-            <label for="otp" style="display:block;font-weight:600;margin-bottom:0.4rem;color:#222;font-size:1.07rem;text-align:left;">Authenticator Code</label>
+            <label for="otp" style="display:block;font-weight:600;margin-bottom:0.4rem;color:#222;font-size:0.97rem;text-align:left;">Authenticator Code</label>
             <div style="display:flex;align-items:center;gap:0.6rem;background:#f3f4f6;border-radius:8px;padding:0.7rem 1rem;box-shadow:0 1px 4px rgba(0,0,0,0.04);">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                <input id="otp" type="text" name="otp" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" required autofocus placeholder="Enter 6-digit code" style="border:none;background:transparent;outline:none;font-size:1.15rem;font-weight:500;flex:1;" value="{{ old('otp') }}">
+                <input id="otp" type="text" name="otp" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" required autofocus placeholder="Enter 6-digit code" style="border:none;background:transparent;outline:none;font-size:1.01rem;font-weight:500;flex:1;" value="{{ old('otp') }}">
             </div>
             @error('otp')
-            <span style="color:#ef4444;font-size:0.98rem;font-weight:500;display:block;margin-top:0.4rem;">{{ $message }}</span>
+            <span style="color:#ef4444;font-size:0.89rem;font-weight:500;display:block;margin-top:0.4rem;">{{ $message }}</span>
             @enderror
         </div>
 
@@ -214,7 +214,7 @@
         </button> -->
 
         <!-- Submit Button -->
-        <button type="submit" class="nft-submit-btn">
+        <button type="submit" class="nft-submit-btn" style="font-size:0.98rem;">
             <span class="btn-bg"></span>
             <span class="btn-content">
                 <span>Sign In</span>
@@ -228,16 +228,16 @@
 </div>
 <div style="display:flex;align-items:center;justify-content:center;gap:2.2rem;margin-top:2.2rem;">
     <div style="text-align:center;">
-        <div style="font-size:1.18rem;font-weight:700;color:#0ea5e9;">50K+</div>
-        <div style="font-size:0.97rem;color:#888;">USERS</div>
+        <div style="font-size:1.01rem;font-weight:700;color:#0ea5e9;">50K+</div>
+        <div style="font-size:0.85rem;color:#888;">USERS</div>
     </div>
     <div style="text-align:center;">
-        <div style="font-size:1.18rem;font-weight:700;color:#0ea5e9;">$2.5M</div>
-        <div style="font-size:0.97rem;color:#888;">VOLUME</div>
+        <div style="font-size:1.01rem;font-weight:700;color:#0ea5e9;">$2.5M</div>
+        <div style="font-size:0.85rem;color:#888;">VOLUME</div>
     </div>
     <div style="text-align:center;">
-        <div style="font-size:1.18rem;font-weight:700;color:#0ea5e9;">10K+</div>
-        <div style="font-size:0.97rem;color:#888;">NFTS</div>
+        <div style="font-size:1.01rem;font-weight:700;color:#0ea5e9;">10K+</div>
+        <div style="font-size:0.85rem;color:#888;">NFTS</div>
     </div>
 </div>
 </div>
