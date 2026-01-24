@@ -74,7 +74,10 @@ Route::middleware(['auth'])->group(function () {
     // Team routes
     Route::get('/team', [App\Http\Controllers\TeamController::class, 'index'])->name('team');
     // Auction routes
-    Route::get('/auction', [App\Http\Controllers\AuctionController::class, 'index'])->name('auction');
+    Route::get('/auction', [App\Http\Controllers\AuctionController::class, 'index'])->name('auction.index');
+    Route::get('/auction/create/{nft_id}', [App\Http\Controllers\AuctionController::class, 'create'])->name('auction.create');
+    Route::post('/auction/store', [App\Http\Controllers\AuctionController::class, 'store'])->name('auction.store');
+    Route::get('/auction/{id}', [App\Http\Controllers\AuctionController::class, 'show'])->name('auction');
     Route::post('/auction/{id}/bid', [App\Http\Controllers\AuctionController::class, 'bid'])->name('auction.bid');
 });
 

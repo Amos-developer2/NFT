@@ -1,0 +1,46 @@
+@extends('layouts.app')
+<style>
+       .start-auction-btn {
+        width: 100%;
+        padding: 0.9rem 0;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #22c55e 0%, #0ea5e9 100%);
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.10);
+        cursor: pointer;
+        transition: transform 0.18s cubic-bezier(.4, 2, .6, 1), box-shadow 0.18s;
+        position: relative;
+        overflow: hidden;
+    }
+</style>
+
+@section('content')
+
+<div class="auction-create-mobile-card" style="max-width:400px;margin:0 auto;padding:1.5rem 1rem;background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+    <div class="nft-card card-profit" style="display:flex;flex-direction:row;align-items:center;gap:1rem;">
+        <div class="nft-image" style="flex:0 0 90px;">
+            <img src="{{ $nft->image }}" alt="{{ $nft->name }}" class="nft-img" style="width:90px;height:90px;object-fit:cover;border-radius:12px;">
+        </div>
+        <div class="nft-details" style="flex:1;">
+            <div class="nft-title" style="font-weight:600;font-size:1.1rem;">{{ $nft->name }}</div>
+            <div class="nft-desc" style="font-size:0.97rem;color:#666;margin-bottom:0.5rem;">{{ $nft->description }}</div>
+            <div class="nft-buy" style="font-size:0.97rem;margin-bottom:0.2rem;"><strong>Buy Price:</strong> {{ number_format($nft->purchase_price, 2) }} USDT</div>
+            @php
+            $minSell = $nft->purchase_price * 1.001;
+            $maxSell = $nft->purchase_price * 1.005;
+            @endphp
+            <div class="nft-sell" style="font-size:0.97rem;"><strong>Suggested Sell Price:</strong> {{ number_format($minSell, 2) }} - {{ number_format($maxSell, 2) }} USDT <span style="color:#888;font-size:0.92em;">(0.1% - 0.5% above buy price)</span></div>
+        </div>
+    </div>
+    <form action="{{ route('auction.store') }}" method="POST" style="margin-top:1.5rem;">
+        @csrf
+        <input type="hidden" name="nft_id" value="{{ $nft->id }}">
+        <input type="hidden" name="starting_price" value="{{ $minSell }}">
+        <input type="hidden" name="duration" value="2">
+        <button type="submit" class="btn btn-primary" style="width:100%;padding:0.8rem 0;font-size:1.1rem;border-radius:8px;">Start Auction</button>
+    </form>
+</div>
+@endsection

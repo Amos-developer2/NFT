@@ -49,4 +49,82 @@
 
 
 
+
+{{-- ===================== AUCTION ITEM ===================== --}}
+<div class="auction-item-card">
+    <div class="auction-item-image">
+        <img src="{{ $auction->image_url ?? '/images/default-auction.png' }}" alt="Auction Item">
+    </div>
+    <div class="auction-item-details">
+        <h2>{{ $auction->title ?? 'Auction Item Title' }}</h2>
+        <p>{{ $auction->description ?? 'No description available.' }}</p>
+        <div class="auction-meta">
+            <span class="auction-id">#{{ $auction->id ?? '-' }}</span>
+            <span class="auction-seller">Seller: {{ $auction->seller->name ?? '-' }}</span>
+        </div>
+    </div>
+</div>
+
+{{-- ===================== AUCTION STATUS ===================== --}}
+<div class="auction-status">
+    <div class="current-bid">
+        <span>Current Bid:</span>
+        <strong>${{ number_format($auction->current_bid ?? 0, 2) }}</strong>
+        <span class="bidder">by {{ $auction->highestBidder->name ?? 'N/A' }}</span>
+    </div>
+    <div class="auction-timer">
+        <span>Ends in:</span>
+        <span id="auction-countdown">
+            @if(!empty($auction->end_time))
+            {{ \Carbon\Carbon::parse($auction->end_time)->diffForHumans() }}
+            @else
+            -
+            @endif
+        </span>
+    </div>
+</div>
+
+{{-- ===================== BIDDING INTERFACE ===================== --}}
+<div class="bid-form-card">
+    <form method="POST" action="{{ route('auction.bid', $auction->id ?? 0) }}">
+        @csrf
+        <label for="bid-amount">Your Bid</label>
+        <input type="number" step="0.01" min="{{ ($auction->current_bid ?? 0) + ($auction->min_increment ?? 1) }}" name="amount" id="bid-amount" required>
+        <button type="submit" class="btn btn-primary">Place Bid</button>
+    </form>
+    @if(session('bid_status'))
+    <div class="alert alert-info mt-2">{{ session('bid_status') }}</div>
+    @endif
+</div>
+
+{{-- ===================== BID HISTORY ===================== --}}
+<div class="bid-history-card">
+    <h4>Bid History</h4>
+    <ul class="bid-history-list">
+        @forelse($auction->bids ?? [] as $bid)
+        <li>
+            <span class="bidder">{{ $bid->user->name ?? 'User' }}</span>
+            <span class="amount">${{ number_format($bid->amount, 2) }}</span>
+            <span class="time">{{ $bid->created_at->diffForHumans() }}</span>
+        </li>
+        @empty
+        <li>No bids yet.</li>
+        @endforelse
+    </ul>
+</div>
+
+{{-- ===================== AUCTION RULES ===================== --}}
+<div class="auction-rules-card">
+    <h5>Auction Rules</h5>
+    <ul>
+        <li>Bids must be higher than the current bid by at least the minimum increment.</li>
+        <li>Once placed, bids cannot be withdrawn.</li>
+        <li>Highest bidder at auction end wins the item.</li>
+        <li>Payment must be completed within 24 hours of winning.</li>
+    </ul>
+</div>
+
+{{-- ===================== NOTIFICATIONS ===================== --}}
+<div id="auction-notifications"></div>
+
 @endsection

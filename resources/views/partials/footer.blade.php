@@ -33,7 +33,7 @@
     </a>
 
     {{-- Auction --}}
-    <a href="{{ route('auction') }}" class="{{ request()->routeIs('auction') ? 'active' : '' }}" aria-label="Auction">
+    <a href="{{ route('auction.index') }}" class="{{ request()->routeIs('auction.index') ? 'active' : '' }}" aria-label="Auction">
         <div class="nav-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" />
