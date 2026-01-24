@@ -203,7 +203,11 @@
                 </div>
                 <div class="details-row">
                     <div class="nft-price">
-                        <span style="display:block; font-size:11px; color:#64748b;">{{ isset($nft['price']) ? number_format($nft['price'], 2) : '--' }} <span style="font-size:10px; color:#94a3b8; font-weight:500;">USDT</span></span>
+                        <span style="font-size:10px; color:#94a3b8; font-weight:500;">Price</span>
+                        <span style="display:block; font-size:11px; color:#64748b;">
+                            <span>{{ isset($nft['price']) ? number_format($nft['price'], 2) : '--' }}</span>
+                             <span style="font-size:10px; color:#94a3b8; font-weight:500;">USDT</span>
+                        </span>
                     </div>
                     <a href="{{ route('nft.purchase', $nft['id']) }}" class="buy-btn">Buy</a>
                 </div>
