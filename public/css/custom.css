@@ -517,7 +517,6 @@ body {
 }
 
 .nft-price {
-    /* position: absolute; */
     bottom: 10px;
     left: 10px;
     background: rgba(255, 255, 255, 0.9);
