@@ -790,7 +790,8 @@
         position: relative;
         aspect-ratio: 1;
         overflow: hidden;
-        background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+        padding: 4;
+        /* background: linear-gradient(135deg, #f1f5f9, #e2e8f0); */
     }
 
     .nft-market-card .card-image {
@@ -889,6 +890,7 @@
         font-weight: 700;
         color: #1e293b;
         white-space: nowrap;
+        line-height:10px;
     }
 
     .nft-price {
@@ -899,6 +901,8 @@
         font-size: 9px;
         color: #64748b;
         font-weight: 500;
+        font-size: 14px;
+        line-height:12px;
     }
 
     .nft-market-card .buy-btn {
