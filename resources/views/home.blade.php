@@ -794,13 +794,14 @@
         position: relative;
         aspect-ratio: 1;
         overflow: hidden;
-        padding: 4;
+        padding: 4px;
         /* background: linear-gradient(135deg, #f1f5f9, #e2e8f0); */
     }
 
     .nft-market-card .card-image {
         width: 100%;
         height: 100%;
+        border-radius: 10px;
         object-fit: cover;
     }
 
