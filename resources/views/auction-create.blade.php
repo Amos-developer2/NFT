@@ -1,21 +1,5 @@
 @extends('layouts.app')
-<style>
-       .start-auction-btn {
-        width: 100%;
-        padding: 0.9rem 0;
-        font-size: 1.1rem;
-        border-radius: 8px;
-        background: linear-gradient(90deg, #22c55e 0%, #0ea5e9 100%);
-        color: #fff;
-        font-weight: 600;
-        border: none;
-        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.10);
-        cursor: pointer;
-        transition: transform 0.18s cubic-bezier(.4, 2, .6, 1), box-shadow 0.18s;
-        position: relative;
-        overflow: hidden;
-    }
-</style>
+
 
 @section('content')
 
@@ -35,12 +19,46 @@
             <div class="nft-sell" style="font-size:0.97rem;"><strong>Suggested Sell Price:</strong> {{ number_format($minSell, 2) }} - {{ number_format($maxSell, 2) }} USDT <span style="color:#888;font-size:0.92em;">(0.1% - 0.5% above buy price)</span></div>
         </div>
     </div>
+    @if(session('success'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.onload = function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Auction Started',
+                text: '{{ session('
+                success ') }}',
+                confirmButtonColor: '#22c55e',
+                customClass: {
+                    popup: 'swal2-mobile'
+                }
+            });
+        };
+    </script>
+    @endif
+    @if(session('success'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.onload = function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'The NFT is now on market, both profit and capital will be credited after 2 hours of auction!',
+                text: '{{ session('
+                success ') }}',
+                confirmButtonColor: '#22c55e',
+                customClass: {
+                    popup: 'swal2-mobile'
+                }
+            });
+        };
+    </script>
+    @endif
     <form action="{{ route('auction.store') }}" method="POST" style="margin-top:1.5rem;">
         @csrf
         <input type="hidden" name="nft_id" value="{{ $nft->id }}">
         <input type="hidden" name="starting_price" value="{{ $minSell }}">
         <input type="hidden" name="duration" value="2">
-        <button type="submit" class="btn btn-primary" style="width:100%;padding:0.8rem 0;font-size:1.1rem;border-radius:8px;">Start Auction</button>
+        <button type="submit" class="btn btn-primary" style="width:100% !important; padding:0.9rem 0 !important; font-size:1.1rem !important; border-radius:8px !important; background:linear-gradient(90deg,#22c55e 0%,#0ea5e9 100%) !important; color:#fff !important; font-weight:600 !important; border:none !important; box-shadow:0 2px 8px rgba(34,197,94,0.10) !important; cursor:pointer !important; transition:transform 0.18s cubic-bezier(.4,2,.6,1),box-shadow 0.18s !important; position:relative !important; overflow:hidden !important;">Start Auction</button>
     </form>
 </div>
 @endsection
