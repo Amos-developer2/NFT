@@ -3,7 +3,7 @@
 
 @section('content')
 
-<div class="auction-create-mobile-card" style="max-width:400px;margin:0 auto;padding:1.5rem 1rem;background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+<div class="auction-create-mobile-card" style="max-width:400px;margin:10px 10px;padding:1.5rem 1rem;background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
     <div class="nft-card card-profit" style="display:flex;flex-direction:row;align-items:center;gap:1rem;">
         <div class="nft-image" style="flex:0 0 90px;">
             <img src="{{ $nft->image }}" alt="{{ $nft->name }}" class="nft-img" style="width:90px;height:90px;object-fit:cover;border-radius:12px;">
