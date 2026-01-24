@@ -40,7 +40,7 @@
                         <span>{{ $userStats['stars'] ?? 100 }} Stars</span>
                     </div> -->
                 <div class="daily-checkin-btn-wrapper-small">
-                    <a href="" class="daily-checkin-btn-small">
+                    <a href="{{ route('daily.checkin') }}" class="daily-checkin-btn-small">
                         <span class="btn-icon">🎁</span>
                         <span>Daily Check-In</span>
                     </a>
@@ -203,8 +203,7 @@
                 </div>
                 <div class="details-row">
                     <div class="nft-price">
-                        <span style="display:block; font-size:12px; color:#1e293b; font-weight:700;">Current: {{ isset($nft['price']) ? number_format($nft['price'], 2) : '--' }} <span style="font-size:10px; color:#64748b; font-weight:500;">USDT</span></span>
-                        <span style="display:block; font-size:11px; color:#64748b;">Purchase: {{ isset($nft['purchase_price']) ? number_format($nft['purchase_price'], 2) : '--' }} <span style="font-size:10px; color:#94a3b8; font-weight:500;">USDT</span></span>
+                        <span style="display:block; font-size:11px; color:#64748b;">{{ isset($nft['price']) ? number_format($nft['price'], 2) : '--' }} <span style="font-size:10px; color:#94a3b8; font-weight:500;">USDT</span></span>
                     </div>
                     <a href="{{ route('nft.purchase', $nft['id']) }}" class="buy-btn">Buy</a>
                 </div>
@@ -912,6 +911,7 @@
         text-decoration: none;
         transition: all 0.2s ease;
         flex-shrink: 0;
+        width:fit-content;
     }
 
     .nft-market-card .buy-btn:active {
