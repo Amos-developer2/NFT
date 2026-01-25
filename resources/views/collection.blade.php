@@ -120,11 +120,15 @@
                         <span class="pl-amount" id="pl-amount-{{ $nft['id'] }}">{{ $isProfit ? '+' : '' }}{{ number_format($changeAmount, 2) }} USDT</span>
                     </div>
                     @if($canSell && $isProfit)
-                    <a href="{{ url('/auction/create/' . $nft['id']) }}" class="sell-btn ready">Sell Now</a>
+                    <a
+                        href="{{ url('/auction/create/' . $nft['id']) }}" class="sell-btn ready"
+                        style="text-decoration: none;">Sell Now</a>
                     @elseif($canSell)
-                    <a href="{{ url('/auction/create/' . $nft['id']) }}" class="sell-btn">Sell</a>
+                    <a
+                        href="{{ url('/auction/create/' . $nft['id']) }}" class="sell-btn"
+                        style="text-decoration: none;">Sell</a>
                     @else
-                    <button class="sell-btn disabled" disabled>Hold</button>
+                    <button class="sell-btn disabled" disabled style="text-decoration: none;">Hold</button>
                     @endif
                 </div>
             </div>
