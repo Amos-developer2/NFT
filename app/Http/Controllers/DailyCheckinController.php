@@ -29,7 +29,26 @@ class DailyCheckinController extends Controller
         ];
         $reward = $checkin ? $checkin->reward : null;
 
-        return view('daily-checkin', compact('alreadyCheckedIn', 'rewards', 'reward'));
+        // Total check-ins
+        $totalCheckins = DailyCheckin::where('user_id', $user->id)->count();
+
+        // Total germs earned from check-ins
+        $totalRewards = DailyCheckin::where('user_id', $user->id)
+            ->where('reward', 'like', '%Germ%')
+            ->get()
+            ->sum(function ($c) {
+                return (int) filter_var($c->reward, FILTER_SANITIZE_NUMBER_INT);
+            });
+
+        // Calculate streak (consecutive days up to today)
+        $streak = 0;
+        $date = $today->copy();
+        while (DailyCheckin::where('user_id', $user->id)->where('checkin_date', $date)->exists()) {
+            $streak++;
+            $date->subDay();
+        }
+
+        return view('daily-checkin', compact('alreadyCheckedIn', 'rewards', 'reward', 'totalCheckins', 'totalRewards', 'streak'));
     }
 
     public function checkin(Request $request)

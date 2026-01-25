@@ -206,7 +206,7 @@
                         <span style="font-size:10px; color:#94a3b8; font-weight:500;">Price</span>
                         <span style="display:block; font-size:11px; color:#64748b;">
                             <span>{{ isset($nft['price']) ? number_format($nft['price'], 2) : '--' }}</span>
-                             <span style="font-size:10px; color:#94a3b8; font-weight:500;">USDT</span>
+                            <span style="font-size:10px; color:#94a3b8; font-weight:500;">USDT</span>
                         </span>
                     </div>
                     <a href="{{ route('nft.purchase', $nft['id']) }}" class="buy-btn">Buy</a>
@@ -895,7 +895,7 @@
         font-weight: 700;
         color: #1e293b;
         white-space: nowrap;
-        line-height:10px;
+        line-height: 10px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -910,7 +910,7 @@
         color: #64748b;
         font-weight: 500;
         font-size: 14px;
-        line-height:12px;
+        line-height: 12px;
     }
 
     .nft-market-card .buy-btn {
@@ -927,7 +927,7 @@
         text-decoration: none;
         transition: all 0.2s ease;
         flex-shrink: 0;
-        width:fit-content;
+        width: fit-content;
     }
 
     .nft-market-card .buy-btn:active {
