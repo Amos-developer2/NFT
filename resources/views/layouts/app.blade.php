@@ -35,6 +35,7 @@
 
 <body>
     <div class="mobile-container">
+        @if(!isset($hideHeader) || !$hideHeader)
         <!-- Header -->
         <div class="header">
             <div style="display: flex; align-items: center; gap: 8px;">
@@ -52,6 +53,7 @@
         </div>
         <!-- Spacer for fixed header -->
         <div class="header-spacer"></div>
+        @endif
 
         <!-- Dynamic Content -->
         <div class="content">
@@ -60,7 +62,9 @@
         </div>
 
         <!-- Bottom Navigation -->
+        @if(!isset($hideFooter) || !$hideFooter)
         @include('partials.footer')
+        @endif
     </div>
 
     @stack('scripts')
