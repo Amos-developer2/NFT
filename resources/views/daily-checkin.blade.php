@@ -281,6 +281,7 @@
 
         .checkin-rules-box h4 {
             margin-top: 0;
+            text-decoration: underline;
             margin-bottom: 0.7rem;
             color: #3a8dde;
             font-size: 1.13rem;
