@@ -249,22 +249,54 @@
 
     <div class="spin-section">
         <div class="wheel-wrapper">
-            <canvas id="spin-wheel" width="280" height="280"></canvas>
+            <canvas id="spin-wheel" width="400" height="400"></canvas>
             <button id="spin-btn" class="spin-btn">SPIN</button>
         </div>
         <div class="spin-result" id="spin-result"></div>
     </div>
 
-    <div class="checkin-history">
-        <h3>Recent Check-ins</h3>
-        <ul class="history-list">
-            @forelse($recentCheckins ?? [] as $date)
-            <li><span class="history-date">{{ \Carbon\Carbon::parse($date)->format('M d, Y') }}</span></li>
-            @empty
-            <li>No recent check-ins yet.</li>
-            @endforelse
+    <div class="checkin-rules-box">
+        <h4>How Daily Check-in Works</h4>
+        <ul>
+            <li>Spin the wheel once every day for a chance to win exciting rewards.</li>
+            <li>Each spin is <b>free</b> and resets at midnight (server time).</li>
+            <li>Possible rewards include Germs, Coins, NFTs, Mystery Boxes, and more!</li>
+            <li>Keep your streak going by checking in every day—longer streaks may unlock special bonuses in the future.</li>
+            <li>Rewards are credited instantly to your account after each spin.</li>
+            <li>You can view your recent check-ins and rewards in the history above.</li>
+            <li>Abuse or attempts to bypass the daily limit may result in account restrictions.</li>
         </ul>
     </div>
+    <style>
+        .checkin-rules-box {
+            background: linear-gradient(90deg, #e3f0ff 0%, #f8fbff 100%);
+            border-radius: 14px;
+            box-shadow: 0 2px 8px 0 #e6e6e6;
+            padding: 1.1rem 1.2rem 1.1rem 1.2rem;
+            margin: -2.0rem 10px 0 10px;
+            max-width: 420px;
+            color: #2a3b4c;
+            font-size: 0.9rem;
+        }
+
+        .checkin-rules-box h4 {
+            margin-top: 0;
+            margin-bottom: 0.7rem;
+            color: #3a8dde;
+            font-size: 1.13rem;
+            font-weight: 700;
+        }
+
+        .checkin-rules-box ul {
+            padding-left: 1.2rem;
+            margin: 0;
+        }
+
+        .checkin-rules-box li {
+            margin-bottom: 0.35rem;
+            line-height: 1.5;
+        }
+    </style>
 </div>
 
 @include('partials.footer')
