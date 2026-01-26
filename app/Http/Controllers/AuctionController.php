@@ -81,13 +81,26 @@ class AuctionController extends Controller
     // Track
     public function track()
     {
-        $auctions = \App\Models\Auction::with('nft')
-            ->whereHas('nft', function ($q) {
-                $q->where('user_id', Auth::id());
+        $userId = Auth::id();
+        $activeAuctions = Auction::with('nft')
+            ->whereHas('nft', function ($q) use ($userId) {
+                $q->where('user_id', $userId);
             })
-            ->where('status', '!=', 'Ended')
+            ->where('status', 'Live')
             ->orderByDesc('created_at')
             ->get();
-        return view('track', compact('auctions'));
+        $completedAuctions = Auction::with('nft')
+            ->whereHas('nft', function ($q) use ($userId) {
+                $q->where('user_id', $userId);
+            })
+            ->where('status', 'Ended')
+            ->orderByDesc('created_at')
+            ->get();
+
+        $totalAuctions = $activeAuctions->count() + $completedAuctions->count();
+        $activeCount = $activeAuctions->count();
+        $soldCount = $completedAuctions->count();
+
+        return view('track', compact('activeAuctions', 'completedAuctions', 'totalAuctions', 'activeCount', 'soldCount'));
     }
 }
