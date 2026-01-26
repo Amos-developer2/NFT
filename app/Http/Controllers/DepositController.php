@@ -27,23 +27,24 @@ class DepositController extends Controller
     public function showAddress(Request $request)
     {
         $request->validate([
-            'currency' => 'required|in:usdt,usdc',
-            'network'  => 'required|in:trc20,bep20',
+            'currency_network' => 'required|in:usdt_bep20,usdc_bep20,usdt_trc20,bnb_bsc',
             'amount'   => 'required|numeric|min:25', // Minimum deposit is 25 USD
         ]);
 
         $user     = $request->user();
-        $currency = $request->currency;
-        $network  = $request->network;
+        
+        // Parse currency and network from combined field
+        [$currency, $network] = explode('_', $request->currency_network);
         $amount   = $request->amount;
 
         // Map network to NOWPayments format
         $networkMap = [
-            'trc20' => 'tron',
+            'trc20' => 'trx',
             'bep20' => 'bsc',
+            'bsc'   => 'bsc',
         ];
 
-        $npNetwork = $networkMap[$network];
+        $npNetwork = $networkMap[$network] ?? $network;
 
         /*
         |--------------------------------------------------------------------------
@@ -51,7 +52,7 @@ class DepositController extends Controller
         |--------------------------------------------------------------------------
         */
         $deposit = Deposit::where('user_id', $user->id)
-            ->where('status', 'pending')
+            ->whereIn('status', ['waiting', 'confirming', 'confirmed', 'sending', 'partially_paid'])
             ->where('amount', $amount)
             ->whereNotNull('pay_address')
             ->latest()
@@ -78,24 +79,35 @@ class DepositController extends Controller
 
             // Log NOWPayments response for debugging
             logger()->info('NOWPayments response', [
+                'request' => $paymentData,
                 'body' => $response->body(),
                 'json' => $response->json(),
                 'status' => $response->status(),
             ]);
 
             if (!$response->successful()) {
+                $errorMessage = $response->json()['message'] ?? 'Payment gateway error. Please try again.';
                 return back()->withErrors([
-                    'deposit' => 'Payment gateway error. Try again.'
-                ]);
+                    'deposit' => $errorMessage
+                ])->withInput();
             }
 
             $json = $response->json();
+            
+            // Check if we got a valid response with pay_address
+            if (empty($json['pay_address'])) {
+                return back()->withErrors([
+                    'deposit' => 'Failed to generate deposit address. Please try again.'
+                ])->withInput();
+            }
 
             $deposit = Deposit::create([
                 'user_id'     => $user->id,
                 'amount'      => $amount,
+                'currency'    => strtoupper($currency),
+                'network'     => strtoupper($network),
                 'order_id'    => $orderId,
-                'status'      => 'pending',
+                'status'      => $json['payment_status'] ?? 'waiting',
                 'pay_id'      => $json['payment_id'] ?? null,
                 'pay_address' => $json['pay_address'] ?? null,
                 'pay_currency' => $json['pay_currency'] ?? null,
@@ -132,17 +144,16 @@ class DepositController extends Controller
 
         $deposit = Deposit::where('pay_id', $data['payment_id'] ?? null)->first();
 
-        if (!$deposit || $deposit->status !== 'pending') {
+        if (!$deposit || in_array($deposit->status, ['finished', 'failed', 'refunded', 'expired'])) {
             return response('Ignored', 200);
         }
 
-        // Acceptable success statuses
-        if (in_array($data['payment_status'], ['finished', 'confirmed'])) {
-
+        // Update deposit status from NowPayments
+        $deposit->update(['status' => $data['payment_status']]);
+        
+        // Credit balance only on finished status
+        if ($data['payment_status'] === 'finished') {
             DB::transaction(function () use ($deposit) {
-
-                $deposit->update(['status' => 'completed']);
-
                 $user = $deposit->user;
                 $user->increment('balance', $deposit->amount);
             });

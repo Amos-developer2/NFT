@@ -28,6 +28,19 @@
         </div>
     </div>
 
+    <!-- Error Display -->
+    @if($errors->any())
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof nativeAlert === 'function') {
+                nativeAlert(@json($errors->first()), { type: 'error', title: 'Deposit Error' });
+            } else {
+                alert(@json($errors->first()));
+            }
+        });
+    </script>
+    @endif
+
     <!-- Deposit Form -->
     <form id="depositForm" action="{{ route('user.deposit.address') }}" method="POST">
         @csrf
