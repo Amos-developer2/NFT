@@ -68,8 +68,9 @@ class HomeController extends Controller
             ]);
         }
 
-        // Show all NFTs on homepage
-        $nfts = \App\Models\Nft::all();
+        // Show NFTs available for purchase (owned by admin users)
+        $adminIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        $nfts = \App\Models\Nft::whereIn('user_id', $adminIds)->get();
         $netWorth = $user->balance + $userNfts->sum('value');
         $profit = $userNfts->sum(function ($nft) {
             return ($nft->value ?? 0) - ($nft->purchase_price ?? 0);
