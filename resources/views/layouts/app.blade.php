@@ -7,6 +7,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="stylesheet" href="/css/custom.css">
     <link rel="stylesheet" href="/css/home.css">
+    @stack('head')
+    @stack('styles')
+
     <style>
         html,
         body,

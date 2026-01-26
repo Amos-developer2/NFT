@@ -30,7 +30,8 @@ class CollectionController extends Controller
             $nft->bought_price = $nft->value; // Replace with real purchase price if tracked
             $nft->current_price = $nft->value; // Replace with real current value if tracked
             $nft->days_held = $nft->created_at ? Carbon::parse($nft->created_at)->diffInDays($today) : 0;
-            $nft->can_sell = true; // Add logic if needed
+            // Only allow selling if there is no live auction for this NFT
+            $nft->can_sell = !$nft->auctions()->where('status', 'Live')->exists();
             $totalInvested += $nft->bought_price;
             $totalValue += $nft->current_price;
         }
