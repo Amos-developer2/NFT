@@ -8,90 +8,160 @@
     <link rel="stylesheet" href="/css/custom.css">
     <link rel="stylesheet" href="/css/withdrawal.css">
     <style>
+        /* Bound Address Card - Premium Design */
         .bound-address-card {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-            border: 1px solid #bbf7d0;
-            border-radius: 16px;
-            padding: 16px;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
             margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
-        .bound-address-header {
+        .bound-card-header {
+            background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 100%);
+            padding: 16px 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
+            justify-content: space-between;
         }
-        .bound-icon {
-            width: 36px;
-            height: 36px;
-            background: #22c55e;
-            border-radius: 10px;
+        .bound-card-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .bound-currency-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 8px;
+        }
+        .bound-currency-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .bound-currency-info {
             color: #fff;
         }
-        .bound-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #166534;
+        .bound-currency-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 2px;
         }
-        .bound-info-row {
-            display: flex;
-            justify-content: space-between;
+        .bound-network-badge {
+            display: inline-flex;
             align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+            gap: 4px;
+            padding: 3px 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
         }
-        .bound-info-row:last-child {
-            border-bottom: none;
-        }
-        .bound-info-label {
+        .bound-status-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(34, 197, 94, 0.2);
+            border-radius: 20px;
+            color: #86efac;
             font-size: 12px;
-            color: #64748b;
-        }
-        .bound-info-value {
-            font-size: 13px;
             font-weight: 600;
-            color: #1e293b;
+        }
+        .bound-status-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        .bound-card-body {
+            padding: 16px 20px;
+        }
+        .bound-address-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 14px;
+            padding: 14px;
+            border: 1px solid #e2e8f0;
+        }
+        .bound-address-label {
             display: flex;
             align-items: center;
             gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
         }
-        .bound-info-value img {
-            width: 18px;
-            height: 18px;
+        .bound-address-label svg {
+            color: #2A6CF6;
         }
-        .address-row {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 6px;
+        .bound-address-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
         }
-        .address-display {
+        .bound-address-text {
+            flex: 1;
+            font-size: 12px;
+            font-family: 'SF Mono', 'Roboto Mono', Monaco, monospace;
+            color: #1e293b;
+            word-break: break-all;
+            line-height: 1.5;
+        }
+        .bound-copy-btn {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 100%);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .bound-copy-btn:active {
+            transform: scale(0.95);
+        }
+        .bound-copy-btn.copied {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        }
+        .bound-card-footer {
             display: flex;
             align-items: center;
             gap: 8px;
-            width: 100%;
-            padding: 10px 12px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 12px 20px;
+            background: #f8fafc;
+            border-top: 1px solid #f1f5f9;
         }
-        .address-text {
-            flex: 1;
+        .bound-card-footer svg {
+            flex-shrink: 0;
+            color: #2A6CF6;
+        }
+        .bound-card-footer span {
             font-size: 11px;
-            font-family: 'SF Mono', Monaco, monospace;
-            color: #1e293b;
-            word-break: break-all;
-        }
-        .copy-btn {
-            padding: 6px;
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
             color: #64748b;
-            cursor: pointer;
         }
+
+        /* No Address Card */
         .no-address-card {
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
             border: 1px solid #fcd34d;
@@ -155,37 +225,56 @@
         @if(Auth::user()->withdrawal_address)
         <!-- Bound Address Card -->
         <div class="bound-address-card">
-            <div class="bound-address-header">
-                <div class="bound-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                        <polyline points="22 4 12 14.01 9 11.01"/>
-                    </svg>
+            <div class="bound-card-header">
+                <div class="bound-card-header-left">
+                    <div class="bound-currency-icon">
+                        <img src="/icons/{{ strtolower(Auth::user()->withdrawal_currency) }}.svg" alt="{{ Auth::user()->withdrawal_currency }}">
+                    </div>
+                    <div class="bound-currency-info">
+                        <div class="bound-currency-name">{{ Auth::user()->withdrawal_currency }}</div>
+                        <div class="bound-network-badge">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M2 12h20"/>
+                            </svg>
+                            {{ Auth::user()->withdrawal_network }}
+                        </div>
+                    </div>
                 </div>
-                <span class="bound-label">Withdrawal Address Bound</span>
+                <div class="bound-status-badge">
+                    <span class="bound-status-dot"></span>
+                    Bound
+                </div>
             </div>
-            <div class="bound-info-row">
-                <span class="bound-info-label">Currency</span>
-                <span class="bound-info-value">
-                    <img src="/icons/{{ strtolower(Auth::user()->withdrawal_currency) }}.svg" alt="{{ Auth::user()->withdrawal_currency }}">
-                    {{ Auth::user()->withdrawal_currency }}
-                </span>
-            </div>
-            <div class="bound-info-row">
-                <span class="bound-info-label">Network</span>
-                <span class="bound-info-value">{{ Auth::user()->withdrawal_network }}</span>
-            </div>
-            <div class="bound-info-row address-row">
-                <span class="bound-info-label">Wallet Address</span>
-                <div class="address-display">
-                    <span class="address-text" id="boundAddress">{{ Auth::user()->withdrawal_address }}</span>
-                    <button type="button" class="copy-btn" onclick="copyAddress()">
+            <div class="bound-card-body">
+                <div class="bound-address-section">
+                    <div class="bound-address-label">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/>
+                            <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/>
+                            <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"/>
                         </svg>
-                    </button>
+                        Wallet Address
+                    </div>
+                    <div class="bound-address-box">
+                        <span class="bound-address-text" id="boundAddress">{{ Auth::user()->withdrawal_address }}</span>
+                        <button type="button" class="bound-copy-btn" id="copyBtn" onclick="copyAddress()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="copyIcon">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="checkIcon" style="display: none;">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
+            </div>
+            <div class="bound-card-footer">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <span>Withdrawals will be sent to this address only</span>
             </div>
         </div>
 
@@ -368,10 +457,26 @@
 
         function copyAddress() {
             const address = document.getElementById('boundAddress').textContent.trim();
+            const copyBtn = document.getElementById('copyBtn');
+            const copyIcon = document.getElementById('copyIcon');
+            const checkIcon = document.getElementById('checkIcon');
+            
             navigator.clipboard.writeText(address).then(() => {
+                // Show success state
+                copyBtn.classList.add('copied');
+                copyIcon.style.display = 'none';
+                checkIcon.style.display = 'block';
+                
                 if (typeof nativeAlert === 'function') {
                     nativeAlert('Address copied to clipboard!', { type: 'success', title: 'Copied' });
                 }
+                
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    copyBtn.classList.remove('copied');
+                    copyIcon.style.display = 'block';
+                    checkIcon.style.display = 'none';
+                }, 2000);
             });
         }
     </script>
