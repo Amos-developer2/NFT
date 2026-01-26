@@ -119,7 +119,38 @@ class NftController extends Controller
         if (!$nft) {
             return redirect()->route('home')->with('error', 'NFT not found');
         }
-        return view('nft.purchase', compact('nft'));
+
+        // Increment view count
+        $nft->incrementViews();
+
+        // Check if current user has liked this NFT
+        $isLiked = $nft->isLikedByUser();
+
+        return view('nft.purchase', compact('nft', 'isLiked'));
+    }
+
+    /**
+     * Toggle like/unlike for an NFT
+     */
+    public function toggleLike(Request $request, $id)
+    {
+        $nft = Nft::find($id);
+        if (!$nft) {
+            return response()->json(['error' => 'NFT not found'], 404);
+        }
+
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['error' => 'Please login to like NFTs'], 401);
+        }
+
+        $isLiked = $nft->toggleLike($user->id);
+
+        return response()->json([
+            'success' => true,
+            'liked' => $isLiked,
+            'likes_count' => $nft->fresh()->likes_count,
+        ]);
     }
 
     /**

@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
     // NFT Purchase routes
     Route::get('/nft/{id}/purchase', [App\Http\Controllers\NftController::class, 'showPurchase'])->name('nft.purchase');
     Route::post('/nft/{id}/buy', [App\Http\Controllers\NftController::class, 'buy'])->name('nft.buy');
+    Route::post('/nft/{id}/like', [App\Http\Controllers\NftController::class, 'toggleLike'])->name('nft.like');
 
     // Team routes
     Route::get('/team', [App\Http\Controllers\TeamController::class, 'index'])->name('team');

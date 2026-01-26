@@ -39,7 +39,7 @@
     .nft-hero-bg {
         position: absolute;
         inset: 0;
-        background: url('{{ $nft['image'] }}') center/cover no-repeat;
+        background: url('{{ $nft->image }}') center/cover no-repeat;
         filter: blur(30px) saturate(1.3) brightness(0.9);
         transform: scale(1.3);
     }
@@ -533,7 +533,7 @@
                 </svg>
             </a>
             <div class="header-actions">
-                <button class="btn-icon active">
+                <button class="btn-icon {{ $isLiked ? 'active' : '' }}" id="like-btn" data-nft-id="{{ $nft->id }}">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                     </svg>
@@ -550,7 +550,7 @@
 
         <!-- NFT Image with Protection -->
         <div class="nft-image-container">
-            <div class="nft-hero-image" style="background-image: url('{{ $nft['image'] }}');" role="img" aria-label="{{ $nft['name'] }}"></div>
+            <div class="nft-hero-image" style="background-image: url('{{ $nft->image }}');" role="img" aria-label="{{ $nft->name }}"></div>
             <div class="watermark-overlay">
                 <span class="watermark-text">VortexNFT</span>
             </div>
@@ -563,13 +563,13 @@
     <div class="nft-content">
         <!-- Title & Price -->
         <div class="nft-title-row">
-            <h1 class="nft-title">{{ strtoupper($nft['name']) }}</h1>
-            <span class="nft-price-inline">{{ number_format($nft['purchase_price'], 2) }} USDT</span>
+            <h1 class="nft-title">{{ strtoupper($nft->name) }}</h1>
+            <span class="nft-price-inline">{{ number_format($nft->price ?? $nft->purchase_price ?? 0, 2) }} USDT</span>
         </div>
 
         <!-- Description -->
         <p class="nft-description">
-            {{ Str::limit($nft['description'] ?? 'A unique digital collectible with rare attributes and exclusive ownership rights on the blockchain.', 100) }}
+            {{ Str::limit($nft->description ?? 'A unique digital collectible with rare attributes and exclusive ownership rights on the blockchain.', 100) }}
         </p>
         <a class="read-more">read more</a>
 
@@ -581,7 +581,7 @@
                     <div class="meta-avatar">
                         <img src="/icons/user.svg" alt="Creator">
                     </div>
-                    <span class="meta-name">{{ '@' . ($nft['creator'] ?? 'VortexNFT') }}</span>
+                    <span class="meta-name">{{ '@' . ($nft->creator ?? 'VortexNFT') }}</span>
                 </div>
             </div>
             <div class="meta-item">
@@ -590,7 +590,7 @@
                     <div class="meta-avatar">
                         <img src="/icons/user.svg" alt="Collection">
                     </div>
-                    <span class="meta-name">{{ '@' . ($nft['collection'] ?? 'VortexNFT') }}</span>
+                    <span class="meta-name">{{ '@' . ($nft->collection ?? 'VortexNFT') }}</span>
                 </div>
             </div>
         </div>
@@ -604,7 +604,7 @@
                         <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                     </svg>
                 </div>
-                <span class="stat-value">{{ number_format(rand(1000, 9999)) }}</span>
+                <span class="stat-value">{{ number_format($nft->views ?? 0) }}</span>
                 <span class="stat-label">Views</span>
             </div>
             <div class="stat-item">
@@ -613,7 +613,7 @@
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ef4444"/>
                     </svg>
                 </div>
-                <span class="stat-value">{{ number_format(rand(100, 999)) }}</span>
+                <span class="stat-value" id="likes-count">{{ number_format($nft->likes_count ?? 0) }}</span>
                 <span class="stat-label">Likes</span>
             </div>
             <div class="stat-item">
@@ -622,7 +622,7 @@
                         <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                     </svg>
                 </div>
-                <span class="stat-value">{{ rand(10, 99) }}</span>
+                <span class="stat-value">{{ number_format($nft->offers_count ?? 0) }}</span>
                 <span class="stat-label">Offers</span>
             </div>
             <div class="stat-item">
@@ -631,7 +631,7 @@
                         <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                     </svg>
                 </div>
-                <span class="stat-value">{{ rand(5, 50) }}</span>
+                <span class="stat-value">{{ number_format($nft->trades_count ?? 0) }}</span>
                 <span class="stat-label">Trades</span>
             </div>
         </div>
@@ -641,33 +641,33 @@
         <div class="properties-grid">
             <div class="property-card">
                 <div class="property-type">Background</div>
-                <div class="property-value">{{ $nft['background'] ?? 'Cosmic' }}</div>
-                <div class="property-rarity">{{ rand(5, 25) }}% have this</div>
+                <div class="property-value">{{ $nft->background ?? 'Cosmic' }}</div>
+                <div class="property-rarity">{{ $nft->getPropertyRarity('background') }}% have this</div>
             </div>
             <div class="property-card">
                 <div class="property-type">Rarity</div>
-                <div class="property-value">{{ $nft['rarity'] ?? 'Legendary' }}</div>
-                <div class="property-rarity">{{ rand(1, 10) }}% have this</div>
+                <div class="property-value">{{ $nft->rarity ?? 'Legendary' }}</div>
+                <div class="property-rarity">{{ $nft->getPropertyRarity('rarity') }}% have this</div>
             </div>
             <div class="property-card">
                 <div class="property-type">Edition</div>
-                <div class="property-value">#{{ $nft['edition'] ?? rand(1, 1000) }}</div>
+                <div class="property-value">#{{ $nft->edition ?? $nft->id }}</div>
                 <div class="property-rarity">Unique</div>
             </div>
             <div class="property-card">
                 <div class="property-type">Type</div>
-                <div class="property-value">{{ $nft['type'] ?? 'Art' }}</div>
-                <div class="property-rarity">{{ rand(10, 40) }}% have this</div>
+                <div class="property-value">{{ $nft->type ?? 'Art' }}</div>
+                <div class="property-rarity">{{ $nft->getPropertyRarity('type') }}% have this</div>
             </div>
             <div class="property-card">
                 <div class="property-type">Style</div>
-                <div class="property-value">{{ $nft['style'] ?? '3D' }}</div>
-                <div class="property-rarity">{{ rand(8, 30) }}% have this</div>
+                <div class="property-value">{{ $nft->style ?? '2D' }}</div>
+                <div class="property-rarity">{{ $nft->getPropertyRarity('style') }}% have this</div>
             </div>
             <div class="property-card">
                 <div class="property-type">Tier</div>
-                <div class="property-value">{{ $nft['tier'] ?? 'Gold' }}</div>
-                <div class="property-rarity">{{ rand(5, 15) }}% have this</div>
+                <div class="property-value">{{ $nft->tier ?? 'Standard' }}</div>
+                <div class="property-rarity">{{ $nft->getPropertyRarity('tier') }}% have this</div>
             </div>
         </div>
 
@@ -681,7 +681,7 @@
                     </svg>
                     Contract Address
                 </span>
-                <span class="info-value link">0x1a2b...3c4d</span>
+                <span class="info-value link">{{ $nft->short_contract_address }}</span>
             </div>
             <div class="info-item">
                 <span class="info-label">
@@ -690,7 +690,7 @@
                     </svg>
                     Token ID
                 </span>
-                <span class="info-value">{{ $nft['id'] ?? rand(10000, 99999) }}</span>
+                <span class="info-value">{{ $nft->id }}</span>
             </div>
             <div class="info-item">
                 <span class="info-label">
@@ -699,7 +699,7 @@
                     </svg>
                     Blockchain
                 </span>
-                <span class="info-value">Ethereum</span>
+                <span class="info-value">{{ $nft->blockchain ?? 'Ethereum' }}</span>
             </div>
             <div class="info-item">
                 <span class="info-label">
@@ -708,7 +708,7 @@
                     </svg>
                     Token Standard
                 </span>
-                <span class="info-value">ERC-721</span>
+                <span class="info-value">{{ $nft->token_standard ?? 'ERC-721' }}</span>
             </div>
             <div class="info-item">
                 <span class="info-label">
@@ -717,14 +717,14 @@
                     </svg>
                     Creator Royalty
                 </span>
-                <span class="info-value">5%</span>
+                <span class="info-value">{{ $nft->creator_royalty ?? 5 }}%</span>
             </div>
         </div>
     </div>
 
     <!-- Bottom Action Bar -->
     <div class="bottom-bar">
-        <form action="{{ route('nft.buy', $nft['id']) }}" method="POST" style="flex:1; display:flex;">
+        <form action="{{ route('nft.buy', $nft->id) }}" method="POST" style="flex:1; display:flex;">
             @csrf
             <button type="submit" class="btn-buy">Buy now</button>
         </form>
@@ -823,5 +823,52 @@
         img.setAttribute('draggable', 'false');
         img.addEventListener('dragstart', e => e.preventDefault());
     });
+
+    // Like button functionality
+    const likeBtn = document.getElementById('like-btn');
+    if (likeBtn) {
+        likeBtn.addEventListener('click', async function() {
+            const nftId = this.dataset.nftId;
+            
+            try {
+                const response = await fetch(`/nft/${nftId}/like`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Toggle active class
+                    if (data.liked) {
+                        this.classList.add('active');
+                    } else {
+                        this.classList.remove('active');
+                    }
+                    
+                    // Update likes count in stats
+                    const likesCountEl = document.getElementById('likes-count');
+                    if (likesCountEl) {
+                        likesCountEl.textContent = data.likes_count.toLocaleString();
+                    }
+                } else if (data.error) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: data.error
+                    });
+                }
+            } catch (error) {
+                console.error('Error toggling like:', error);
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Failed to update like'
+                });
+            }
+        });
+    }
 </script>
 @endpush
