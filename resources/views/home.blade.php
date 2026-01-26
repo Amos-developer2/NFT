@@ -163,69 +163,216 @@
         </div>
     </div>
 
-    <!-- Section Header -->
-    <div class="nft-section-header">
-        <h2 class="section-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <path d="M3 9h18" />
-                <path d="M9 21V9" />
-            </svg>
-            NFT Market
-        </h2>
-        <a href="{{ route('collection') }}" class="see-all-btn">
-            <span>My Collection</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-        </a>
+    <!-- NFT Market (Hot) Section -->
+    <div class="nft-scroll-section">
+        <div class="scroll-section-header">
+            <h2 class="scroll-section-title">
+                <span class="title-icon hot">🔥</span>
+                NFT Market
+                <span class="hot-badge">Hot</span>
+            </h2>
+            <a href="{{ route('collection') }}" class="view-more-btn">
+                View More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+        <div class="nft-scroll-container">
+            @forelse($nfts ?? [] as $nft)
+            @php
+            $profit = $nft['value'] - $nft['price'];
+            $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
+            @endphp
+            <div class="nft-scroll-card" data-rarity="{{ $nft['rarity'] }}" data-name="{{ strtolower($nft['name']) }}">
+                <div class="scroll-card-image">
+                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
+                    <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
+                    <span class="profit-tag {{ $profitPercent >= 0 ? 'up' : 'down' }}">
+                        {{ $profitPercent >= 0 ? '+' : '' }}{{ number_format($profitPercent, 0) }}%
+                    </span>
+                </div>
+                <div class="scroll-card-info">
+                    <div class="card-info-row">
+                        <h3 class="card-name">{{ $nft['name'] }}</h3>
+                        <span class="card-id">#{{ $nft['id'] }}</span>
+                    </div>
+                    <div class="card-info-row">
+                        <div class="card-price">
+                            <span class="price-label">Price</span>
+                            <span class="price-value">{{ number_format($nft['price'], 2) }} <small>USDT</small></span>
+                        </div>
+                        <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="empty-scroll-state">
+                <span>🎨</span>
+                <p>No NFTs available</p>
+            </div>
+            @endforelse
+        </div>
     </div>
 
-    <!-- NFT Grid -->
-    <div class="nft-market-grid">
-        @forelse($nfts ?? [] as $nft)
-        @php
-        $profit = $nft['value'] - $nft['price'];
-        $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
-        @endphp
-        <div class="nft-market-card" data-rarity="{{ $nft['rarity'] }}" data-name="{{ strtolower($nft['name']) }}">
-            <div class="card-image-section">
-                <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}" class="card-image">
-                <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
-                <span class="profit-tag {{ $profitPercent >= 0 ? 'up' : 'down' }}">
-                    {{ $profitPercent >= 0 ? '+' : '' }}{{ number_format($profitPercent, 0) }}%
-                </span>
-            </div>
-            <div class="card-details">
-                <div class="details-row">
-                    <h3 class="nft-name">{{ $nft['name'] }}</h3>
-                    <span class="nft-id">#{{ $nft['id'] }}</span>
-                </div>
-                <div class="details-row">
-                    <div class="nft-price">
-                        <span style="font-size:10px; color:#94a3b8; font-weight:500;">Price</span>
-                        <span style="display:block; font-size:11px; color:#64748b;">
-                            <span>{{ isset($nft['price']) ? number_format($nft['price'], 2) : '--' }}</span>
-                            <span style="font-size:10px; color:#94a3b8; font-weight:500;">USDT</span>
-                        </span>
-                    </div>
-                    <a href="{{ route('nft.purchase', $nft['id']) }}" class="buy-btn">Buy</a>
-                </div>
-            </div>
-        </div>
-        @empty
-        <div class="empty-state">
-            <div class="empty-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <path d="M3 9h18" />
-                    <path d="M9 21V9" />
+    <!-- Top Profits Section -->
+    <div class="nft-scroll-section">
+        <div class="scroll-section-header">
+            <h2 class="scroll-section-title">
+                <span class="title-icon profit">📈</span>
+                Top Profits
+            </h2>
+            <a href="{{ route('collection') }}" class="view-more-btn">
+                View More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-            </div>
-            <h3>No NFTs Available</h3>
-            <p>Check back later for new listings</p>
+            </a>
         </div>
-        @endforelse
+        <div class="nft-scroll-container">
+            @php
+            $topProfits = collect($nfts ?? [])->sortByDesc(function($nft) {
+                return $nft['price'] > 0 ? (($nft['value'] - $nft['price']) / $nft['price']) * 100 : 0;
+            })->take(10);
+            @endphp
+            @forelse($topProfits as $nft)
+            @php
+            $profit = $nft['value'] - $nft['price'];
+            $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
+            @endphp
+            <div class="nft-scroll-card profit-card">
+                <div class="scroll-card-image">
+                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
+                    <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
+                    <span class="profit-tag up large">
+                        +{{ number_format($profitPercent, 0) }}%
+                    </span>
+                </div>
+                <div class="scroll-card-info">
+                    <div class="card-info-row">
+                        <h3 class="card-name">{{ $nft['name'] }}</h3>
+                        <span class="card-id">#{{ $nft['id'] }}</span>
+                    </div>
+                    <div class="card-info-row">
+                        <div class="card-price">
+                            <span class="price-label">Price</span>
+                            <span class="price-value">{{ number_format($nft['price'], 2) }} <small>USDT</small></span>
+                        </div>
+                        <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="empty-scroll-state">
+                <span>📈</span>
+                <p>No profitable NFTs</p>
+            </div>
+            @endforelse
+        </div>
+    </div>
+
+    <!-- Top Selling Section -->
+    <div class="nft-scroll-section">
+        <div class="scroll-section-header">
+            <h2 class="scroll-section-title">
+                <span class="title-icon selling">💰</span>
+                Top Selling
+            </h2>
+            <a href="{{ route('collection') }}" class="view-more-btn">
+                View More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+        <div class="nft-scroll-container">
+            @php
+            $topSelling = collect($nfts ?? [])->sortByDesc('price')->take(10);
+            @endphp
+            @forelse($topSelling as $nft)
+            @php
+            $profit = $nft['value'] - $nft['price'];
+            $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
+            @endphp
+            <div class="nft-scroll-card selling-card">
+                <div class="scroll-card-image">
+                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
+                    <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
+                    <span class="sell-rank">🏆</span>
+                </div>
+                <div class="scroll-card-info">
+                    <div class="card-info-row">
+                        <h3 class="card-name">{{ $nft['name'] }}</h3>
+                        <span class="card-id">#{{ $nft['id'] }}</span>
+                    </div>
+                    <div class="card-info-row">
+                        <div class="card-price">
+                            <span class="price-label">Price</span>
+                            <span class="price-value highlight">{{ number_format($nft['price'], 2) }} <small>USDT</small></span>
+                        </div>
+                        <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="empty-scroll-state">
+                <span>💰</span>
+                <p>No top selling NFTs</p>
+            </div>
+            @endforelse
+        </div>
+    </div>
+
+    <!-- Editor's Choice Section -->
+    <div class="nft-scroll-section">
+        <div class="scroll-section-header">
+            <h2 class="scroll-section-title">
+                <span class="title-icon editor">⭐</span>
+                Editor's Choice
+            </h2>
+            <a href="{{ route('collection') }}" class="view-more-btn">
+                View More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+        <div class="nft-scroll-container">
+            @php
+            $editorChoice = collect($nfts ?? [])->whereIn('rarity', ['Legendary', 'Epic'])->take(10);
+            @endphp
+            @forelse($editorChoice as $nft)
+            @php
+            $profit = $nft['value'] - $nft['price'];
+            $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
+            @endphp
+            <div class="nft-scroll-card editor-card">
+                <div class="editor-badge">✨ Editor Pick</div>
+                <div class="scroll-card-image">
+                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
+                    <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
+                </div>
+                <div class="scroll-card-info">
+                    <div class="card-info-row">
+                        <h3 class="card-name">{{ $nft['name'] }}</h3>
+                        <span class="card-id">#{{ $nft['id'] }}</span>
+                    </div>
+                    <div class="card-info-row">
+                        <div class="card-price">
+                            <span class="price-label">Price</span>
+                            <span class="price-value">{{ number_format($nft['price'], 2) }} <small>USDT</small></span>
+                        </div>
+                        <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="empty-scroll-state">
+                <span>⭐</span>
+                <p>No editor picks yet</p>
+            </div>
+            @endforelse
+        </div>
     </div>
 
     <!-- Bottom Stats -->
@@ -770,6 +917,283 @@
         text-decoration: none;
     }
 
+    /* Horizontal Scroll Sections */
+    .nft-scroll-section {
+        margin-bottom: 28px;
+    }
+
+    .scroll-section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        padding: 0 2px;
+    }
+
+    .scroll-section-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 17px;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+    }
+
+    .title-icon {
+        font-size: 18px;
+    }
+
+    .hot-badge {
+        background: linear-gradient(135deg, #ef4444, #f97316);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .view-more-btn {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #2A6CF6;
+        text-decoration: none;
+        padding: 6px 12px;
+        background: rgba(42, 108, 246, 0.08);
+        border-radius: 16px;
+        transition: all 0.2s ease;
+    }
+
+    .view-more-btn:active {
+        transform: scale(0.96);
+        background: rgba(42, 108, 246, 0.15);
+    }
+
+    .nft-scroll-container {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding: 4px 2px 12px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .nft-scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nft-scroll-card {
+        flex: 0 0 calc(50% - 6px);
+        min-width: calc(50% - 6px);
+        max-width: calc(50% - 6px);
+        background: #fff;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(42, 108, 246, 0.08);
+        scroll-snap-align: start;
+        transition: transform 0.2s ease;
+        position: relative;
+    }
+
+    .nft-scroll-card:active {
+        transform: scale(0.98);
+    }
+
+    .scroll-card-image {
+        position: relative;
+        aspect-ratio: 1;
+        overflow: hidden;
+        padding: 6px;
+    }
+
+    .scroll-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .scroll-card-image .rarity-tag {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .scroll-card-image .profit-tag {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    .profit-tag.large {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    .sell-rank {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 18px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .scroll-card-info {
+        padding: 12px;
+    }
+
+    .card-info-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .card-info-row:first-child {
+        margin-bottom: 8px;
+    }
+
+    .card-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .card-id {
+        font-size: 10px;
+        color: #94a3b8;
+        font-weight: 500;
+        flex-shrink: 0;
+    }
+
+    .card-price {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .price-label {
+        font-size: 10px;
+        color: #94a3b8;
+        font-weight: 500;
+    }
+
+    .price-value {
+        font-size: 13px;
+        font-weight: 700;
+        color: #1e293b;
+    }
+
+    .price-value.highlight {
+        color: #22c55e;
+    }
+
+    .price-value small {
+        font-size: 10px;
+        color: #94a3b8;
+        font-weight: 500;
+    }
+
+    .card-buy-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px;
+        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+        border: none;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .card-buy-btn:active {
+        transform: scale(0.95);
+        background: linear-gradient(135deg, #1d5ed9, #2a7cf6);
+    }
+
+    /* Editor's Choice Card */
+    .editor-card {
+        border: 2px solid rgba(251, 191, 36, 0.3);
+    }
+
+    .editor-badge {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(90deg, #fbbf24, #f59e0b);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 4px;
+        text-align: center;
+        z-index: 10;
+    }
+
+    .editor-card .scroll-card-image {
+        padding-top: 26px;
+    }
+
+    /* Profit Card */
+    .profit-card {
+        border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    /* Selling Card */
+    .selling-card {
+        border: 1px solid rgba(42, 108, 246, 0.15);
+    }
+
+    .empty-scroll-state {
+        flex: 0 0 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 20px;
+        background: #fff;
+        border-radius: 14px;
+        text-align: center;
+    }
+
+    .empty-scroll-state span {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .empty-scroll-state p {
+        font-size: 13px;
+        color: #64748b;
+        margin: 0;
+    }
+
     .nft-market-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -1036,26 +1460,32 @@
         }
         setInterval(updateChange2m, 15000);
 
+        // Filter chips for the first NFT Market section
         document.querySelectorAll('.nft-chip').forEach(chip => {
             chip.addEventListener('click', function() {
                 document.querySelectorAll('.nft-chip').forEach(c => c.classList.remove('active'));
                 this.classList.add('active');
 
                 const filter = this.dataset.filter;
-                document.querySelectorAll('.nft-market-card').forEach(card => {
-                    if (filter === 'all' || card.dataset.rarity === filter) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+                // Only filter the first NFT Market section
+                const marketSection = document.querySelector('.nft-scroll-section');
+                if (marketSection) {
+                    marketSection.querySelectorAll('.nft-scroll-card').forEach(card => {
+                        if (filter === 'all' || card.dataset.rarity === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
             });
         });
 
+        // Search functionality
         document.getElementById('nftSearch').addEventListener('input', function() {
             const query = this.value.toLowerCase();
-            document.querySelectorAll('.nft-market-card').forEach(card => {
-                const name = card.dataset.name;
+            document.querySelectorAll('.nft-scroll-card').forEach(card => {
+                const name = card.dataset.name || '';
                 card.style.display = name.includes(query) ? 'block' : 'none';
             });
         });
