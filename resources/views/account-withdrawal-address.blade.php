@@ -511,6 +511,7 @@
         font-weight: 600;
         color: #1e293b;
         margin-bottom: 16px;
+        justify-content: flex-start;
     }
 
     .section-header svg {
