@@ -179,13 +179,12 @@
                        name="address" 
                        id="address"
                        class="form-input" 
-                       placeholder="Enter your wallet address"
+                       placeholder="Select network first, then enter address"
                        value="{{ old('address') }}"
                        required>
+                <p class="input-hint" id="addressHint">Select a currency/network above to see address format</p>
             </div>
-            @error('address')
-                <span class="error-text">{{ $message }}</span>
-            @enderror
+            <span class="error-text" id="addressError">@error('address'){{ $message }}@enderror</span>
         </div>
 
         <!-- Email Verification -->
@@ -902,5 +901,98 @@
             }
         });
     }
+
+    // Address validation patterns for each network
+    const addressPatterns = {
+        'usdt_trc20': {
+            pattern: /^T[A-HJ-NP-Za-km-z1-9]{33}$/,
+            example: 'T...',
+            description: 'TRON address (starts with T, 34 characters)'
+        },
+        'usdt_bep20': {
+            pattern: /^0x[a-fA-F0-9]{40}$/,
+            example: '0x...',
+            description: 'BSC address (starts with 0x, 42 characters)'
+        },
+        'usdc_bep20': {
+            pattern: /^0x[a-fA-F0-9]{40}$/,
+            example: '0x...',
+            description: 'BSC address (starts with 0x, 42 characters)'
+        },
+        'bnb_bsc': {
+            pattern: /^0x[a-fA-F0-9]{40}$/,
+            example: '0x...',
+            description: 'BSC address (starts with 0x, 42 characters)'
+        }
+    };
+
+    // Update address input placeholder based on selected network
+    document.querySelectorAll('input[name="currency_network"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const addressInput = document.getElementById('address');
+            const hintElement = document.getElementById('addressHint');
+            const pattern = addressPatterns[this.value];
+            
+            if (pattern) {
+                addressInput.placeholder = `Enter your ${pattern.description}`;
+                if (hintElement) {
+                    hintElement.textContent = pattern.description;
+                }
+            }
+            
+            // Re-validate if address already entered
+            if (addressInput.value) {
+                validateAddress();
+            }
+        });
+    });
+
+    // Validate address format
+    function validateAddress() {
+        const addressInput = document.getElementById('address');
+        const selectedNetwork = document.querySelector('input[name="currency_network"]:checked');
+        const errorElement = document.getElementById('addressError');
+        
+        if (!selectedNetwork) {
+            if (errorElement) errorElement.textContent = 'Please select a network first';
+            return false;
+        }
+        
+        const pattern = addressPatterns[selectedNetwork.value];
+        const address = addressInput.value.trim();
+        
+        if (!address) {
+            if (errorElement) errorElement.textContent = '';
+            addressInput.style.borderColor = '#e2e8f0';
+            return false;
+        }
+        
+        if (!pattern.pattern.test(address)) {
+            if (errorElement) {
+                errorElement.textContent = `Invalid address format. ${pattern.description}`;
+            }
+            addressInput.style.borderColor = '#ef4444';
+            return false;
+        }
+        
+        if (errorElement) errorElement.textContent = '';
+        addressInput.style.borderColor = '#22c55e';
+        return true;
+    }
+
+    // Add input event listener for real-time validation
+    document.getElementById('address')?.addEventListener('input', validateAddress);
+    document.getElementById('address')?.addEventListener('blur', validateAddress);
+
+    // Form submission validation
+    document.getElementById('bindAddressForm')?.addEventListener('submit', function(e) {
+        if (!validateAddress()) {
+            e.preventDefault();
+            if (typeof nativeAlert === 'function') {
+                nativeAlert('Please enter a valid wallet address for the selected network.', { type: 'error', title: 'Invalid Address' });
+            }
+            return false;
+        }
+    });
 </script>
 @endsection

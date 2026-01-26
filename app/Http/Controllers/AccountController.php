@@ -187,6 +187,31 @@ class AccountController extends Controller
             'pin' => 'required|digits:4',
         ]);
 
+        // Validate address format based on network
+        $address = $request->address;
+        $network = $request->currency_network;
+        $addressValid = false;
+        $expectedFormat = '';
+
+        switch ($network) {
+            case 'usdt_trc20':
+                // TRON address: starts with T, 34 characters, Base58
+                $addressValid = preg_match('/^T[A-HJ-NP-Za-km-z1-9]{33}$/', $address);
+                $expectedFormat = 'TRON address (starts with T, 34 characters)';
+                break;
+            case 'usdt_bep20':
+            case 'usdc_bep20':
+            case 'bnb_bsc':
+                // BSC/Ethereum address: starts with 0x, 42 characters (40 hex + 0x)
+                $addressValid = preg_match('/^0x[a-fA-F0-9]{40}$/', $address);
+                $expectedFormat = 'BSC address (starts with 0x, 42 characters)';
+                break;
+        }
+
+        if (!$addressValid) {
+            return back()->withErrors(['address' => "Invalid address format. Expected: {$expectedFormat}"])->withInput();
+        }
+
         // Verify email code
         $sessionCode = session('address_verification_code');
         $expires = session('address_verification_expires');
