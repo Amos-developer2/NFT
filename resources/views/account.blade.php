@@ -4,140 +4,47 @@
 
 @push('styles')
 <link rel="stylesheet" href="/css/account.css">
-@endpush
-
-@section('content')
-<!-- Page Header -->
-@include('partials.header', ['title' => 'Account'])
-
-<!-- Account Hero Card -->
-<div class="account-hero-card">
-    <div class="account-hero-bg"></div>
-    <div class="account-hero-content">
-        <div class="account-profile-section">
-            <div class="account-avatar">
-                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                @if(Auth::user()->hasVerifiedEmail())
-                <span class="verified-check">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                </span>
-                @endif
-            </div>
-            <div class="account-details">
-                <h2 class="account-name">{{ Auth::user()->name }}</h2>
-                <p class="account-email">{{ Auth::user()->email }}</p>
-            </div>
-        </div>
-        
-        <div class="account-badges">
-            <div class="account-badge {{ Auth::user()->hasVerifiedEmail() ? 'verified' : 'pending' }}">
-                @if(Auth::user()->hasVerifiedEmail())
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>Verified</span>
-                @else
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M12 8v4M12 16h.01"/>
-                </svg>
-                <span>Unverified</span>
-                @endif
-            </div>
-            <div class="account-badge id-badge">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                </svg>
-                <span>{{ Auth::user()->account_id }}</span>
-            </div>
-        </div>
-    </div>
-</div>
-
 <style>
-    .account-hero-card {
-        position: relative;
-        border-radius: 24px;
-        overflow: hidden;
-        margin-bottom: 20px;
-        padding: 24px 20px;
-    }
-
-    .account-hero-bg {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 50%, #60a5fa 100%);
-    }
-
-    .account-hero-bg::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -30%;
-        width: 200px;
-        height: 200px;
-        background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
-        border-radius: 50%;
-    }
-
-    .account-hero-bg::after {
-        content: '';
-        position: absolute;
-        bottom: -40%;
-        left: -20%;
-        width: 150px;
-        height: 150px;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        border-radius: 50%;
-    }
-
-    .account-hero-content {
-        position: relative;
-    }
-
-    .account-profile-section {
+    .account-profile {
         display: flex;
         align-items: center;
         gap: 16px;
-        margin-bottom: 16px;
+        padding: 40px 15px 15px;
     }
 
     .account-avatar {
-        width: 64px;
-        height: 64px;
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 100%);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 26px;
+        font-size: 28px;
         font-weight: 700;
         color: white;
         position: relative;
         flex-shrink: 0;
-        border: 2px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 6px 20px rgba(42, 108, 246, 0.25);
     }
 
-    .verified-check {
+    .verified-badge {
         position: absolute;
-        bottom: -3px;
-        right: -3px;
+        bottom: 0;
+        right: 0;
         width: 22px;
         height: 22px;
         background: #22c55e;
-        border-radius: 8px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
-        border: 2px solid #3B8CFF;
+        border: 2px solid #f8fafc;
+        box-shadow: 0 2px 6px rgba(34, 197, 94, 0.3);
     }
 
-    .account-details {
+    .account-info {
         flex: 1;
         min-width: 0;
     }
@@ -145,8 +52,8 @@
     .account-name {
         font-size: 20px;
         font-weight: 700;
-        color: white;
-        margin: 0 0 4px;
+        color: #1e293b;
+        margin: 0 0 2px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -154,47 +61,109 @@
 
     .account-email {
         font-size: 13px;
-        color: rgba(255, 255, 255, 0.8);
-        margin: 0;
+        color: #64748b;
+        margin: 0 0 8px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    .account-badges {
+    .account-meta {
         display: flex;
-        gap: 10px;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
     }
 
-    .account-badge {
+    .meta-item {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        padding: 8px 14px;
-        border-radius: 10px;
-        font-size: 12px;
-        font-weight: 600;
-        backdrop-filter: blur(10px);
+        gap: 4px;
+        color: #64748b;
     }
 
-    .account-badge.verified {
-        background: rgba(34, 197, 94, 0.2);
-        color: #bbf7d0;
-        border: 1px solid rgba(34, 197, 94, 0.3);
+    .meta-item svg {
+        color: #94a3b8;
     }
 
-    .account-badge.pending {
-        background: rgba(251, 191, 36, 0.2);
-        color: #fef08a;
-        border: 1px solid rgba(251, 191, 36, 0.3);
+    .meta-divider {
+        color: #cbd5e1;
+        font-size: 10px;
     }
 
-    .account-badge.id-badge {
-        background: rgba(255, 255, 255, 0.12);
-        color: rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.15);
+    .meta-item.status-verified {
+        color: #22c55e;
+    }
+
+    .meta-item.status-verified svg {
+        color: #22c55e;
+    }
+
+    .meta-item.status-pending {
+        color: #f59e0b;
+    }
+
+    .meta-item.status-pending svg {
+        color: #f59e0b;
+    }
+
+    .colored-toast {
+        background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%) !important;
+        color: #fff !important;
+        font-weight: 700;
+        font-size: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
     }
 </style>
+@endpush
+
+@section('content')
+<!-- Page Header -->
+@include('partials.header', ['title' => 'Account'])
+
+<!-- Account Profile Section -->
+<div class="account-profile">
+    <div class="account-avatar">
+        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+        @if(Auth::user()->hasVerifiedEmail())
+        <span class="verified-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+        </span>
+        @endif
+    </div>
+    
+    <div class="account-info">
+        <h2 class="account-name">{{ Auth::user()->name }}</h2>
+        <p class="account-email">{{ Auth::user()->email }}</p>
+        <div class="account-meta">
+            <span class="meta-item">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                {{ Auth::user()->account_id }}
+            </span>
+            <span class="meta-divider">•</span>
+            <span class="meta-item status-{{ Auth::user()->hasVerifiedEmail() ? 'verified' : 'pending' }}">
+                @if(Auth::user()->hasVerifiedEmail())
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Verified
+                @else
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 8v4M12 16h.01"/>
+                </svg>
+                Unverified
+                @endif
+            </span>
+        </div>
+    </div>
+</div>
 
 <!-- SweetAlert2 Toast for Success/Error Messages -->
 @if(session('success'))
@@ -237,16 +206,6 @@
     });
 </script>
 @endif
-<style>
-    .colored-toast {
-        background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%) !important;
-        color: #fff !important;
-        font-weight: 700;
-        font-size: 1rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
-    }
-</style>
 
 <!-- Settings Sections -->
 <div class="settings-container">
