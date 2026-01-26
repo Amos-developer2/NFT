@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 
 
 class AccountController extends Controller
@@ -133,5 +135,92 @@ class AccountController extends Controller
         $user->save();
 
         return redirect()->route('account')->with('success', 'Withdrawal PIN updated successfully!');
+    }
+
+    /**
+     * Display the withdrawal address binding page.
+     */
+    public function editWithdrawalAddress()
+    {
+        return view('account-withdrawal-address');
+    }
+
+    /**
+     * Send verification code for withdrawal address binding.
+     */
+    public function sendAddressVerificationCode(Request $request)
+    {
+        $user = Auth::user();
+        
+        // Check if address is already bound
+        if ($user->withdrawal_address) {
+            return response()->json(['error' => 'Withdrawal address is already bound.'], 400);
+        }
+        
+        $code = random_int(100000, 999999);
+        session(['address_verification_code' => $code, 'address_verification_expires' => now()->addMinutes(10)]);
+
+        Mail::raw("Your withdrawal address binding verification code is: $code\n\nThis code will expire in 10 minutes.", function ($message) use ($user) {
+            $message->to($user->email)
+                ->subject('Withdrawal Address Binding - Verification Code');
+        });
+
+        return response()->json(['sent' => true, 'message' => 'Verification code sent to your email.']);
+    }
+
+    /**
+     * Bind withdrawal address.
+     */
+    public function bindWithdrawalAddress(Request $request)
+    {
+        $user = Auth::user();
+        
+        // Check if address is already bound
+        if ($user->withdrawal_address) {
+            return back()->withErrors(['address' => 'Withdrawal address is already bound and cannot be changed.']);
+        }
+
+        $request->validate([
+            'currency_network' => 'required|in:usdt_trc20,usdt_bep20,usdc_bep20,bnb_bsc',
+            'address' => 'required|string|min:20|max:100',
+            'verification_code' => 'required|digits:6',
+            'pin' => 'required|digits:4',
+        ]);
+
+        // Verify email code
+        $sessionCode = session('address_verification_code');
+        $expires = session('address_verification_expires');
+        
+        if (!$sessionCode || $request->verification_code != $sessionCode) {
+            return back()->withErrors(['verification_code' => 'Invalid verification code.'])->withInput();
+        }
+        
+        if ($expires && now()->gt($expires)) {
+            return back()->withErrors(['verification_code' => 'Verification code has expired.'])->withInput();
+        }
+
+        // Verify PIN
+        if (!$user->withdrawal_pin) {
+            return back()->withErrors(['pin' => 'Please set a withdrawal PIN first.'])->withInput();
+        }
+        
+        if (!Hash::check($request->pin, $user->withdrawal_pin)) {
+            return back()->withErrors(['pin' => 'Incorrect withdrawal PIN.'])->withInput();
+        }
+
+        // Parse currency and network
+        [$currency, $network] = explode('_', $request->currency_network);
+
+        // Bind the address
+        $user->withdrawal_address = $request->address;
+        $user->withdrawal_currency = strtoupper($currency);
+        $user->withdrawal_network = strtoupper($network);
+        $user->withdrawal_address_bound_at = now();
+        $user->save();
+
+        // Clear session
+        session()->forget(['address_verification_code', 'address_verification_expires']);
+
+        return redirect()->route('account')->with('success', 'Withdrawal address bound successfully!');
     }
 }

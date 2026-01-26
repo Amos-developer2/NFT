@@ -29,6 +29,10 @@ class User extends Authenticatable
         'balance',
         'verification_code',
         'verification_expires_at',
+        'withdrawal_address',
+        'withdrawal_currency',
+        'withdrawal_network',
+        'withdrawal_address_bound_at',
     ];
 
     /**

@@ -122,6 +122,26 @@
                         </div>
                         <img src="/icons/arrow-left.svg" alt="Go" class="action-arrow">
                     </a>
+                    <a href="{{ route('account.withdrawal-address.edit') }}" class="action-item">
+                        <div class="action-icon wallet">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/>
+                                <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/>
+                                <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"/>
+                            </svg>
+                        </div>
+                        <div class="action-text">
+                            <span class="action-title">Withdrawal Address
+                                @if(Auth::user()->withdrawal_address)
+                                <span class="badge" style="background:#22c55e;color:#fff;font-size:0.8em;padding:2px 8px;border-radius:8px;margin-left:8px;">Bound</span>
+                                @else
+                                <span class="badge" style="background:#f59e0b;color:#fff;font-size:0.8em;padding:2px 8px;border-radius:8px;margin-left:8px;">Not Set</span>
+                                @endif
+                            </span>
+                            <span class="action-desc">Bind your withdrawal wallet</span>
+                        </div>
+                        <img src="/icons/arrow-left.svg" alt="Go" class="action-arrow">
+                    </a>
                     <a href="{{ route('account.2fa') }}" class="action-item">
                         <div class="action-icon twofa">
                             <img src="/icons/settings.svg" alt="2FA">

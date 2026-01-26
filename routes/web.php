@@ -58,6 +58,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/account/password/verify-code', [App\Http\Controllers\AccountController::class, 'verifyVerificationCode'])->name('account.password.verifyCode');
     Route::get('/account/pin', [App\Http\Controllers\AccountController::class, 'editPin'])->name('account.pin.edit');
     Route::put('/account/pin', [App\Http\Controllers\AccountController::class, 'updatePin'])->name('account.pin');
+    Route::get('/account/withdrawal-address', [App\Http\Controllers\AccountController::class, 'editWithdrawalAddress'])->name('account.withdrawal-address.edit');
+    Route::post('/account/withdrawal-address/send-code', [App\Http\Controllers\AccountController::class, 'sendAddressVerificationCode'])->name('account.withdrawal-address.sendCode');
+    Route::post('/account/withdrawal-address', [App\Http\Controllers\AccountController::class, 'bindWithdrawalAddress'])->name('account.withdrawal-address.bind');
 
     // Two-Factor Authentication routes
     Route::get('/account/2fa', [App\Http\Controllers\TwoFactorController::class, 'show2faForm'])->name('account.2fa');
