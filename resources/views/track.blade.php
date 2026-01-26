@@ -40,11 +40,11 @@
 </style>
 @endpush
 
-<!-- Summary Card -->
-<div class="total-card"
-    style="margin:70px 10px;background:linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);border-radius:14px;padding:1.1rem 1.2rem 0.7rem 1.2rem;box-shadow:0 2px 8px rgba(14,165,233,0.10);color:#fff;">
+
+<!-- Auction Summary Card (restored) -->
+<div class="total-card" style="margin:70px 10px;background:linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);border-radius:14px;padding:1.1rem 1.2rem 0.7rem 1.2rem;box-shadow:0 2px 8px rgba(14,165,233,0.10);color:#fff;">
     <style>
-        .total-car .total-card * {
+        .total-card * {
             color: #fff !important;
         }
     </style>
@@ -67,7 +67,6 @@
             <span class="stat-label" style="display:block;font-size:0.98rem;font-weight:500;opacity:0.9;color: #ffff;">Sold</span>
         </div>
     </div>
-
     <!-- Filter Buttons -->
     <div class="auction-filter-btns" style="display:flex;gap:12px;justify-content:center;margin:13px auto 1.2rem auto;max-width:500px;width:100%;">
         <button id="btn-active" class="auction-filter-btn active" style="flex:1;padding:0.85rem 0;background:rgba(255,255,255,0.13);border:none;border-radius:10px;font-weight:600;font-size:1.08rem;color:#fff;transition:background 0.18s;">Active</button>
@@ -125,6 +124,88 @@
         });
     </script>
 </div>
+<style>
+    .withdraw-card {
+        margin: 1.5rem auto;
+        background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+        border-radius: 18px;
+        padding: 1.2rem 1rem 1.1rem 1rem;
+        box-shadow: 0 2px 8px rgba(14, 165, 233, 0.10);
+        color: #fff;
+        max-width: 340px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.7rem;
+    }
+
+    .withdraw-icon {
+        margin-bottom: 0.2rem;
+    }
+
+    .withdraw-title {
+        font-size: 1.18rem;
+        font-weight: 700;
+        margin-bottom: 0.1rem;
+        text-align: center;
+    }
+
+    .withdraw-desc {
+        font-size: 0.98rem;
+        opacity: 0.95;
+        margin-bottom: 0.7rem;
+        text-align: center;
+    }
+
+    .withdraw-stats {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        gap: 0.7rem;
+    }
+
+    .withdraw-stat {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 0.7rem 0.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 0;
+    }
+
+    .withdraw-stat-label {
+        font-size: 0.78rem;
+        font-weight: 600;
+        opacity: 0.85;
+        margin-bottom: 0.18rem;
+        letter-spacing: 0.02em;
+        text-align: center;
+    }
+
+    .withdraw-stat-value {
+        font-size: 1.08rem;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    @media (max-width: 600px) {
+        .withdraw-card {
+            max-width: 100%;
+            padding: 1.1rem 0.5rem 1rem 0.5rem;
+        }
+
+        .withdraw-stats {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .withdraw-stat {
+            padding: 0.7rem 0.3rem;
+        }
+    }
+</style>
 
 @section('content')
 <div class="track-auctions-container"
