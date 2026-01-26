@@ -164,11 +164,13 @@
 
 @php
 $status = $auction->status;
+$isSold = $status === 'sold';
 $isActive = $status === 'auction';
+$isFailed = $status === 'failed';
 $nft = $auction->nft;
 @endphp
 
-<div class="auction-details-container">
+<div class="auction-details-container" style="margin:-35px 0 0 0;">
     <div class="auction-card">
 
         <img src="{{ $nft->image ?? '/images/default-auction.png' }}" class="nft-cover">
@@ -190,11 +192,34 @@ $nft = $auction->nft;
                 </div>
             </div>
 
-            <div class="info-grid">
-                <div><strong>Seller</strong>{{ $auction->seller->username ?? '-' }}</div>
-                <div><strong>Highest Bidder</strong>{{ $auction->highestBidder->username ?? '-' }}</div>
-                <div><strong>Auction Ends</strong>{{ \Carbon\Carbon::parse($auction->end_time)->diffForHumans() }}</div>
-                <div><strong>Status</strong>{{ ucfirst($status) }}</div>
+            <div class="auction-info-row">
+                <div class="info-block">
+                    <div><strong>Seller:</strong> {{ $auction->seller->name ?? '-' }}</div>
+                    <div><strong>Highest Bidder:</strong>
+                        @if($isSold && isset($auction->buyer))
+                        {{ $auction->buyer->name ?? '-' }}
+                        @elseif($auction->highestBidder)
+                        {{ $auction->highestBidder->name ?? '-' }}
+                        @else
+                        -
+                        @endif
+                    </div>
+                    <div><strong>Status:</strong>
+                        @if($isSold)
+                        <span style="color:#22c55e;font-weight:600;">Sold</span>
+                        @elseif($isActive)
+                        <span style="color:#0ea5e9;font-weight:600;">On Auction</span>
+                        @elseif($isFailed)
+                        <span style="color:#ef4444;font-weight:600;">Failed</span>
+                        @else
+                        -
+                        @endif
+                    </div>
+                </div>
+                <div class="info-block">
+                    <div><strong>Auction ID:</strong> #{{ $auction->id }}</div>
+                    <div><strong>Ends:</strong> @if(!empty($auction->end_time)){{ \Carbon\Carbon::parse($auction->end_time)->diffForHumans() }}@else - @endif</div>
+                </div>
             </div>
 
             @if($isActive)
