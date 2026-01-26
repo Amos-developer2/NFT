@@ -300,6 +300,13 @@
         padding: 0 16px 100px;
         background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
         min-height: 100vh;
+        max-width: 430px;
+        margin: 0 auto;
+        overflow-x: hidden;
+    }
+
+    .withdrawal-address-wrapper * {
+        box-sizing: border-box;
     }
 
     /* Header Card */
@@ -492,6 +499,8 @@
         padding: 20px;
         margin-bottom: 16px;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        width: 100%;
+        overflow: hidden;
     }
 
     .section-header {
@@ -505,7 +514,14 @@
     }
 
     .section-header svg {
+        flex-shrink: 0;
         color: #2A6CF6;
+    }
+
+    .section-header span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     /* Network Grid */
@@ -513,10 +529,13 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
+        width: 100%;
     }
 
     .network-option {
         cursor: pointer;
+        display: block;
+        min-width: 0;
     }
 
     .network-option input {
@@ -526,12 +545,13 @@
     .network-card {
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 14px;
+        gap: 8px;
+        padding: 12px;
         background: #f8fafc;
         border: 2px solid #e2e8f0;
         border-radius: 12px;
         transition: all 0.25s;
+        min-width: 0;
     }
 
     .network-option input:checked + .network-card {
@@ -540,10 +560,11 @@
     }
 
     .network-icon {
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
         background: #fff;
-        border-radius: 10px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -551,30 +572,36 @@
     }
 
     .network-icon img {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
     }
 
     .network-info {
         flex: 1;
+        min-width: 0;
+        overflow: hidden;
     }
 
     .network-name {
         display: block;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
         color: #1e293b;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .network-chain {
         display: block;
-        font-size: 11px;
+        font-size: 10px;
         color: #64748b;
     }
 
     .check-mark {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
         background: #e2e8f0;
         border-radius: 50%;
         display: flex;
@@ -585,6 +612,11 @@
         transition: all 0.25s;
     }
 
+    .check-mark svg {
+        width: 12px;
+        height: 12px;
+    }
+
     .network-option input:checked + .network-card .check-mark {
         background: #2A6CF6;
         opacity: 1;
@@ -593,6 +625,7 @@
     /* Form Inputs */
     .input-group {
         position: relative;
+        width: 100%;
     }
 
     .form-input {
@@ -605,6 +638,7 @@
         color: #1e293b;
         transition: all 0.25s;
         outline: none;
+        box-sizing: border-box;
     }
 
     .form-input:focus {
@@ -620,26 +654,29 @@
     .verification-row {
         display: flex;
         gap: 10px;
+        width: 100%;
     }
 
     .code-input {
         flex: 1;
-        letter-spacing: 4px;
+        min-width: 0;
+        letter-spacing: 2px;
         text-align: center;
         font-weight: 600;
     }
 
     .send-code-btn {
-        padding: 14px 20px;
+        padding: 14px 16px;
         background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 100%);
         border: none;
         border-radius: 12px;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
         color: #fff;
         cursor: pointer;
         white-space: nowrap;
         transition: all 0.25s;
+        flex-shrink: 0;
     }
 
     .send-code-btn:disabled {
@@ -652,9 +689,10 @@
     }
 
     .input-hint {
-        font-size: 12px;
+        font-size: 11px;
         color: #94a3b8;
         margin: 8px 0 0;
+        word-break: break-word;
     }
 
     /* No PIN Notice */
