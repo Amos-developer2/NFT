@@ -316,7 +316,7 @@
     /* Header Card */
     .team-header-card {
         position: relative;
-        border-radius: 24px;
+        border-radius: 6px;
         overflow: hidden;
         margin-bottom: 20px;
         padding: 28px 20px 20px;
@@ -448,7 +448,7 @@
         background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
         border: 1px solid #e2e8f0;
         border-radius: 14px;
-        padding: 16px 20px;
+        padding: 10px;
         margin-bottom: 16px;
     }
 
