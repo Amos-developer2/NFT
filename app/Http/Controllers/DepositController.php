@@ -37,14 +37,15 @@ class DepositController extends Controller
         [$currency, $network] = explode('_', $request->currency_network);
         $amount   = $request->amount;
 
-        // Map network to NOWPayments format
-        $networkMap = [
-            'trc20' => 'trx',
-            'bep20' => 'bsc',
-            'bsc'   => 'bsc',
+        // Map to NowPayments pay_currency format (combined currency+network codes)
+        $currencyMap = [
+            'usdt_trc20' => 'usdttrc20',
+            'usdt_bep20' => 'usdtbsc',
+            'usdc_bep20' => 'usdcbsc',
+            'bnb_bsc'    => 'bnbbsc',
         ];
 
-        $npNetwork = $networkMap[$network] ?? $network;
+        $npCurrency = $currencyMap[$request->currency_network] ?? $currency;
 
         /*
         |--------------------------------------------------------------------------
@@ -65,8 +66,7 @@ class DepositController extends Controller
             $paymentData = [
                 'price_amount'       => $amount,
                 'price_currency'     => 'usd',
-                'pay_currency'       => $currency,
-                'network'            => $npNetwork, // ✅ FIXED
+                'pay_currency'       => $npCurrency,
                 'ipn_callback_url'   => route('nowpayments.ipn'),
                 'order_id'           => $orderId,
                 'order_description'  => 'Deposit to TradeX',
