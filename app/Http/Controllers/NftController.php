@@ -133,7 +133,7 @@ class NftController extends Controller
         }
         // Check if already owned
         if ($nft->user_id) {
-            return redirect()->route('home')->with('error', 'NFT already owned');
+            return redirect()->route('nft.purchase', ['id' => $id])->with('error', 'NFT already owned');
         }
         $user = Auth::user();
         $price = $nft->price ?? 0; // USDT

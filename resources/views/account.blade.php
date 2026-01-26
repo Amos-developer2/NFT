@@ -96,7 +96,7 @@
         <!-- Settings Sections -->
         <div class="settings-container">
             <!-- Account Settings -->
-            <div class="settings-section">
+            <div id="account-settings" class="settings-section">
                 <div class="settings-title">
                     <img src="/icons/settings.svg" alt="Settings">
                     <span>Account Settings</span>

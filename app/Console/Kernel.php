@@ -13,6 +13,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('nft:update-daily-profit')->daily();
+        // Schedule auction processing every minute
+        $schedule->command('auctions:process-ended')->everyMinute();
     }
 
     /**
@@ -21,5 +23,9 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__ . '/Commands');
+        // Register commands explicitly if needed
+        $this->commands([
+            \App\Console\Commands\ProcessEndedAuctions::class,
+        ]);
     }
 }

@@ -17,7 +17,7 @@ $nft = $auction->nft ?? null;
 @endphp
 <div class="nfts-list" style="justify-content:center; margin: -50px 0 0 0;">
     <div class="nft-card auction-card" data-status="{{ $status }}"
-     style="border: 2px solid red;margin: 0 0 0 -15px;max-width:480px;width:100%;flex-direction:row;gap:16px;padding:1.2rem 1.2rem 1rem 1.0rem;">
+     style="margin: 0 0 0 -15px;max-width:480px;width:100%;flex-direction:row;gap:16px;padding:1.2rem 1.2rem 1rem 1.0rem;">
         <div class="nft-image">
             <img src="{{ $nft->image ?? '/images/default-auction.png' }}" alt="{{ $nft->name ?? 'NFT' }}" class="nft-img">
             @if($isSold)

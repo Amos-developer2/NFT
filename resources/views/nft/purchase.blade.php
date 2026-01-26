@@ -466,34 +466,32 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    window.addEventListener('DOMContentLoaded', function() {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'center',
-            iconColor: 'white',
-            customClass: {
-                popup: 'colored-toast'
-            },
-            showConfirmButton: false,
-            timer: 1500,
-            timerProgressBar: true,
-        });
-        @if(session('error'))
-        Toast.fire({
-            icon: 'error',
-            title: @json(session('error'))
-        });
-        @endif
-        @if(session('success'))
-        Toast.fire({
-            icon: 'success',
-            title: @json(session('success'))
-        });
-        setTimeout(function() {
-            window.location.href = "{{ route('collection') }}";
-        }, 1600);
-        @endif
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        iconColor: 'white',
+        customClass: {
+            popup: 'colored-toast'
+        },
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
     });
+    @if(session('error'))
+    Toast.fire({
+        icon: 'error',
+        title: @json(session('error'))
+    });
+    @endif
+    @if(session('success'))
+    Toast.fire({
+        icon: 'success',
+        title: @json(session('success'))
+    });
+    setTimeout(function() {
+        window.location.href = "{{ route('collection') }}";
+    }, 1600);
+    @endif
 
     // Tab switching
     document.querySelectorAll('.nft-tab').forEach(tab => {

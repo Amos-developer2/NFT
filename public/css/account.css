@@ -215,6 +215,10 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
+#account-settings {
+    margin-top: 2.8rem;
+}
+
 .settings-title {
     display: flex;
     align-items: center;
