@@ -350,7 +350,6 @@
                 <div class="editor-badge">✨ Editor Pick</div>
                 <div class="scroll-card-image">
                     <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
-                    <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
                 </div>
                 <div class="scroll-card-info">
                     <div class="card-info-row">
@@ -370,6 +369,60 @@
             <div class="empty-scroll-state">
                 <span>⭐</span>
                 <p>No editor picks yet</p>
+            </div>
+            @endforelse
+        </div>
+    </div>
+
+    <!-- NFT Pool Section -->
+    <div class="nft-scroll-section">
+        <div class="scroll-section-header">
+            <h2 class="scroll-section-title">
+                <span class="title-icon pool">🎱</span>
+                NFT Pool
+                <span class="pool-badge">New</span>
+            </h2>
+            <a href="{{ route('collection') }}" class="view-more-btn">
+                View More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+        <div class="nft-scroll-container">
+            @php
+            $nftPool = collect($nfts ?? [])->shuffle()->take(10);
+            @endphp
+            @forelse($nftPool as $nft)
+            @php
+            $profit = $nft['value'] - $nft['price'];
+            $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
+            @endphp
+            <div class="nft-scroll-card pool-card">
+                <div class="pool-glow"></div>
+                <div class="scroll-card-image">
+                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
+                    <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
+                    <span class="pool-icon">🎱</span>
+                </div>
+                <div class="scroll-card-info">
+                    <div class="card-info-row">
+                        <h3 class="card-name">{{ $nft['name'] }}</h3>
+                        <span class="card-id">#{{ $nft['id'] }}</span>
+                    </div>
+                    <div class="card-info-row">
+                        <div class="card-price">
+                            <span class="price-label">Pool Price</span>
+                            <span class="price-value pool-price">{{ number_format($nft['price'], 2) }} <small>USDT</small></span>
+                        </div>
+                        <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn pool-btn">Join</a>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="empty-scroll-state">
+                <span>🎱</span>
+                <p>No pool NFTs available</p>
             </div>
             @endforelse
         </div>
@@ -1169,6 +1222,60 @@
     /* Selling Card */
     .selling-card {
         border: 1px solid rgba(42, 108, 246, 0.15);
+    }
+
+    /* Pool Card */
+    .pool-card {
+        border: 2px solid rgba(139, 92, 246, 0.25);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .pool-glow {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(from 0deg, transparent, rgba(139, 92, 246, 0.1), transparent, rgba(59, 130, 246, 0.1), transparent);
+        animation: poolRotate 6s linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes poolRotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .pool-badge {
+        background: linear-gradient(135deg, #8b5cf6, #6366f1);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .pool-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 18px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .price-value.pool-price {
+        color: #8b5cf6;
+    }
+
+    .card-buy-btn.pool-btn {
+        background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    }
+
+    .card-buy-btn.pool-btn:active {
+        background: linear-gradient(135deg, #7c3aed, #4f46e5);
     }
 
     .empty-scroll-state {
