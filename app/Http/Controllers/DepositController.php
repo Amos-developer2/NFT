@@ -116,10 +116,16 @@ class DepositController extends Controller
         }
 
         return view('deposit-address', [
+            'deposit'  => $deposit,
             'address'  => $deposit->pay_address,
             'amount'   => $deposit->amount,
             'currency' => strtoupper($currency),
             'network'  => strtoupper($network),
+            'payAmount' => $deposit->pay_amount,
+            'payCurrency' => $deposit->pay_currency,
+            'orderId'  => $deposit->order_id,
+            'payId'    => $deposit->pay_id,
+            'status'   => $deposit->status,
         ]);
     }
 
