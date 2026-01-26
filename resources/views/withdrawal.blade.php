@@ -211,12 +211,14 @@
         document.getElementById('withdrawalForm').addEventListener('submit', function(e) {
             if (parseFloat(document.getElementById('amount').value) < minWithdrawal) {
                 e.preventDefault();
-                alert('Minimum withdrawal is 12 USDT');
+                nativeAlert('Minimum withdrawal is 12 USDT', { type: 'warning', title: 'Invalid Amount' });
             }
         });
 
         updateCalculations();
     </script>
+    
+    @include('partials.native-alert')
 </body>
 
 </html>

@@ -15,6 +15,8 @@
             @yield('content')
         </div>
     </div>
+    
+    @include('partials.native-alert')
 </body>
 
 </html>

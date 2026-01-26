@@ -167,7 +167,7 @@
       </div>
       <div class="box-body">
         <p>These actions are irreversible. Please be careful.</p>
-        <button type="button" class="btn btn-danger" onclick="if(confirm('Are you sure you want to clear all cache?')) { alert('Cache cleared!'); }">
+        <button type="button" class="btn btn-danger" onclick="nativeConfirm('Are you sure you want to clear all cache?', { title: 'Clear Cache', danger: true, confirmText: 'Clear' }).then(ok => { if(ok) nativeSuccess('Cache cleared!', 'Done'); })">
           <i class="fa fa-refresh"></i> Clear All Cache
         </button>
       </div>

@@ -666,7 +666,7 @@ if (time <= 0) {
         otpForm.addEventListener('submit', function(e) {
         if (hidden.value.length !==6 || !/^\d{6}$/.test(hidden.value)) {
         e.preventDefault();
-        alert('Please enter the full 6-digit code.');
+        nativeAlert('Please enter the full 6-digit code.', { type: 'warning', title: 'Invalid Code' });
         boxes[0].focus();
         }
         });

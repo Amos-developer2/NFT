@@ -67,6 +67,8 @@
         @endif
     </div>
 
+    @include('partials.native-alert')
+
     @stack('scripts')
 </body>
 
