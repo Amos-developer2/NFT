@@ -829,16 +829,22 @@
     if (likeBtn) {
         likeBtn.addEventListener('click', async function() {
             const nftId = this.dataset.nftId;
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '{{ csrf_token() }}';
             
             try {
                 const response = await fetch(`/nft/${nftId}/like`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'X-CSRF-TOKEN': csrfToken,
                         'Accept': 'application/json'
                     }
                 });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || `HTTP error ${response.status}`);
+                }
 
                 const data = await response.json();
 
@@ -865,7 +871,7 @@
                 console.error('Error toggling like:', error);
                 Toast.fire({
                     icon: 'error',
-                    title: 'Failed to update like'
+                    title: error.message || 'Failed to update like'
                 });
             }
         });
