@@ -51,7 +51,7 @@ class AuctionController extends Controller
 
     public function show($id)
     {
-        $auction = Auction::with('nft')->findOrFail($id);
+        $auction = Auction::with(['nft', 'seller'])->findOrFail($id);
         $userStats = [
             'auctionsActive' => Auction::where('status', 'Live')->count(),
             'auctionsWon' => Bid::where('user_id', Auth::id())->whereHas('auction', function ($q) {

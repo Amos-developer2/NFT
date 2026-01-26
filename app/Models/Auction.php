@@ -29,4 +29,10 @@ class Auction extends Model
     {
         return $this->belongsTo(\App\Models\User::class);
     }
+
+    // Add seller relationship for auction
+    public function seller()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
