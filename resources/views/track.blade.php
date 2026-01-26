@@ -128,7 +128,7 @@
 
 @section('content')
 <div class="track-auctions-container"
-    style="max-width:500px;margin:-5.8rem 1px;padding:1.5rem 1rem;background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+    style="max-width:500px;margin:-7.8rem 2px;padding:1.5rem 1rem;background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
 
     @if($auctions->isEmpty())
     <div class="empty-state" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 1.2rem 2.2rem 1.2rem;background:#f9fafb;border-radius:18px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin:2.5rem auto 1.5rem auto;max-width:350px;">

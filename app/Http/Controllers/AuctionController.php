@@ -25,6 +25,7 @@ class AuctionController extends Controller
         $durationMinutes = $request->has('duration') ? (int) $request->duration : 5;
         $auction = new \App\Models\Auction();
         $auction->nft_id = $nft->id;
+        $auction->user_id = Auth::id();
         $auction->starting_price = $startingPrice;
         $auction->status = 'Live';
         $auction->end_time = now()->addMinutes($durationMinutes);
@@ -82,8 +83,9 @@ class AuctionController extends Controller
     {
         $auctions = \App\Models\Auction::with('nft')
             ->whereHas('nft', function ($q) {
-                $q->where('user_id', \Auth::id());
+                $q->where('user_id', Auth::id());
             })
+            ->where('status', '!=', 'Ended')
             ->orderByDesc('created_at')
             ->get();
         return view('track', compact('auctions'));

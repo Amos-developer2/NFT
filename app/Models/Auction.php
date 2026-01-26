@@ -8,6 +8,7 @@ class Auction extends Model
 {
     protected $fillable = [
         'nft_id',
+        'user_id',
         'starting_price',
         'highest_bid',
         'status',
@@ -22,5 +23,10 @@ class Auction extends Model
     public function bids()
     {
         return $this->hasMany(Bid::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
     }
 }
