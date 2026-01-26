@@ -115,17 +115,24 @@ class DepositController extends Controller
             ]);
         }
 
+        // For stablecoins (USDT/USDC), pay amount equals USD amount
+        // For other currencies (BNB), use the estimated amount from NowPayments
+        $isStablecoin = in_array(strtolower($currency), ['usdt', 'usdc']);
+        $displayPayAmount = $isStablecoin ? $deposit->amount : $deposit->pay_amount;
+        $displayPayCurrency = $isStablecoin ? strtoupper($currency) : $deposit->pay_currency;
+
         return view('deposit-address', [
             'deposit'  => $deposit,
             'address'  => $deposit->pay_address,
             'amount'   => $deposit->amount,
             'currency' => strtoupper($currency),
             'network'  => strtoupper($network),
-            'payAmount' => $deposit->pay_amount,
-            'payCurrency' => $deposit->pay_currency,
+            'payAmount' => $displayPayAmount,
+            'payCurrency' => $displayPayCurrency,
             'orderId'  => $deposit->order_id,
             'payId'    => $deposit->pay_id,
             'status'   => $deposit->status,
+            'isStablecoin' => $isStablecoin,
         ]);
     }
 

@@ -26,9 +26,15 @@
             <div class="amount-info">
                 <span class="amount-label">You Pay</span>
                 <div class="amount-value-row">
-                    <span class="amount-crypto">{{ $payAmount ?? $amount }} {{ strtoupper($payCurrency ?? $currency) }}</span>
+                    @if($isStablecoin ?? true)
+                        <span class="amount-crypto">{{ number_format($amount, 2) }} {{ strtoupper($currency) }}</span>
+                    @else
+                        <span class="amount-crypto">{{ $payAmount }} {{ strtoupper($payCurrency ?? $currency) }}</span>
+                    @endif
                 </div>
-                <span class="amount-usd">${{ number_format($amount, 2) }} USD</span>
+                @if(!($isStablecoin ?? true))
+                    <span class="amount-usd">≈ ${{ number_format($amount, 2) }} USD</span>
+                @endif
             </div>
             <div class="currency-icon-large">
                 <img src="/icons/{{ strtolower($currency ?? 'usdt') }}.svg" alt="{{ $currency }}">
@@ -125,7 +131,13 @@
             </div>
             <div class="detail-item">
                 <span class="detail-label">Pay Amount</span>
-                <span class="detail-value">{{ $payAmount ?? $amount }} {{ strtoupper($payCurrency ?? $currency) }}</span>
+                <span class="detail-value">
+                    @if($isStablecoin ?? true)
+                        {{ number_format($amount, 2) }} {{ strtoupper($currency) }}
+                    @else
+                        {{ $payAmount }} {{ strtoupper($payCurrency ?? $currency) }}
+                    @endif
+                </span>
             </div>
             <div class="detail-item">
                 <span class="detail-label">Currency</span>
