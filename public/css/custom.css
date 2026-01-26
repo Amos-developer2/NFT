@@ -98,8 +98,8 @@
     right: 0;
     bottom: 0;
     background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    /* border-top-left-radius: 20px;
+    border-top-right-radius: 20px; */
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08), 0 -1px 3px rgba(0, 0, 0, 0.05);
     display: flex;
     justify-content: space-around;
