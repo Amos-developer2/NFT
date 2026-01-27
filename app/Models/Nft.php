@@ -180,4 +180,21 @@ class Nft extends Model
             }
         });
     }
+
+    /**
+     * Get the price change percent for this NFT (last vs. first price in history).
+     */
+    public function getPriceChangePercent(): float
+    {
+        $history = $this->price_history()->orderBy('recorded_at')->get();
+        if ($history->count() < 2) {
+            return 0.0;
+        }
+        $first = $history->first()->price;
+        $last = $history->last()->price;
+        if ($first == 0) {
+            return 0.0;
+        }
+        return round((($last - $first) / $first) * 100, 2);
+    }
 }
