@@ -1,103 +1,38 @@
 @extends('layouts.app')
 
-@push('styles')
-<link rel="stylesheet" href="/css/account.css">
+@push('head')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
 
-@section('content')
-
-<div class="lang-page">
-
-    <!-- Header -->
-    <div class="lang-header">
-        <a href="{{ route('account') }}" class="back-btn">
-            <img src="/icons/arrow-left.svg" alt="Back">
-        </a>
-        <h1>Choose Language</h1>
-        <p>Select your preferred language for the platform</p>
-    </div>
-
-    <!-- Language Card -->
-    <div class="lang-card">
-        <form action="{{ route('account.language.set') }}" method="POST" class="language-list">
-            @csrf
-            @php
-            $languages = [
-            ['ar', 'Arabic (العربية)', '🇸🇦'],
-            ['id', 'Bahasa Indonesia', '🇮🇩'],
-            ['zh', 'Chinese (中文)', '🇨🇳'],
-            ['en', 'English', '🇬🇧'],
-            ['es', 'Spanish (Español)', '🇪🇸'],
-            ['fil', 'Filipino', '🇵🇭'],
-            ['fr', 'French (Français)', '🇫🇷'],
-            ['it', 'Italiano', '🇮🇹'],
-            ['ko', 'Korean (한국어)', '🇰🇷'],
-            ['pt', 'Português', '🇵🇹'],
-            ['ru', 'Русский', '🇷🇺'],
-            ['tr', 'Türkçe', '🇹🇷'],
-            ['vi', 'Tiếng Việt', '🇻🇳'],
-            ];
-            $current = app()->getLocale();
-            @endphp
-
-            @foreach($languages as [$code, $label, $flag])
-            <button type="submit" name="language" value="{{ $code }}"
-                class="language-btn {{ $current == $code ? 'selected' : '' }}">
-                <div class="lang-left">
-                    <span class="flag">{{ $flag }}</span>
-                    <span>{{ $label }}</span>
-                </div>
-                @if($current == $code)
-                <span class="checkmark">✓</span>
-                @endif
-            </button>
-            @endforeach
-        </form>
-    </div>
-</div>
-
-
+@push('styles')
+<link rel="stylesheet" href="/css/account.css">
 <style>
-    .lang-page {
-        background: linear-gradient(180deg, #f1f5f9, #e2e8f0);
+    .settings-container {
+        background: #f8fafc;
         min-height: 100vh;
-        padding: 20px 14px 40px;
+        padding: 16px 12px 40px;
     }
 
-    /* Header */
-    .lang-header {
+    /* Header Card */
+    .language-hero {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: #fff;
+        border-radius: 18px;
+        padding: 22px 18px;
         text-align: center;
-        margin-bottom: 20px;
-        position: relative;
+        margin-bottom: 18px;
+        box-shadow: 0 8px 20px rgba(37, 99, 235, .25);
     }
 
-    .lang-header h1 {
-        font-size: 1.6rem;
+    .language-hero h2 {
+        font-size: 1.25rem;
         font-weight: 700;
-        color: #0f172a;
+        margin-bottom: 6px;
     }
 
-    .lang-header p {
-        font-size: 0.95rem;
-        color: #64748b;
-    }
-
-    .back-btn {
-        position: absolute;
-        left: 0;
-        top: 5px;
-    }
-
-    .back-btn img {
-        width: 22px;
-    }
-
-    /* Card */
-    .lang-card {
-        background: #fff;
-        border-radius: 16px;
-        padding: 12px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    .language-hero p {
+        font-size: .95rem;
+        opacity: .9;
     }
 
     /* List */
@@ -109,57 +44,159 @@
 
     /* Button */
     .language-btn {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        width: 100%;
+        padding: 16px 18px;
+        font-size: 1.05rem;
         border: none;
-        padding: 14px 16px;
-        border-radius: 12px;
-        background: #f8fafc;
-        font-size: 1rem;
-        transition: all 0.25s ease;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        border-radius: 14px;
+        background: #fff;
+        color: #111827;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, .05);
+        transition: all .25s ease;
+        position: relative;
+        overflow: hidden;
     }
 
+    /* Hover */
     .language-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(37, 99, 235, 0.15);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
     }
 
     /* Selected */
     .language-btn.selected {
-        background: linear-gradient(135deg, #2563eb, #1e40af);
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
         color: #fff;
-        box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
+        font-weight: 600;
+        transform: scale(1.02);
+        box-shadow: 0 8px 18px rgba(37, 99, 235, .3);
     }
 
-    /* Left section */
-    .lang-left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .flag {
-        font-size: 1.4rem;
-    }
-
-    /* Checkmark */
-    .checkmark {
+    /* Check icon */
+    .check-icon {
         font-size: 1.2rem;
-        font-weight: bold;
+        opacity: .9;
     }
 
-    /* Mobile */
-    @media (max-width:600px) {
-        .lang-header h1 {
-            font-size: 1.4rem;
+    /* Loading indicator */
+    .loading-dot {
+        width: 6px;
+        height: 6px;
+        background: #fff;
+        border-radius: 50%;
+        margin-left: 6px;
+        animation: blink 1s infinite alternate;
+    }
+
+    @keyframes blink {
+        from {
+            opacity: .3
         }
 
+        to {
+            opacity: 1
+        }
+    }
+
+    @media(max-width:600px) {
         .language-btn {
-            padding: 13px 12px;
+            font-size: 1rem;
+            padding: 14px
         }
     }
 </style>
+@endpush
 
+@section('content')
+@include('partials.header', ['title' => 'Choose Language'])
+
+<div class="settings-container">
+
+    <div class="language-hero">
+        <h2>Select Your Language</h2>
+        <p>Your app experience updates instantly</p>
+    </div>
+
+    @php
+    $languages = [
+    ['ar','Arabic (العربية)'],
+    ['id','Bahasa Indonesia'],
+    ['zh','Chinese (中文)'],
+    ['en','English (United Kingdom)'],
+    ['es','Spanish (Español)'],
+    ['fil','Filipino (Pilipino)'],
+    ['fr','French (Français)'],
+    ['it','Italian (Italiano)'],
+    ['ko','Korean (한국어)'],
+    ['pt','Portuguese (Português)'],
+    ['ro','Romanian (Română)'],
+    ['ru','Russian (Русский)'],
+    ['sk','Slovak (Slovenčina)'],
+    ['tr','Turkish (Türkçe)'],
+    ['uz','Uzbek (O‘zbekcha)'],
+    ['vi','Vietnamese (Tiếng Việt)'],
+    ];
+    $current = app()->getLocale();
+    @endphp
+
+    <div class="language-list">
+        @foreach($languages as [$code,$label])
+        <button class="language-btn {{ $current==$code?'selected':'' }}"
+            data-lang="{{ $code }}">
+            <span>{{ $label }}</span>
+            <span class="check-icon">{{ $current==$code?'✓':'' }}</span>
+        </button>
+        @endforeach
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.language-btn');
+        const csrf = document.querySelector('meta[name="csrf-token"]').content;
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // UI instant switch
+                buttons.forEach(b => {
+                    b.classList.remove('selected');
+                    b.querySelector('.check-icon').textContent = '';
+                });
+
+                this.classList.add('selected');
+                this.querySelector('.check-icon').textContent = '✓';
+
+                const lang = this.dataset.lang;
+
+                // AJAX save
+                fetch("{{ route('account.language.set') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrf
+                        },
+                        body: JSON.stringify({
+                            language: lang
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Soft reload translations
+                            setTimeout(() => location.reload(), 400);
+                        }
+                    });
+            });
+        });
+    });
+</script>
+
+@include('partials.footer')
 @endsection
