@@ -209,11 +209,12 @@
     const cards = document.querySelectorAll('.reward-card');
     const rewards = ['+1 NFT', '+10 Coins', 'Mystery Box', '+5 Coins', 'Try Again', '+3 Coins', '+2 Coins', '+1 Coin', 'Bonus'];
 
-    let startX, startY, isDragging = false,
-        vx = 0,
+    let startX, startY, isDragging = false;
+    let vx = 0,
         vy = 0,
         gravity = 0.6,
-        played = false,
+        friction = 0.995;
+    let played = false,
         spin = 0;
 
     function pos(e) {
@@ -237,13 +238,14 @@
     function endDrag(e) {
         if (!isDragging || played) return;
         isDragging = false;
+
         let p = pos(e.changedTouches ? e.changedTouches[0] : e);
         let dx = p.clientX - startX;
         let dy = startY - p.clientY;
-        if (dy < 30) return;
+        if (dy < 40) return;
 
-        vx = dx * 0.15;
-        vy = -dy * 0.25;
+        vx = dx * 0.18;
+        vy = -dy * 0.28;
         played = true;
         launch();
     }
@@ -255,26 +257,44 @@
 
         function step() {
             vy += gravity;
+            vx *= friction;
+            vy *= friction;
             x += vx;
             y += vy;
-            spin += 12;
+            spin += 10;
 
             ball.style.left = x + 'px';
             ball.style.top = y + 'px';
             ball.style.transform = `rotate(${spin}deg)`;
 
-            if (y < 180) {
-                hitCard();
+            let hitIndex = detectHit(x, y);
+            if (hitIndex !== null) {
+                hitCard(hitIndex);
                 return;
             }
+
             requestAnimationFrame(step);
         }
         step();
     }
 
-    function hitCard() {
-        let idx = Math.floor(Math.random() * cards.length);
+    /* 🎯 REAL COLLISION DETECTION */
+    function detectHit(x, y) {
+        let ballRect = ball.getBoundingClientRect();
+        for (let i = 0; i < cards.length; i++) {
+            let c = cards[i].getBoundingClientRect();
+            if (!(ballRect.right < c.left ||
+                    ballRect.left > c.right ||
+                    ballRect.bottom < c.top ||
+                    ballRect.top > c.bottom)) {
+                return i;
+            }
+        }
+        return null;
+    }
 
+    /* 🎁 Reveal correct card */
+    function hitCard(i) {
         fetch('/daily-checkin', {
             method: 'POST',
             headers: {
@@ -282,11 +302,11 @@
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
             },
             body: JSON.stringify({
-                index: idx
+                index: i
             })
         }).then(r => r.json()).then(data => {
-            let reward = rewards[idx];
-            let card = cards[idx];
+            let reward = rewards[i];
+            let card = cards[i];
             card.querySelector('.card-back').textContent = reward;
             card.classList.add('reveal');
 
@@ -307,5 +327,6 @@
         });
     }
 </script>
+
 
 @endsection
