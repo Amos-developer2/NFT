@@ -32,15 +32,14 @@
         <span>Team</span>
     </a>
 
-    {{-- Auction/Track --}}
-    <a href="{{ route('auction.track') }}" class="{{ request()->routeIs('auction.track') ? 'active' : '' }}" aria-label="Track">
+    {{-- My NFTs/Portfolio --}}
+    <a href="{{ route('auction.track') }}" class="{{ request()->routeIs('auction.track') ? 'active' : '' }}" aria-label="My NFTs">
         <div class="nav-icon-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" />
-                <circle cx="12" cy="12" r="10" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
         </div>
-        <span>Track</span>
+        <span>My NFTs</span>
     </a>
     {{-- Account --}}
     <a href="{{ route('account') }}" class="{{ request()->routeIs('account*') ? 'active' : '' }}" aria-label="Account">

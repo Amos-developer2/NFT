@@ -78,16 +78,19 @@ class AuctionController extends Controller
         return back()->with('success', 'Bid placed successfully!');
     }
 
-    // Track
+    // Track - Show user's owned NFTs
     public function track()
     {
-        $auctions = \App\Models\Auction::with('nft')
-            ->whereHas('nft', function ($q) {
-                $q->where('user_id', Auth::id());
-            })
-            ->where('status', '!=', 'Ended')
-            ->orderByDesc('created_at')
-            ->get();
-        return view('track', compact('auctions'));
+        $user = Auth::user();
+        $userNfts = $user->nfts()->get();
+        
+        // Calculate stats
+        $totalNfts = $userNfts->count();
+        $totalValue = $userNfts->sum('value');
+        $totalProfit = $userNfts->sum(function ($nft) {
+            return ($nft->value ?? 0) - ($nft->purchase_price ?? 0);
+        });
+        
+        return view('track', compact('userNfts', 'totalNfts', 'totalValue', 'totalProfit'));
     }
 }
