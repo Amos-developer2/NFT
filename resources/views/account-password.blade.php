@@ -104,7 +104,7 @@
     <div class="settings-section">
         <div class="info-box">
             <p>Your password is required for account security. Use a strong password and never share it with anyone.</p>
-            <ul class="info-list">
+            <ul class="info-list" style="font-size:0.70rem;">
                 <li>At least <strong>8 characters</strong> long</li>
                 <li>Mix uppercase, lowercase, numbers, and symbols</li>
                 <li>Avoid personal or common words</li>
