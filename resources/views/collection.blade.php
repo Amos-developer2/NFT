@@ -243,10 +243,6 @@
 
     /* NFT Grid - Match Home Page Style */
     .nft-grid {
-        display: flex;
-        gap: 12px;
-        overflow-x: auto;
-        padding: 4px 2px 12px;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
