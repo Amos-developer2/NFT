@@ -229,4 +229,41 @@ class NftController extends Controller
         
         return redirect()->route('collection')->with('success', "Successfully purchased {$nft->name}! Receipt sent to {$user->email}");
     }
+
+    /**
+     * Show the NFT detail page
+     */
+    public function show($id)
+    {
+        $nft = Nft::with('owner')->find($id);
+        if (!$nft) {
+            return redirect()->route('collection')->with('error', 'NFT not found');
+        }
+
+        // Example statistics logic (replace with real queries)
+        $statistics = [
+            'highest' => $nft->price_history()->max('price') ?? $nft->purchase_price,
+            'lowest' => $nft->price_history()->min('price') ?? $nft->purchase_price,
+            'change_percent' => $nft->getPriceChangePercent(),
+        ];
+
+        // Get bids for this NFT
+        $bids = $nft->bids()->with('user')->get();
+
+        return view('nft.show', compact('nft', 'statistics', 'bids'));
+    }
+
+    /**
+     * Sell NFT (stub)
+     */
+    public function sell(Request $request, $id)
+    {
+        $nft = Nft::find($id);
+        $user = Auth::user();
+        if (!$nft || $nft->owner_id !== $user->id) {
+            return redirect()->route('nft.show', $id)->with('error', 'You do not own this NFT.');
+        }
+        // TODO: Implement selling logic (e.g., list for sale, auction, etc.)
+        return redirect()->route('nft.show', $id)->with('success', 'NFT listed for sale.');
+    }
 }
