@@ -731,7 +731,7 @@
 
 <!-- Confirmation Modal -->
 <div id="purchaseModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: flex-end;">
-    <div style="width: 100%; background: #fff; border-radius: 20px 20px 0 0; padding: 20px; animation: slideUp 0.3s ease;">
+    <div style="width: 100%; background: #fff; border-radius: 6px 6px 0 0; padding: 20px; animation: slideUp 0.3s ease;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
             <h3 style="margin: 0; font-size: 18px; font-weight: 700; color: #1e293b;">Confirm Purchase</h3>
             <button onclick="closePurchaseModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #94a3b8;">✕</button>
@@ -891,11 +891,13 @@
         modal.style.display = 'none';
     }
 
-    // Close modal when clicking outside
-    document.getElementById('purchaseModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closePurchaseModal();
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Close modal when clicking outside
+        document.getElementById('purchaseModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePurchaseModal();
+            }
+        });
     });
 
     // Prevent default form submission and use fetch instead
