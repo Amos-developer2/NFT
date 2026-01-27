@@ -934,7 +934,6 @@
             alert('An error occurred. Please try again.');
         });
     });
-    });
 
     // Like button functionality
     const likeBtn = document.getElementById('like-btn');
