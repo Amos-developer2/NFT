@@ -19,7 +19,12 @@ class CollectionController extends Controller
     {
         $today = Carbon::now();
         $user = Auth::user();
-        $nfts = Nft::where('user_id', $user->id)->get();
+        $nfts = Nft::where('user_id', $user->id)
+            ->whereNotNull('user_id')
+            ->whereDoesntHave('auctions', function ($q) {
+                $q->where('status', 'Live');
+            })
+            ->get();
 
         // Calculate days held and portfolio stats
         $totalInvested = 0;

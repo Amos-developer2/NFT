@@ -12,9 +12,13 @@ class Auction extends Model
         'starting_price',
         'highest_bid',
         'status',
-        'end_time'
+        'end_time',
+        'paid_out'
     ];
 
+    protected $casts = [
+        'paid_out' => 'boolean',
+    ];
     public function nft()
     {
         return $this->belongsTo(Nft::class);
@@ -34,5 +38,13 @@ class Auction extends Model
     public function seller()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    /**
+     * Get the user who placed the highest bid.
+     */
+    public function getHighestBidderAttribute()
+    {
+        $bid = $this->bids()->orderByDesc('amount')->first();
+        return $bid ? $bid->user : null;
     }
 }

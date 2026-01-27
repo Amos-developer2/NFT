@@ -328,6 +328,11 @@
         color: #fff;
         text-decoration: none;
     }
+
+    .auction-filter-btn.active {
+        background: #fff !important;
+        color: #2563eb !important;
+    }
 </style>
 @endpush
 

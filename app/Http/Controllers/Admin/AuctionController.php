@@ -44,7 +44,7 @@ class AuctionController extends Controller
         // Get NFTs that don't have active auctions
         $nfts = Nft::whereDoesntHave('auctions', function ($q) {
             $q->where('status', 'active')
-              ->where('end_time', '>', now());
+                ->where('end_time', '>', now());
         })->get();
 
         return view('admin.auctions.create', compact('nfts'));
@@ -123,13 +123,38 @@ class AuctionController extends Controller
      */
     public function endAuction(Auction $auction)
     {
-        $auction->update([
-            'status' => 'ended',
-            'end_time' => now(),
-        ]);
+        // Always set status to 'ended' (lowercase for consistency)
+        if (strtolower($auction->status) !== 'ended') {
+            $auction->status = 'ended';
+            $auction->end_time = now();
+        }
+
+        // Ensure paid_out is boolean and not null
+        if ($auction->paid_out === null) {
+            $auction->paid_out = false;
+        }
+
+        // Only pay out if not already done
+        if (!$auction->paid_out) {
+            $highestBid = $auction->highest_bid;
+            $highestBidObj = $auction->bids()->orderByDesc('amount')->first();
+            $seller = $auction->seller;
+            $nft = $auction->nft;
+            if ($seller && $nft && $highestBidObj && $highestBid > 0) {
+                $capital = $nft->purchase_price ?? $nft->price ?? $nft->value ?? 0;
+                $profit = $highestBid - $capital;
+                $seller->balance += ($capital + max($profit, 0));
+                $seller->save();
+                // Remove NFT from collection (burn)
+                $nft->user_id = null;
+                $nft->save();
+                $auction->paid_out = true;
+            }
+        }
+        $auction->save();
 
         return redirect()->back()
-            ->with('success', 'Auction ended successfully.');
+            ->with('success', 'Auction ended and seller credited if applicable.');
     }
 
     /**
