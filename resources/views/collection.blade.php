@@ -247,7 +247,7 @@
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         margin-bottom: 24px;
-        padding: 0!important;
+        margin: 0!important;
         gap: 10px!important;
     }
 
