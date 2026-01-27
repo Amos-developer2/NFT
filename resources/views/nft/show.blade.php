@@ -235,6 +235,106 @@
         line-height: 1.6;
         margin-bottom: 20px;
     }
+
+    /* Tabs Styles */
+    .tabs-container {
+        margin-bottom: 20px;
+    }
+
+    .tabs-header {
+        display: flex;
+        gap: 8px;
+        background: #f8fafc;
+        padding: 6px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+    .tab-btn {
+        flex: 1;
+        padding: 10px 16px;
+        background: transparent;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #64748b;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+        background: #fff;
+        color: #2563eb;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .info-grid {
+        display: grid;
+        gap: 12px;
+    }
+
+    .info-item {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 14px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .info-label {
+        font-size: 13px;
+        color: #64748b;
+        font-weight: 500;
+    }
+
+    .info-value {
+        font-size: 14px;
+        color: #1e293b;
+        font-weight: 600;
+    }
+
+    .accept-bid-btn {
+        padding: 8px 16px;
+        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .accept-bid-btn:hover {
+        transform: translateY(-1px);
+    }
+
+    .bid-item-with-action {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 16px;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .bid-item-with-action:last-child {
+        border-bottom: none;
+    }
+
+    .bid-left {
+        flex: 1;
+    }
+
 </style>
 @endpush
 
@@ -275,49 +375,112 @@
             <div class="price-value">${{ number_format($nft->current_price ?? $nft->price ?? $nft->purchase_price, 2) }}</div>
         </div>
 
-        <!-- Price Statistics -->
-        <h3 class="section-title">Price Statistics</h3>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">Highest</div>
-                <div class="stat-value positive">${{ number_format($statistics['highest'], 2) }}</div>
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <div class="tabs-header">
+                <button class="tab-btn active" onclick="switchTab('info')">Info</button>
+                <button class="tab-btn" onclick="switchTab('statistics')">Statistics</button>
+                <button class="tab-btn" onclick="switchTab('bids')">Bids</button>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">Lowest</div>
-                <div class="stat-value negative">${{ number_format($statistics['lowest'], 2) }}</div>
+
+            <!-- Info Tab -->
+            <div id="info-tab" class="tab-content active">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Owner</span>
+                        <span class="info-value">{{ $nft->user->name }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Edition</span>
+                        <span class="info-value">{{ $nft->edition ?? '1' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Rarity</span>
+                        <span class="info-value">{{ $nft->rarity ?? 'Unique' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Blockchain</span>
+                        <span class="info-value">{{ $nft->blockchain ?? 'Ethereum' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Token Standard</span>
+                        <span class="info-value">{{ $nft->token_standard ?? 'ERC-721' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Creator Royalty</span>
+                        <span class="info-value">{{ $nft->creator_royalty ?? 5 }}%</span>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">Change</div>
-                <div class="stat-value {{ $statistics['change_percent'] >= 0 ? 'positive' : 'negative' }}">{{ $statistics['change_percent'] }}%</div>
+
+            <!-- Statistics Tab -->
+            <div id="statistics-tab" class="tab-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Highest</div>
+                        <div class="stat-value positive">${{ number_format($statistics['highest'], 2) }}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Lowest</div>
+                        <div class="stat-value negative">${{ number_format($statistics['lowest'], 2) }}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Change</div>
+                        <div class="stat-value {{ $statistics['change_percent'] >= 0 ? 'positive' : 'negative' }}">{{ $statistics['change_percent'] }}%</div>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Views</span>
+                        <span class="info-value">{{ number_format($nft->views ?? 0) }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Likes</span>
+                        <span class="info-value">{{ number_format($nft->likes_count ?? 0) }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Total Trades</span>
+                        <span class="info-value">{{ number_format($nft->trades_count ?? 0) }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bids Tab -->
+            <div id="bids-tab" class="tab-content">
+                @if(count($bids) > 0)
+                    <div class="bids-list">
+                        @foreach($bids as $bid)
+                            <div class="bid-item-with-action">
+                                <div class="bid-left">
+                                    <div class="bid-user">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: #60a5fa;">
+                                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                        </svg>
+                                        {{ $bid->user->name }}
+                                    </div>
+                                    <div class="bid-amount">${{ number_format($bid->amount, 2) }}</div>
+                                </div>
+                                @if(auth()->id() === $nft->user_id)
+                                    <form action="{{ route('bid.accept', $bid->id) }}" method="POST" style="margin: 0;">
+                                        @csrf
+                                        <button type="submit" class="accept-bid-btn">Accept</button>
+                                    </form>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="no-bids-alert">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="8" x2="12" y2="12"/>
+                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        </svg>
+                        No bids placed yet. Be the first to bid!
+                    </div>
+                @endif
             </div>
         </div>
-
-        <!-- Bids Section -->
-        <h3 class="section-title">Active Bids</h3>
-        @if(count($bids) > 0)
-            <div class="bids-list">
-                @foreach($bids as $bid)
-                    <div class="bid-item">
-                        <div class="bid-user">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: #60a5fa;">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                            </svg>
-                            {{ $bid->user->name }}
-                        </div>
-                        <div class="bid-amount">${{ number_format($bid->amount, 2) }}</div>
-                    </div>
-                @endforeach
-            </div>
-        @else
-            <div class="no-bids-alert">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
-                    <circle cx="12" cy="12" r="10"/>
-                    <line x1="12" y1="8" x2="12" y2="12"/>
-                    <line x1="12" y1="16" x2="12.01" y2="16"/>
-                </svg>
-                No bids placed yet. Be the first to bid!
-            </div>
-        @endif
 
         <!-- Sell Button (only for owner) -->
         @if(auth()->id() === $nft->user_id)
@@ -335,4 +498,24 @@
         @endif
     </div>
 </div>
+
+<script>
+    function switchTab(tabName) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Remove active state from all buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Show selected tab
+        document.getElementById(tabName + '-tab').classList.add('active');
+        
+        // Set active button
+        event.target.classList.add('active');
+    }
+</script>
 @endsection
