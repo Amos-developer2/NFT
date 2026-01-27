@@ -48,7 +48,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
     }
 
     .nft-image-container {
@@ -600,8 +600,8 @@
             <div class="stat-item">
                 <div class="stat-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
                 </div>
                 <span class="stat-value">{{ number_format($nft->views ?? 0) }}</span>
@@ -610,7 +610,7 @@
             <div class="stat-item">
                 <div class="stat-icon">
                     <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ef4444"/>
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ef4444" />
                     </svg>
                 </div>
                 <span class="stat-value" id="likes-count">{{ number_format($nft->likes_count ?? 0) }}</span>
@@ -619,7 +619,7 @@
             <div class="stat-item">
                 <div class="stat-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
                 </div>
                 <span class="stat-value">{{ number_format($nft->offers_count ?? 0) }}</span>
@@ -628,7 +628,7 @@
             <div class="stat-item">
                 <div class="stat-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
                 </div>
                 <span class="stat-value">{{ number_format($nft->trades_count ?? 0) }}</span>
@@ -677,7 +677,7 @@
             <div class="info-item">
                 <span class="info-label">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                        <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                     </svg>
                     Contract Address
                 </span>
@@ -686,7 +686,7 @@
             <div class="info-item">
                 <span class="info-label">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/>
+                        <path d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
                     </svg>
                     Token ID
                 </span>
@@ -695,7 +695,7 @@
             <div class="info-item">
                 <span class="info-label">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
                     Blockchain
                 </span>
@@ -704,7 +704,7 @@
             <div class="info-item">
                 <span class="info-label">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                     Token Standard
                 </span>
@@ -713,7 +713,7 @@
             <div class="info-item">
                 <span class="info-label">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     Creator Royalty
                 </span>
@@ -782,6 +782,7 @@
         from {
             transform: translateY(100%);
         }
+
         to {
             transform: translateY(0);
         }
@@ -790,29 +791,17 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'center',
-        iconColor: 'white',
-        customClass: {
-            popup: 'colored-toast'
-        },
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true,
-    });
     @if(session('error'))
-    Toast.fire({
-        icon: 'error',
-        title: @json(session('error'))
+    nativeAlert(@json(session('error')), {
+        type: 'error',
+        title: 'Error'
     });
     @endif
     @if(session('success'))
-    Toast.fire({
-        icon: 'success',
-        title: @json(session('success'))
+    nativeAlert(@json(session('success')), {
+        type: 'success',
+        title: 'Success'
     });
     setTimeout(function() {
         window.location.href = "{{ route('collection') }}";
@@ -828,10 +817,10 @@
     });
 
     // ===== IMAGE PROTECTION =====
-    
+
     // Disable right-click on entire page
     document.addEventListener('contextmenu', e => e.preventDefault());
-    
+
     // Block keyboard shortcuts for DevTools and save
     document.addEventListener('keydown', function(e) {
         // F12
@@ -861,14 +850,14 @@
         const widthThreshold = window.outerWidth - window.innerWidth > 160;
         const heightThreshold = window.outerHeight - window.innerHeight > 160;
         const isOpen = widthThreshold || heightThreshold;
-        
+
         if (isOpen) {
             document.body.classList.add('devtools-open');
         } else {
             document.body.classList.remove('devtools-open');
         }
     };
-    
+
     // Check on resize (when DevTools opens/closes)
     window.addEventListener('resize', detectDevTools);
     setInterval(detectDevTools, 1000);
@@ -902,12 +891,12 @@
 
     // Prevent default form submission and use fetch instead
     document.getElementById('purchaseForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const submitBtn = this.querySelector('button[type="submit"]');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Processing...';
-        
-        fetch(this.action, {
+    e.preventDefault();
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Processing...';
+
+    fetch(this.action, {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
@@ -938,7 +927,7 @@
         likeBtn.addEventListener('click', async function() {
             const nftId = this.dataset.nftId;
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '{{ csrf_token() }}';
-            
+
             try {
                 const response = await fetch(`/nft/${nftId}/like`, {
                     method: 'POST',
@@ -963,23 +952,27 @@
                     } else {
                         this.classList.remove('active');
                     }
-                    
+
                     // Update likes count in stats
                     const likesCountEl = document.getElementById('likes-count');
                     if (likesCountEl) {
                         likesCountEl.textContent = data.likes_count.toLocaleString();
                     }
                 } else if (data.error) {
-                    Toast.fire({
-                        icon: 'error',
-                        title: data.error
+                    nativeAlert(data.error, {
+                        type: 'error',
+                        title: 'Error'
                     });
                 }
             } catch (error) {
                 console.error('Error toggling like:', error);
-                Toast.fire({
-                    icon: 'error',
-                    title: error.message || 'Failed to update like'
+                nativeAlert(error.message || 'Failed to update like', {
+                    type: 'error',
+                    title: 'Error'
+                });
+                nativeAlert('An error occurred. Please try again.', {
+                    type: 'error',
+                    title: 'Error'
                 });
             }
         });

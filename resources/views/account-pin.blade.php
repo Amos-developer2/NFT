@@ -19,25 +19,10 @@
 @if(session('success'))
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        function showColoredSuccess() {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: @json(session('success')),
-                background: '#ecfdf5',
-                color: '#065f46',
-                confirmButtonColor: '#22c55e',
-                iconColor: '#22c55e',
-            });
-        }
-        if (typeof Swal === 'undefined') {
-            const swalScript = document.createElement('script');
-            swalScript.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-            swalScript.onload = showColoredSuccess;
-            document.head.appendChild(swalScript);
-        } else {
-            showColoredSuccess();
-        }
+        nativeAlert(@json(session('success')), {
+            type: 'success',
+            title: 'Success'
+        });
     });
 </script>
 @endif
@@ -45,24 +30,18 @@
 @if($errors->any())
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        function showColoredError() {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                html: @json($errors -> all()).join('<br>'),
-                background: '#fef2f2',
-                color: '#991b1b',
-                confirmButtonColor: '#ef4444',
-                iconColor: '#ef4444',
+        let errorList = @json($errors->all());
+        // If only one error and it is 'Current PIN is incorrect.', show as alert
+        if (errorList.length === 1 && errorList[0] === 'Current PIN is incorrect.') {
+            nativeAlert(errorList[0], {
+                type: 'error',
+                title: 'Error'
             });
-        }
-        if (typeof Swal === 'undefined') {
-            const swalScript = document.createElement('script');
-            swalScript.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-            swalScript.onload = showColoredError;
-            document.head.appendChild(swalScript);
         } else {
-            showColoredError();
+            nativeAlert(errorList.join('\n'), {
+                type: 'error',
+                title: 'Error'
+            });
         }
     });
 </script>
@@ -79,12 +58,6 @@
             @push('scripts')
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    // Load SweetAlert2 if not present
-                    if (typeof Swal === 'undefined') {
-                        const swalScript = document.createElement('script');
-                        swalScript.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-                        document.head.appendChild(swalScript);
-                    }
                     const pinForm = document.getElementById('pin-form');
                     if (pinForm) {
                         pinForm.addEventListener('submit', function(e) {
@@ -106,26 +79,10 @@
                             }
                             if (errors.length > 0) {
                                 e.preventDefault();
-
-                                function showAlert() {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error',
-                                        html: errors.join('<br>'),
-                                        background: '#fef2f2',
-                                        color: '#991b1b',
-                                        confirmButtonColor: '#ef4444',
-                                        iconColor: '#ef4444',
-                                    });
-                                }
-                                if (typeof Swal === 'undefined') {
-                                    const swalScript = document.createElement('script');
-                                    swalScript.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-                                    swalScript.onload = showAlert;
-                                    document.head.appendChild(swalScript);
-                                } else {
-                                    showAlert();
-                                }
+                                nativeAlert(errors.join('\n'), {
+                                    type: 'error',
+                                    title: 'Error'
+                                });
                                 return false;
                             }
                         });

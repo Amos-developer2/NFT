@@ -165,43 +165,22 @@
     </div>
 </div>
 
-<!-- SweetAlert2 Toast for Success/Error Messages -->
 @if(session('success'))
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            toast: true,
-            position: 'center',
-            icon: 'success',
-            title: @json(session('success')),
-            iconColor: 'white',
-            customClass: {
-                popup: 'colored-toast'
-            },
-            showConfirmButton: false,
-            timer: 1500,
-            timerProgressBar: true
+        nativeAlert(@json(session('success')), {
+            type: 'success',
+            title: 'Success'
         });
     });
 </script>
 @endif
 @if($errors->any())
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            toast: true,
-            position: 'center',
-            icon: 'error',
-            title: @json(implode("\n", $errors->all())),
-            iconColor: 'white',
-            customClass: {
-                popup: 'colored-toast'
-            },
-            showConfirmButton: false,
-            timer: 1500,
-            timerProgressBar: true
+        nativeAlert(@json(implode("\n", $errors->all())), {
+            type: 'error',
+            title: 'Error'
         });
     });
 </script>
