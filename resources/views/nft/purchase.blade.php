@@ -730,8 +730,8 @@
 </div>
 
 <!-- Confirmation Modal -->
-<div id="purchaseModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: flex-end;">
-    <div style="width: 100%; background: #fff; border-radius: 6px 6px 0 0; padding: 20px; animation: slideUp 0.3s ease;">
+<div id="purchaseModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000;">
+    <div id="purchaseModalContent" style="width: 100%; max-width: 430px; margin: 0 auto; position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-radius: 20px 20px 0 0; padding: 20px; transform: translateY(100%); transition: transform 0.3s ease;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
             <h3 style="margin: 0; font-size: 18px; font-weight: 700; color: #1e293b;">Confirm Purchase</h3>
             <button onclick="closePurchaseModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #94a3b8;">✕</button>
@@ -776,51 +776,51 @@
         </div>
     </div>
 </div>
-
-<style>
-    @keyframes slideUp {
-        from {
-            transform: translateY(100%);
-        }
-
-        to {
-            transform: translateY(0);
-        }
-    }
-</style>
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        iconColor: 'white',
+        customClass: {
+            popup: 'colored-toast'
+        },
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+    });
     @if(session('error'))
-    nativeAlert(@json(session('error')), {
-        type: 'error',
-        title: 'Error'
+    Toast.fire({
+        icon: 'error',
+        title: @json(session('error'))
     });
     @endif
     @if(session('success'))
-    nativeAlert(@json(session('success')), {
-        type: 'success',
-        title: 'Success'
+    Toast.fire({
+        icon: 'success',
+        title: @json(session('success'))
     });
     setTimeout(function() {
         window.location.href = "{{ route('collection') }}";
     }, 1600);
     @endif
 
-    // Tab switching
-    document.querySelectorAll('.nft-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            document.querySelectorAll('.nft-tab').forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
+// Tab switching
+document.querySelectorAll('.nft-tab').forEach(tab => {
+tab.addEventListener('click', function() {
+document.querySelectorAll('.nft-tab').forEach(t => t.classList.remove('active'));
+this.classList.add('active');
+});
+});
 
     // ===== IMAGE PROTECTION =====
-
+    
     // Disable right-click on entire page
     document.addEventListener('contextmenu', e => e.preventDefault());
-
+    
     // Block keyboard shortcuts for DevTools and save
     document.addEventListener('keydown', function(e) {
         // F12
@@ -850,53 +850,65 @@
         const widthThreshold = window.outerWidth - window.innerWidth > 160;
         const heightThreshold = window.outerHeight - window.innerHeight > 160;
         const isOpen = widthThreshold || heightThreshold;
-
+        
         if (isOpen) {
             document.body.classList.add('devtools-open');
         } else {
             document.body.classList.remove('devtools-open');
         }
     };
-
+    
     // Check on resize (when DevTools opens/closes)
     window.addEventListener('resize', detectDevTools);
     setInterval(detectDevTools, 1000);
     detectDevTools();
 
-    // Disable drag on all images
-    document.querySelectorAll('img').forEach(img => {
-        img.setAttribute('draggable', 'false');
-        img.addEventListener('dragstart', e => e.preventDefault());
-    });
+// Disable drag on all images
+document.querySelectorAll('img').forEach(img => {
+img.setAttribute('draggable', 'false');
+img.addEventListener('dragstart', e => e.preventDefault());
+});
 
     // Purchase Modal Functions
     function confirmPurchase() {
         const modal = document.getElementById('purchaseModal');
-        modal.style.display = 'flex';
+        const modalContent = document.getElementById('purchaseModalContent');
+        if (modal && modalContent) {
+            modal.style.display = 'block';
+            setTimeout(() => {
+                modalContent.style.transform = 'translateY(0)';
+            }, 10);
+        }
     }
 
     function closePurchaseModal() {
         const modal = document.getElementById('purchaseModal');
-        modal.style.display = 'none';
+        const modalContent = document.getElementById('purchaseModalContent');
+        if (modal && modalContent) {
+            modalContent.style.transform = 'translateY(100%)';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Close modal when clicking outside
-        document.getElementById('purchaseModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePurchaseModal();
-            }
-        });
-    });
+document.addEventListener('DOMContentLoaded', function() {
+// Close modal when clicking outside
+document.getElementById('purchaseModal').addEventListener('click', function(e) {
+if (e.target === this) {
+closePurchaseModal();
+}
+});
+});
 
     // Prevent default form submission and use fetch instead
     document.getElementById('purchaseForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const submitBtn = this.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Processing...';
-
-    fetch(this.action, {
+        e.preventDefault();
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+        
+        fetch(this.action, {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
@@ -919,7 +931,6 @@
             alert('An error occurred. Please try again.');
         });
     });
-    });
 
     // Like button functionality
     const likeBtn = document.getElementById('like-btn');
@@ -927,7 +938,7 @@
         likeBtn.addEventListener('click', async function() {
             const nftId = this.dataset.nftId;
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '{{ csrf_token() }}';
-
+            
             try {
                 const response = await fetch(`/nft/${nftId}/like`, {
                     method: 'POST',
@@ -938,12 +949,12 @@
                     }
                 });
 
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.error || `HTTP error ${response.status}`);
-                }
+if (!response.ok) {
+const errorData = await response.json().catch(() => ({}));
+throw new Error(errorData.error || `HTTP error ${response.status}`);
+}
 
-                const data = await response.json();
+const data = await response.json();
 
                 if (data.success) {
                     // Toggle active class
@@ -952,27 +963,23 @@
                     } else {
                         this.classList.remove('active');
                     }
-
+                    
                     // Update likes count in stats
                     const likesCountEl = document.getElementById('likes-count');
                     if (likesCountEl) {
                         likesCountEl.textContent = data.likes_count.toLocaleString();
                     }
                 } else if (data.error) {
-                    nativeAlert(data.error, {
-                        type: 'error',
-                        title: 'Error'
+                    Toast.fire({
+                        icon: 'error',
+                        title: data.error
                     });
                 }
             } catch (error) {
                 console.error('Error toggling like:', error);
-                nativeAlert(error.message || 'Failed to update like', {
-                    type: 'error',
-                    title: 'Error'
-                });
-                nativeAlert('An error occurred. Please try again.', {
-                    type: 'error',
-                    title: 'Error'
+                Toast.fire({
+                    icon: 'error',
+                    title: error.message || 'Failed to update like'
                 });
             }
         });
