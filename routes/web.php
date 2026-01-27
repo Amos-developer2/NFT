@@ -96,6 +96,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/auction/store', [App\Http\Controllers\AuctionController::class, 'store'])->name('auction.store');
     Route::get('/auction/{id}', [App\Http\Controllers\AuctionController::class, 'show'])->name('auction');
     Route::post('/auction/{id}/bid', [App\Http\Controllers\AuctionController::class, 'bid'])->name('auction.bid');
+
+    // Bid routes
+    Route::post('/bid/{id}/accept', [App\Http\Controllers\BidController::class, 'accept'])->name('bid.accept');
 });
 
 

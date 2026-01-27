@@ -45,7 +45,7 @@
         border-radius: 24px 24px 0 0;
         margin-top: -30px;
         position: relative;
-        padding: 24px 20px;
+        padding: 20px 16px;
     }
 
     .nft-title {
@@ -70,10 +70,9 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 16px;
-        background: #f8fafc;
-        border-radius: 12px;
-        margin-bottom: 20px;
+        padding: 12px 0;
+        border-bottom: 1px solid #f1f5f9;
+        margin-bottom: 16px;
     }
 
     .owner-info {
@@ -107,9 +106,9 @@
 
     .price-main-card {
         background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
-        border-radius: 16px;
-        padding: 20px;
-        margin-bottom: 20px;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
         color: #fff;
     }
 
@@ -127,69 +126,34 @@
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin-bottom: 24px;
+        gap: 8px;
+        margin-bottom: 16px;
     }
 
     .stat-card {
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-        border-radius: 14px;
-        padding: 18px 14px;
+        padding: 12px 8px;
         text-align: center;
-        border: 1px solid #e2e8f0;
-        transition: all 0.3s;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .stat-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #60a5fa 0%, #2563eb 100%);
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-
-    .stat-card:hover::before {
-        opacity: 1;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
     }
 
     .stat-label {
-        font-size: 10px;
+        font-size: 11px;
         color: #64748b;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-        font-weight: 600;
+        margin-bottom: 4px;
+        font-weight: 500;
     }
 
     .stat-value {
-        font-size: 18px;
-        font-weight: 800;
+        font-size: 16px;
+        font-weight: 700;
         color: #1e293b;
     }
 
     .stat-value.positive {
-        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #22c55e;
     }
 
     .stat-value.negative {
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #ef4444;
     }
 
     .section-title {
@@ -200,27 +164,15 @@
     }
 
     .bids-list {
-        background: #fff;
-        border-radius: 16px;
-        overflow: hidden;
-        margin-bottom: 20px;
-        border: 1px solid #e2e8f0;
+        margin-bottom: 16px;
     }
 
     .bid-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 16px 18px;
+        padding: 12px 0;
         border-bottom: 1px solid #f1f5f9;
-        transition: all 0.2s;
-        background: linear-gradient(90deg, transparent 0%, #f8fafc 100%);
-        background-size: 200% 100%;
-        background-position: 100% 0;
-    }
-
-    .bid-item:hover {
-        background-position: 0 0;
     }
 
     .bid-item:last-child {
@@ -230,40 +182,30 @@
     .bid-user {
         display: flex;
         align-items: center;
-        gap: 12px;
-        font-size: 14px;
+        gap: 10px;
+        font-size: 13px;
         color: #1e293b;
-        font-weight: 600;
-    }
-
-    .bid-user svg {
-        filter: drop-shadow(0 2px 4px rgba(96, 165, 250, 0.3));
+        font-weight: 500;
     }
 
     .bid-amount {
-        font-size: 15px;
-        font-weight: 800;
-        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        font-size: 14px;
+        font-weight: 700;
+        color: #2563eb;
     }
 
     .no-bids-alert {
-        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-        border: 2px dashed #93c5fd;
-        border-radius: 16px;
-        padding: 24px;
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 16px;
         text-align: center;
-        color: #1e40af;
-        font-size: 14px;
-        margin-bottom: 20px;
-        font-weight: 600;
+        color: #64748b;
+        font-size: 13px;
+        margin-bottom: 16px;
     }
 
     .no-bids-alert svg {
-        color: #60a5fa;
-        filter: drop-shadow(0 2px 4px rgba(96, 165, 250, 0.3));
+        color: #94a3b8;
     }
 
     .sell-btn {
@@ -292,38 +234,31 @@
 
     /* Tabs Styles */
     .tabs-container {
-        margin-bottom: 20px;
+        margin-bottom: 16px;
     }
 
     .tabs-header {
         display: flex;
-        gap: 8px;
-        background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-        padding: 8px;
-        border-radius: 16px;
-        margin-bottom: 24px;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid #e2e8f0;
+        margin-bottom: 16px;
     }
 
     .tab-btn {
         flex: 1;
-        padding: 12px 16px;
+        padding: 12px 8px;
         background: transparent;
         border: none;
-        border-radius: 12px;
+        border-bottom: 2px solid transparent;
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 600;
         color: #64748b;
         cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
+        transition: all 0.2s;
     }
 
     .tab-btn.active {
-        background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
-        color: #fff;
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        transform: translateY(-1px);
+        color: #2563eb;
+        border-bottom-color: #2563eb;
     }
 
     .tab-content {
@@ -336,78 +271,55 @@
 
     .info-grid {
         display: grid;
-        gap: 10px;
+        gap: 0;
     }
 
     .info-item {
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-        border-radius: 14px;
-        padding: 16px 18px;
+        padding: 12px 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border: 1px solid #e2e8f0;
-        transition: all 0.2s;
+        border-bottom: 1px solid #f1f5f9;
     }
 
-    .info-item:hover {
-        transform: translateX(4px);
-        border-color: #cbd5e1;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    .info-item:last-child {
+        border-bottom: none;
     }
 
     .info-label {
-        font-size: 12px;
+        font-size: 13px;
         color: #64748b;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        font-weight: 500;
     }
 
     .info-value {
-        font-size: 14px;
+        font-size: 13px;
         color: #1e293b;
-        font-weight: 700;
+        font-weight: 600;
     }
 
     .accept-bid-btn {
-        padding: 10px 20px;
-        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        padding: 6px 14px;
+        background: #22c55e;
         border: none;
-        border-radius: 10px;
+        border-radius: 6px;
         color: #fff;
         font-size: 12px;
-        font-weight: 700;
+        font-weight: 600;
         cursor: pointer;
-        transition: all 0.3s;
-        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        transition: background 0.2s;
     }
 
     .accept-bid-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
-    }
-
-    .accept-bid-btn:active {
-        transform: translateY(0);
+        background: #16a34a;
     }
 
     .bid-item-with-action {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 16px 18px;
+        padding: 12px 0;
         border-bottom: 1px solid #f1f5f9;
-        transition: all 0.2s;
-        background: linear-gradient(90deg, transparent 0%, #f0fdf4 100%);
-        background-size: 200% 100%;
-        background-position: 100% 0;
-    }
-
-    .bid-item-with-action:hover {
-        background-position: 0 0;
     }
 
     .bid-item-with-action:last-child {
