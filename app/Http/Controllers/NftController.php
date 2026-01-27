@@ -162,11 +162,21 @@ class NftController extends Controller
         if (!$nft) {
             return redirect()->route('nft.purchase', ['id' => $id])->with('error', 'NFT not found');
         }
-        // Check if already owned
-        if ($nft->user_id) {
-            return redirect()->route('nft.purchase', ['id' => $id])->with('error', 'NFT already owned');
+        
+        // Admin IDs whose NFTs are available for purchase
+        $adminIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        
+        // Check if NFT is available for purchase (owned by admin) or already owned by a regular user
+        if ($nft->user_id && !in_array($nft->user_id, $adminIds)) {
+            return redirect()->route('nft.purchase', ['id' => $id])->with('error', 'NFT already owned by another user');
         }
+        
+        // Check if user already owns this NFT
         $user = Auth::user();
+        if ($nft->user_id === $user->id) {
+            return redirect()->route('nft.purchase', ['id' => $id])->with('error', 'You already own this NFT');
+        }
+        
         $price = $nft->price ?? 0; // USDT
         if ($user->balance < $price) {
             return redirect()->route('nft.purchase', ['id' => $id])->with('error', 'Insufficient USDT balance to purchase this NFT.');
