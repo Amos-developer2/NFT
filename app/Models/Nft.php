@@ -69,6 +69,14 @@ class Nft extends Model
     }
 
     /**
+     * Get the price history for this NFT.
+     */
+    public function price_history(): HasMany
+    {
+        return $this->hasMany(NftPriceHistory::class);
+    }
+
+    /**
      * Check if the current user has liked this NFT.
      */
     public function isLikedByUser(?int $userId = null): bool
