@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <h2>{{ $nft->name }}</h2>
             <p>{{ $nft->description }}</p>
-            <p><strong>Owner:</strong> {{ $nft->owner->name }}</p>
+            <p><strong>Owner:</strong> {{ $nft->user->name }}</p>
             <p><strong>Current Price:</strong> ${{ number_format($nft->current_price, 2) }}</p>
             <h4>Price Statistics</h4>
             <ul>
@@ -27,7 +27,7 @@
             @else
                 <p>No bids yet.</p>
             @endif
-            @if(auth()->id() === $nft->owner_id)
+            @if(auth()->id() === $nft->user_id)
                 <form action="{{ route('nft.sell', $nft->id) }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-primary">Sell NFT</button>
