@@ -129,20 +129,20 @@
         @if(Auth::user()->hasVerifiedEmail())
         <span class="verified-badge">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                <polyline points="20 6 9 17 4 12"/>
+                <polyline points="20 6 9 17 4 12" />
             </svg>
         </span>
         @endif
     </div>
-    
+
     <div class="account-info">
         <h2 class="account-name">{{ Auth::user()->name }}</h2>
         <p class="account-email">{{ Auth::user()->email }}</p>
         <div class="account-meta">
             <span class="meta-item">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
                 </svg>
                 {{ Auth::user()->account_id }}
             </span>
@@ -150,13 +150,13 @@
             <span class="meta-item status-{{ Auth::user()->hasVerifiedEmail() ? 'verified' : 'pending' }}">
                 @if(Auth::user()->hasVerifiedEmail())
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="20 6 9 17 4 12"/>
+                    <polyline points="20 6 9 17 4 12" />
                 </svg>
                 Verified
                 @else
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M12 8v4M12 16h.01"/>
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8v4M12 16h.01" />
                 </svg>
                 Unverified
                 @endif
@@ -239,9 +239,9 @@
             <a href="{{ route('account.withdrawal-address.edit') }}" class="action-item">
                 <div class="action-icon wallet">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/>
-                        <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/>
-                        <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"/>
+                        <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+                        <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+                        <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z" />
                     </svg>
                 </div>
                 <div class="action-text">
@@ -367,7 +367,7 @@
             <span>Preferences</span>
         </div>
         <div class="quick-actions">
-            <a href="{{ route('about') }}" class="action-item">
+            <a href="{{ route('account.language') }}" class="action-item">
                 <div class="action-icon language">
                     <img src="/icons/coin.svg" alt="Language">
                 </div>

@@ -34,10 +34,13 @@ class WithdrawalController extends Controller
 
         $user = Auth::user();
 
-        // TODO: Verify withdrawal PIN against user's stored PIN
-        // if (!Hash::check($validated['withdrawal_pin'], $user->withdrawal_pin)) {
-        //     return back()->withErrors(['withdrawal_pin' => 'Invalid withdrawal PIN.']);
-        // }
+        // Verify withdrawal PIN against user's stored PIN with bcrypt guard
+        if (!$user->withdrawal_pin || !preg_match('/^\$2[aby]\$/', $user->withdrawal_pin)) {
+            return back()->withErrors(['withdrawal_pin' => 'Your withdrawal PIN is not set correctly. Please reset your PIN.']);
+        }
+        if (!Hash::check($validated['withdrawal_pin'], $user->withdrawal_pin)) {
+            return back()->withErrors(['withdrawal_pin' => 'Invalid withdrawal PIN.']);
+        }
 
         // TODO: Check if user has sufficient balance
         // if ($user->balance < $validated['amount']) {

@@ -31,6 +31,10 @@ Route::view('/about', 'about')->name('about');
 // Load admin routes
 // Protected routes - require authentication
 Route::middleware(['auth'])->group(function () {
+    // Set language
+    Route::post('/account/language', [App\Http\Controllers\AccountController::class, 'setLanguage'])->name('account.language.set');
+    // Language selection page
+    Route::get('/account/language', [App\Http\Controllers\AccountController::class, 'editLanguage'])->name('account.language');
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // API endpoint for 2-minute change stat (for live polling)
     Route::get('/api/portfolio-change', [App\Http\Controllers\HomeController::class, 'portfolioChangeStat'])->name('api.portfolio-change');

@@ -8,8 +8,29 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 
 
-class AccountController extends Controller
-{
+class AccountController extends Controller{
+
+    /**
+     * Set the user's language preference.
+     */
+    public function setLanguage(Request $request)
+    {
+        $request->validate([
+            'language' => 'required|in:en,es,fr', // Add more supported languages as needed
+        ]);
+        session(['locale' => $request->language]);
+        app()->setLocale($request->language);
+        return redirect()->route('account')->with('success', 'Language updated!');
+    }
+
+    /**
+     * Show the language selection page.
+     */
+    public function editLanguage()
+    {
+        return view('account-language');
+    }
+
 
     /**
      * Send a verification code to the user's email for password change.
@@ -115,12 +136,18 @@ class AccountController extends Controller
     {
         $user = Auth::user();
 
+
         // If user has existing PIN, require current PIN
         if ($user->withdrawal_pin) {
             $request->validate([
                 'current_pin' => 'required|digits:4',
                 'pin' => 'required|digits:4|confirmed',
             ]);
+
+            // Guard: Only check if withdrawal_pin is a valid bcrypt hash
+            if (!preg_match('/^\$2[aby]\$/', $user->withdrawal_pin)) {
+                return back()->withErrors(['current_pin' => 'Your withdrawal PIN is not set correctly. Please reset your PIN.']);
+            }
 
             if (!\Hash::check($request->current_pin, $user->withdrawal_pin)) {
                 return back()->withErrors(['current_pin' => 'Current PIN is incorrect.']);
@@ -131,6 +158,7 @@ class AccountController extends Controller
             ]);
         }
 
+        // Always hash the PIN before saving
         $user->withdrawal_pin = \Hash::make($request->pin);
         $user->save();
 
@@ -151,12 +179,12 @@ class AccountController extends Controller
     public function sendAddressVerificationCode(Request $request)
     {
         $user = Auth::user();
-        
+
         // Check if address is already bound
         if ($user->withdrawal_address) {
             return response()->json(['error' => 'Withdrawal address is already bound.'], 400);
         }
-        
+
         $code = random_int(100000, 999999);
         session(['address_verification_code' => $code, 'address_verification_expires' => now()->addMinutes(10)]);
 
@@ -174,7 +202,7 @@ class AccountController extends Controller
     public function bindWithdrawalAddress(Request $request)
     {
         $user = Auth::user();
-        
+
         // Check if address is already bound
         if ($user->withdrawal_address) {
             return back()->withErrors(['address' => 'Withdrawal address is already bound and cannot be changed.']);
@@ -215,11 +243,11 @@ class AccountController extends Controller
         // Verify email code
         $sessionCode = session('address_verification_code');
         $expires = session('address_verification_expires');
-        
+
         if (!$sessionCode || $request->verification_code != $sessionCode) {
             return back()->withErrors(['verification_code' => 'Invalid verification code.'])->withInput();
         }
-        
+
         if ($expires && now()->gt($expires)) {
             return back()->withErrors(['verification_code' => 'Verification code has expired.'])->withInput();
         }
@@ -228,7 +256,12 @@ class AccountController extends Controller
         if (!$user->withdrawal_pin) {
             return back()->withErrors(['pin' => 'Please set a withdrawal PIN first.'])->withInput();
         }
-        
+
+        // Guard: Only check if withdrawal_pin is a valid bcrypt hash
+        if (!preg_match('/^\$2[aby]\$/', $user->withdrawal_pin)) {
+            return back()->withErrors(['pin' => 'Your withdrawal PIN is not set correctly. Please reset your PIN.'])->withInput();
+        }
+
         if (!Hash::check($request->pin, $user->withdrawal_pin)) {
             return back()->withErrors(['pin' => 'Incorrect withdrawal PIN.'])->withInput();
         }
