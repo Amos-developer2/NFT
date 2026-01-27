@@ -33,11 +33,83 @@
         .account-card-id {
             font-family: 'Inter', 'Segoe UI', Arial, sans-serif !important;
         }
+
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-content {
+            text-align: center;
+        }
+
+        .preloader-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .preloader-spinner {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 20px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .preloader-text {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
     @stack('styles')
 </head>
 
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <img src="{{ asset('images/vortex.png') }}" alt="VortexNFT" class="preloader-logo">
+            <div class="preloader-spinner"></div>
+            <div class="preloader-text">Loading...</div>
+        </div>
+    </div>
     <div class="mobile-container">
         @if(!isset($hideHeader) || !$hideHeader)
         <!-- Header -->
@@ -72,6 +144,18 @@
     </div>
 
     @include('partials.native-alert')
+
+    <script>
+        // Hide preloader when page is fully loaded
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                setTimeout(function() {
+                    preloader.classList.add('hidden');
+                }, 500); // Small delay for smooth transition
+            }
+        });
+    </script>
 
     @stack('scripts')
 </body>
