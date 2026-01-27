@@ -1,230 +1,773 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app', ['hideHeader' => true])
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Collection</title>
-    <link rel="stylesheet" href="/css/custom.css">
-    <link rel="stylesheet" href="/css/collection.css">
-</head>
+@section('title', 'NFT Collection')
 
-<body>
+@push('styles')
+<style>
+    .collection-wrapper {
+        padding: 0 16px 100px;
+        background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+        min-height: 100vh;
+    }
+
+    /* Portfolio Summary Card */
+    .portfolio-card {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 24px;
+    }
+
+    .portfolio-card-bg {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 50%, #60a5fa 100%);
+    }
+
+    .portfolio-card-bg::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -30%;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .portfolio-card-content {
+        position: relative;
+        padding: 20px;
+        color: #fff;
+    }
+
+    .portfolio-title {
+        font-size: 14px;
+        font-weight: 600;
+        opacity: 0.9;
+        margin-bottom: 4px;
+    }
+
+    .portfolio-value {
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
+    }
+
+    .portfolio-value small {
+        font-size: 16px;
+        font-weight: 600;
+        opacity: 0.9;
+    }
+
+    .portfolio-stats {
+        display: flex;
+        gap: 12px;
+    }
+
+    .portfolio-stat {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .portfolio-stat-value {
+        font-size: 16px;
+        font-weight: 700;
+        display: block;
+    }
+
+    .portfolio-stat-value.profit {
+        color: #bbf7d0;
+    }
+
+    .portfolio-stat-value.loss {
+        color: #fecaca;
+    }
+
+    .portfolio-stat-label {
+        font-size: 11px;
+        opacity: 0.85;
+        margin-top: 2px;
+        display: block;
+    }
+
+    /* Popular Collections */
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+    }
+
+    .section-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .view-all-btn {
+        font-size: 13px;
+        font-weight: 600;
+        color: #2A6CF6;
+        text-decoration: none;
+    }
+
+    .collections-scroll {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        margin-bottom: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .collections-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    .collection-card {
+        flex: 0 0 140px;
+        background: #fff;
+        border-radius: 16px;
+        padding: 16px;
+        text-align: center;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(42, 108, 246, 0.06);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .collection-card:active {
+        transform: scale(0.98);
+    }
+
+    .collection-icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .collection-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .collection-count {
+        font-size: 11px;
+        color: #64748b;
+    }
+
+    /* Filter Tabs */
+    .filter-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .filter-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-tab {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 18px;
+        background: #fff;
+        border: 1px solid rgba(42, 108, 246, 0.1);
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #64748b;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .filter-tab.active {
+        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+        border-color: transparent;
+        color: #fff;
+    }
+
+    /* Search Bar */
+    .search-bar {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .search-bar input {
+        width: 100%;
+        padding: 14px 14px 14px 44px;
+        background: #fff;
+        border: 1px solid rgba(42, 108, 246, 0.1);
+        border-radius: 14px;
+        font-size: 14px;
+        color: #1e293b;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .search-bar input::placeholder {
+        color: #94a3b8;
+    }
+
+    .search-bar input:focus {
+        outline: none;
+        border-color: #2A6CF6;
+    }
+
+    .search-bar svg {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+    }
+
+    /* NFT Grid */
+    .nft-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    .nft-card {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(42, 108, 246, 0.06);
+        transition: transform 0.2s ease;
+    }
+
+    .nft-card:active {
+        transform: scale(0.98);
+    }
+
+    .nft-card.owned {
+        border: 2px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .nft-card.other-user {
+        border: 2px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .nft-card-image {
+        position: relative;
+        aspect-ratio: 1;
+        overflow: hidden;
+        padding: 6px;
+    }
+
+    .nft-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    .nft-rarity {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    .nft-rarity.legendary {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: #fff;
+    }
+
+    .nft-rarity.epic {
+        background: linear-gradient(135deg, #a855f7, #8b5cf6);
+        color: #fff;
+    }
+
+    .nft-rarity.rare {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #fff;
+    }
+
+    .nft-rarity.common {
+        background: #e2e8f0;
+        color: #64748b;
+    }
+
+    .nft-owned-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 4px 8px;
+        background: rgba(34, 197, 94, 0.9);
+        border-radius: 6px;
+        font-size: 9px;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .nft-owner-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 4px 8px;
+        background: rgba(168, 85, 247, 0.9);
+        border-radius: 6px;
+        font-size: 9px;
+        font-weight: 700;
+        color: #fff;
+        max-width: 70px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .nft-card-owner {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: #64748b;
+        margin-bottom: 6px;
+    }
+
+    .nft-card-owner svg {
+        color: #a855f7;
+    }
+
+    .nft-card-owner strong {
+        color: #1e293b;
+        font-weight: 600;
+    }
+
+    .nft-card-btn.view {
+        background: linear-gradient(135deg, #a855f7, #8b5cf6);
+        color: #fff;
+    }
+
+    .nft-card-info {
+        padding: 12px;
+    }
+
+    .nft-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+
+    .nft-card-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        flex: 1;
+    }
+
+    .nft-card-id {
+        font-size: 10px;
+        color: #94a3b8;
+        font-weight: 500;
+    }
+
+    .nft-card-price {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin-bottom: 10px;
+    }
+
+    .price-label {
+        font-size: 10px;
+        color: #94a3b8;
+    }
+
+    .price-value {
+        font-size: 14px;
+        font-weight: 700;
+        color: #1e293b;
+    }
+
+    .price-value small {
+        font-size: 10px;
+        color: #94a3b8;
+        font-weight: 500;
+    }
+
+    .nft-card-profit {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .nft-card-profit.up {
+        color: #22c55e;
+    }
+
+    .nft-card-profit.down {
+        color: #ef4444;
+    }
+
+    .nft-card-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .nft-card-btn.buy {
+        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+        color: #fff;
+    }
+
+    .nft-card-btn.sell {
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: #fff;
+    }
+
+    .nft-card-btn:active {
+        transform: scale(0.98);
+    }
+
+    /* Empty State */
+    .empty-state {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 24px;
+        background: #fff;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .empty-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+
+    .empty-state h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0 0 8px;
+    }
+
+    .empty-state p {
+        font-size: 14px;
+        color: #64748b;
+        margin: 0;
+    }
+</style>
+@endpush
+
+@section('content')
+<div class="collection-wrapper">
+    <!-- Page Header -->
     @include('partials.header', ['title' => 'Collection'])
 
-    <!-- Header Spacer -->
-    <div class="market-header-spacer"></div>
-
     <!-- Portfolio Summary -->
-    <div class="portfolio-summary">
-        <div class="portfolio-stats">
-            <div class="stat-box">
-                <span class="stat-label">Portfolio Value</span>
-                <div class="stat-value">
-                    <img src="/icons/usdt.svg" alt="USDT" class="stat-ton">
-                    <span>{{ number_format($totalValue, 2) }} USDT</span>
-                </div>
+    <div class="portfolio-card">
+        <div class="portfolio-card-bg"></div>
+        <div class="portfolio-card-content">
+            <div class="portfolio-title">My Portfolio Value</div>
+            <div class="portfolio-value">
+                {{ number_format($totalValue ?? 0, 2) }} <small>USDT</small>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-box">
-                <span class="stat-label">Total P/L</span>
-                <div class="stat-value {{ $totalProfit >= 0 ? 'profit' : 'loss' }}">
-                    <span>{{ $totalProfit >= 0 ? '+' : '' }}{{ number_format($totalProfit, 2) }}</span>
+            <div class="portfolio-stats">
+                <div class="portfolio-stat">
+                    <span class="portfolio-stat-value">{{ $totalNfts ?? 0 }}</span>
+                    <span class="portfolio-stat-label">NFTs Owned</span>
                 </div>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-box">
-                <span class="stat-label">NFTs Owned</span>
-                <div class="stat-value">
-                    <span>{{ $totalNfts }}</span>
+                <div class="portfolio-stat">
+                    <span class="portfolio-stat-value {{ ($totalProfit ?? 0) >= 0 ? 'profit' : 'loss' }}">
+                        {{ ($totalProfit ?? 0) >= 0 ? '+' : '' }}{{ number_format($totalProfit ?? 0, 2) }}
+                    </span>
+                    <span class="portfolio-stat-label">Total P/L</span>
+                </div>
+                <div class="portfolio-stat">
+                    <span class="portfolio-stat-value">{{ count($availableNfts ?? []) + count($otherUsersNfts ?? []) }}</span>
+                    <span class="portfolio-stat-label">Market</span>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Popular Collections -->
+    <div class="section-header">
+        <h2 class="section-title">🔥 Popular Collections</h2>
+    </div>
+    <div class="collections-scroll">
+        @foreach($popularCollections ?? [] as $collection)
+        <div class="collection-card" data-rarity="{{ $collection['rarity'] }}">
+            <div class="collection-icon">{{ $collection['icon'] }}</div>
+            <div class="collection-name">{{ $collection['name'] }}</div>
+            <div class="collection-count">{{ $collection['count'] }} NFTs</div>
+        </div>
+        @endforeach
     </div>
 
     <!-- Search Bar -->
-    <div class="search-container">
-        <div class="search-wrapper">
-            <img src="/icons/search.svg" alt="Search" class="search-icon">
-            <input type="text" class="search-input" placeholder="Search NFTs">
-        </div>
-        <button class="filter-btn">
-            <img src="/icons/filter.svg" alt="Filter">
-        </button>
+    <div class="search-bar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="nftSearch" placeholder="Search NFTs...">
     </div>
 
-    <!-- Category Tabs -->
-    <div class="category-tabs">
-        <button class="category-tab active">All NFTs</button>
-        <button class="category-tab profit-tab">
-            <span class="indicator up"></span>
-            Profitable
-        </button>
-        <button class="category-tab loss-tab">
-            <span class="indicator down"></span>
-            At Loss
-        </button>
-        <button class="category-tab">Recent</button>
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">🎨 All NFTs</button>
+        <button class="filter-tab" data-filter="owned">✅ My NFTs</button>
+        <button class="filter-tab" data-filter="available">🛒 Available</button>
+        <button class="filter-tab" data-filter="others">👥 Others</button>
+        <button class="filter-tab" data-filter="Legendary">👑 Legendary</button>
+        <button class="filter-tab" data-filter="Epic">🎯 Epic</button>
+        <button class="filter-tab" data-filter="Rare">💎 Rare</button>
+        <button class="filter-tab" data-filter="Common">⭐ Common</button>
     </div>
 
-    <!-- NFT Cards List -->
-    <div class="nfts-list">
-        @forelse($nfts as $nft)
+    <!-- NFT Grid - My Owned NFTs -->
+    <div class="section-header">
+        <h2 class="section-title">📦 All NFTs</h2>
+    </div>
+    <div class="nft-grid" id="nftGrid">
         @php
-        $isProfit = $nft['current_price'] >= $nft['bought_price'];
-        $changeAmount = $nft['current_price'] - $nft['bought_price'];
-        $changePercent = $nft['bought_price'] > 0 ? (($changeAmount / $nft['bought_price']) * 100) : 0;
-        $canSell = $nft['can_sell'] ?? true;
-        $daysHeld = $nft['days_held'] ?? 0;
+            $userId = Auth::id();
+            $adminIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         @endphp
-        <div class="nft-card {{ $isProfit ? 'card-profit' : 'card-loss' }}" data-status="{{ $isProfit ? 'profit' : 'loss' }}">
-            <!-- Left: NFT Image -->
-            <div class="nft-image">
-                <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}" class="nft-img">
-                <!-- Days Held Badge -->
-                <div class="days-badge">
-                    <span>{{ $daysHeld }}d</span>
-                </div>
+
+        {{-- Show Owned NFTs First --}}
+        @foreach($ownedNfts ?? [] as $nft)
+        @php
+            $profit = ($nft->value ?? 0) - ($nft->purchase_price ?? $nft->price ?? 0);
+            $profitPercent = ($nft->purchase_price ?? $nft->price ?? 0) > 0 
+                ? (($profit / ($nft->purchase_price ?? $nft->price)) * 100) 
+                : 0;
+        @endphp
+        <div class="nft-card owned" 
+             data-ownership="owned" 
+             data-rarity="{{ $nft->rarity }}" 
+             data-name="{{ strtolower($nft->name) }}">
+            <div class="nft-card-image">
+                <img src="{{ $nft->image }}" alt="{{ $nft->name }}">
+                <span class="nft-rarity {{ strtolower($nft->rarity) }}">{{ $nft->rarity }}</span>
+                <span class="nft-owned-badge">Owned</span>
             </div>
-            <!-- Right: NFT Details -->
-            <div class="nft-details">
-                <!-- Name & Change % -->
-                <div class="nft-header">
-                    <div class="nft-title">
-                        <span class="nft-name">{{ $nft['name'] }}</span>
-                        <span class="nft-id">#{{ $nft['id'] }}</span>
-                    </div>
-                    <div class="value-badge {{ $isProfit ? 'up' : 'down' }}">
-                        <img id="change-arrow-{{ $nft['id'] }}" src="/icons/{{ $isProfit ? 'arrow-up' : 'arrow-down' }}.svg" alt="">
-                        <span id="change-percent-{{ $nft['id'] }}">{{ $isProfit ? '+' : '' }}{{ number_format($changePercent, 1) }}%</span>
-                    </div>
+            <div class="nft-card-info">
+                <div class="nft-card-header">
+                    <h3 class="nft-card-name">{{ $nft->name }}</h3>
+                    <span class="nft-card-id">#{{ $nft->id }}</span>
                 </div>
-
-                <!-- Price Comparison -->
-                <div class="price-row">
-                    <div class="price-item">
-                        <span class="price-label">Bought at</span>
-                        <span class="price-value bought"><img src="/icons/usdt.svg" width="14"> {{ number_format($nft['bought_price'], 2) }} USDT</span>
-                    </div>
-                    <div class="price-arrow">→</div>
-                    <div class="price-item">
-                        <span class="price-label">Now worth</span>
-                        <span class="price-value current {{ $isProfit ? 'up' : 'down' }}"><img src="/icons/usdt.svg" width="14"> <span id="sell-price-{{ $nft['id'] }}">{{ number_format($nft['price'], 2) }}</span> USDT</span>
-                    </div>
+                <div class="nft-card-price">
+                    <span class="price-label">Current Value</span>
+                    <span class="price-value">{{ number_format($nft->value ?? 0, 2) }} <small>USDT</small></span>
                 </div>
-
-                <!-- Profit/Loss & Sell Button -->
-                <div class="action-row">
-                    <div class="pl-badge {{ $isProfit ? 'profit' : 'loss' }}">
-                        <span class="pl-label">{{ $isProfit ? 'Profit' : 'Loss' }}:</span>
-                        <span class="pl-amount" id="pl-amount-{{ $nft['id'] }}">{{ $isProfit ? '+' : '' }}{{ number_format($changeAmount, 2) }} USDT</span>
-                    </div>
-                    @if($canSell && $isProfit)
-                    <a
-                        href="{{ url('/auction/create/' . $nft['id']) }}" class="sell-btn ready"
-                        style="text-decoration: none;">Sell Now</a>
-                    @elseif($canSell)
-                    <a
-                        href="{{ url('/auction/create/' . $nft['id']) }}" class="sell-btn"
-                        style="text-decoration: none;">Sell</a>
+                <div class="nft-card-profit {{ $profit >= 0 ? 'up' : 'down' }}">
+                    @if($profit >= 0)
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 15l-6-6-6 6"/>
+                    </svg>
                     @else
-                    <button class="sell-btn disabled" disabled style="text-decoration: none;">Hold</button>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
                     @endif
+                    {{ $profit >= 0 ? '+' : '' }}{{ number_format($profitPercent, 1) }}% ({{ $profit >= 0 ? '+' : '' }}{{ number_format($profit, 2) }} USDT)
                 </div>
+                <a href="{{ url('/auction/create/' . $nft->id) }}" class="nft-card-btn sell">Sell / Auction</a>
             </div>
         </div>
-        @empty
-        <div class="empty-state">
-            <img src="/icons/gift.svg" alt="No NFTs" class="empty-icon">
-            <h3>No NFTs Yet</h3>
-            <p>Buy NFTs from the marketplace. Hold them and sell when the value increases!</p>
-            <a href="{{ route('home') }}" class="browse-btn">Buy NFTs</a>
+        @endforeach
+
+        {{-- Show Available NFTs --}}
+        @foreach($availableNfts ?? [] as $nft)
+        @php
+            $profit = ($nft->value ?? 0) - ($nft->price ?? 0);
+            $profitPercent = ($nft->price ?? 0) > 0 ? (($profit / $nft->price) * 100) : 0;
+        @endphp
+        <div class="nft-card" 
+             data-ownership="available" 
+             data-rarity="{{ $nft->rarity }}" 
+             data-name="{{ strtolower($nft->name) }}">
+            <div class="nft-card-image">
+                <img src="{{ $nft->image }}" alt="{{ $nft->name }}">
+                <span class="nft-rarity {{ strtolower($nft->rarity) }}">{{ $nft->rarity }}</span>
+            </div>
+            <div class="nft-card-info">
+                <div class="nft-card-header">
+                    <h3 class="nft-card-name">{{ $nft->name }}</h3>
+                    <span class="nft-card-id">#{{ $nft->id }}</span>
+                </div>
+                <div class="nft-card-price">
+                    <span class="price-label">Price</span>
+                    <span class="price-value">{{ number_format($nft->price ?? 0, 2) }} <small>USDT</small></span>
+                </div>
+                <div class="nft-card-profit {{ $profitPercent >= 0 ? 'up' : 'down' }}">
+                    @if($profitPercent >= 0)
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 15l-6-6-6 6"/>
+                    </svg>
+                    @else
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                    @endif
+                    {{ $profitPercent >= 0 ? '+' : '' }}{{ number_format($profitPercent, 1) }}%
+                </div>
+                <a href="{{ route('nft.purchase', $nft->id) }}" class="nft-card-btn buy">Buy Now</a>
+            </div>
         </div>
-        @endforelse
-    </div>
+        @endforeach
 
-    <!-- Footer -->
-    @include('partials.footer')
-    <div class="pb-20"></div>
-    </div>
+        {{-- Show Other Users' NFTs --}}
+        @foreach($otherUsersNfts ?? [] as $nft)
+        @php
+            $profit = ($nft->value ?? 0) - ($nft->price ?? 0);
+            $profitPercent = ($nft->price ?? 0) > 0 ? (($profit / $nft->price) * 100) : 0;
+        @endphp
+        <div class="nft-card other-user" 
+             data-ownership="others" 
+             data-rarity="{{ $nft->rarity }}" 
+             data-name="{{ strtolower($nft->name) }}">
+            <div class="nft-card-image">
+                <img src="{{ $nft->image }}" alt="{{ $nft->name }}">
+                <span class="nft-rarity {{ strtolower($nft->rarity) }}">{{ $nft->rarity }}</span>
+                <span class="nft-owner-badge">{{ $nft->owner_name ?? 'User' }}</span>
+            </div>
+            <div class="nft-card-info">
+                <div class="nft-card-header">
+                    <h3 class="nft-card-name">{{ $nft->name }}</h3>
+                    <span class="nft-card-id">#{{ $nft->id }}</span>
+                </div>
+                <div class="nft-card-owner">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    Owned by <strong>{{ $nft->owner_name ?? 'User' }}</strong>
+                </div>
+                <div class="nft-card-price">
+                    <span class="price-label">Value</span>
+                    <span class="price-value">{{ number_format($nft->value ?? $nft->price ?? 0, 2) }} <small>USDT</small></span>
+                </div>
+                <a href="{{ url('/nft/' . $nft->id) }}" class="nft-card-btn view">View Details</a>
+            </div>
+        </div>
+        @endforeach
 
-    <script>
-        // Dynamic up/down percent demo updater, sell price, and profit/loss updater
-        document.addEventListener('DOMContentLoaded', function() {
-            setInterval(function() {
-                document.querySelectorAll('.nft-card').forEach(function(card) {
-                    var id = card.querySelector('.nft-id').textContent.replace('#', '');
-                    var bought = parseFloat(card.querySelector('.price-value.bought').textContent.replace(/[^\d.]/g, ''));
-                    var percent = (Math.random() * (0.5 - 0.1) + 0.1).toFixed(1);
-                    var isUp = Math.random() > 0.5;
-                    var arrow = isUp ? 'arrow-up' : 'arrow-down';
-                    var sign = isUp ? '+' : '-';
-                    var badge = card.querySelector('.value-badge');
-                    if (badge) {
-                        badge.classList.remove('up', 'down');
-                        badge.classList.add(isUp ? 'up' : 'down');
-                    }
-                    var arrowImg = document.getElementById('change-arrow-' + id);
-                    if (arrowImg) {
-                        arrowImg.src = '/icons/' + arrow + '.svg';
-                    }
-                    var percentSpan = document.getElementById('change-percent-' + id);
-                    if (percentSpan) {
-                        percentSpan.textContent = sign + percent + '%';
-                    }
-                    // Update sell price
-                    var sellPrice = isUp ?
-                        bought * (1 + (percent / 100)) :
-                        bought * (1 - (percent / 100));
-                    var sellPriceSpan = document.getElementById('sell-price-' + id);
-                    if (sellPriceSpan) {
-                        sellPriceSpan.textContent = sellPrice.toFixed(2);
-                    }
-                    // Update profit/loss USDT and color
-                    var plAmountSpan = document.getElementById('pl-amount-' + id);
-                    var plBadge = plAmountSpan ? plAmountSpan.closest('.pl-badge') : null;
-                    if (plAmountSpan) {
-                        var pl = sellPrice - bought;
-                        var plSign = pl > 0 ? '+' : '';
-                        plAmountSpan.textContent = plSign + pl.toFixed(2) + ' USDT';
-                        if (plBadge) {
-                            plBadge.style.color = pl < 0 ? '#ef4444' : '#22c55e';
-                        }
-                    }
-                });
-            }, 5000);
+        @if(count($ownedNfts ?? []) == 0 && count($availableNfts ?? []) == 0 && count($otherUsersNfts ?? []) == 0)
+        <div class="empty-state">
+            <div class="empty-icon">🎨</div>
+            <h3>No NFTs Available</h3>
+            <p>Check back later for new listings</p>
+        </div>
+        @endif
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.filter-tab');
+    const cards = document.querySelectorAll('.nft-card');
+    const collectionCards = document.querySelectorAll('.collection-card');
+    const searchInput = document.getElementById('nftSearch');
+
+    // Filter tabs
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+
+            const filter = this.dataset.filter;
+            filterCards(filter, searchInput.value.toLowerCase());
         });
-        // Category tab functionality with filtering
-        document.querySelectorAll('.category-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
+    });
 
-                const cards = document.querySelectorAll('.nft-card');
-                const isProfit = this.classList.contains('profit-tab');
-                const isLoss = this.classList.contains('loss-tab');
-
-                cards.forEach(card => {
-                    if (isProfit) {
-                        card.style.display = card.dataset.status === 'profit' ? 'flex' : 'none';
-                    } else if (isLoss) {
-                        card.style.display = card.dataset.status === 'loss' ? 'flex' : 'none';
-                    } else {
-                        card.style.display = 'flex';
-                    }
-                });
+    // Collection cards click
+    collectionCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const rarity = this.dataset.rarity;
+            // Find and click the matching tab
+            tabs.forEach(tab => {
+                if (tab.dataset.filter === rarity) {
+                    tab.click();
+                }
             });
         });
+    });
 
-        // Search functionality
-        document.querySelector('.search-input').addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            document.querySelectorAll('.nft-card').forEach(card => {
-                const name = card.querySelector('.nft-name').textContent.toLowerCase();
-                card.style.display = name.includes(query) ? 'flex' : 'none';
-            });
+    // Search functionality
+    searchInput.addEventListener('input', function() {
+        const activeTab = document.querySelector('.filter-tab.active');
+        const filter = activeTab ? activeTab.dataset.filter : 'all';
+        filterCards(filter, this.value.toLowerCase());
+    });
+
+    function filterCards(filter, searchQuery) {
+        cards.forEach(card => {
+            const ownership = card.dataset.ownership;
+            const rarity = card.dataset.rarity;
+            const name = card.dataset.name || '';
+
+            let showByFilter = false;
+            
+            if (filter === 'all') {
+                showByFilter = true;
+            } else if (filter === 'owned') {
+                showByFilter = ownership === 'owned';
+            } else if (filter === 'available') {
+                showByFilter = ownership === 'available';
+            } else if (filter === 'others') {
+                showByFilter = ownership === 'others';
+            } else {
+                // Rarity filter
+                showByFilter = rarity === filter;
+            }
+
+            const showBySearch = !searchQuery || name.includes(searchQuery);
+
+            card.style.display = (showByFilter && showBySearch) ? 'block' : 'none';
         });
-    </script>
-</body>
-
-</html>
+    }
+});
+</script>
+@endsection
