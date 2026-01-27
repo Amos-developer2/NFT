@@ -3,6 +3,7 @@
 @push('head')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 @endpush
 
 @section('content')
@@ -10,15 +11,16 @@
 <style>
     body {
         margin: 0;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        background: #f8fafc;
+        font-family: 'Inter', sans-serif;
+        background: #dff6ff;
         overflow: hidden;
     }
 
+    /* ===== STADIUM ===== */
     .stadium-bg {
         background: url('/images/stadium.jpg') center/cover no-repeat;
         min-height: 100vh;
-        padding: 20px 14px 160px;
+        padding: 20px 14px 200px;
         position: relative;
     }
 
@@ -26,7 +28,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(to bottom, rgba(248, 250, 252, 0.85), rgba(248, 250, 252, 0.98));
+        background: linear-gradient(to bottom, rgba(255, 255, 255, .8), rgba(255, 255, 255, .96));
     }
 
     .game-wrap {
@@ -36,97 +38,168 @@
         margin: auto
     }
 
-    .cards-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin-bottom: 60px
-    }
-
-    .reward-card {
-        height: 90px;
-        border-radius: 12px;
-        background: linear-gradient(145deg, #2563eb, #22d3ee);
-        box-shadow: 0 0 14px #2563eb33;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: transparent;
-        font-weight: 700;
-        position: relative;
-        transition: .6s;
-        transform-style: preserve-3d;
-    }
-
-    .reward-card::after {
-        content: '?';
-        color: #fff;
-        font-size: 1.8rem;
-        text-shadow: 0 2px 8px #2563eb88;
-    }
-
-    .reward-card.reveal {
-        transform: rotateY(180deg);
-        background: #fff;
-        color: #2563eb;
-    }
-
-    .reward-card.reveal::after {
-        display: none;
-    }
-
-    .field {
-        height: 240px;
-        background: linear-gradient(to top, #e0f2fe, #bae6fd);
-        border-radius: 14px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .ball {
-        width: 80px;
-        position: fixed;
-        /* allows true movement */
-        bottom: 80px;
-        left: 50%;
-        transform: translateX(-50%);
-        touch-action: none;
-        z-index: 10;
-    }
-
+    /* ===== TITLE ===== */
     .game-title {
         text-align: center;
-        font-size: 1.7rem;
-        color: #2563eb;
-        margin: 18px 0;
-        text-shadow: 0 0 8px #22d3ee;
+        font-size: 1.9rem;
+        font-weight: 800;
+        color: #1d4ed8;
+        margin: 18px 0 6px;
+        text-shadow: 0 4px 12px #93c5fd;
     }
 
     .spin-text {
         text-align: center;
         color: #2563eb;
-        margin-top: 14px;
         font-size: .95rem;
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: .5
+        }
+
+        50% {
+            opacity: 1
+        }
+    }
+
+    /* ===== CARDS ===== */
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 40px;
+        perspective: 1000px;
+    }
+
+    .reward-card {
+        height: 95px;
+        border-radius: 14px;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform .7s cubic-bezier(.2, .8, .2, 1);
+        cursor: pointer;
+    }
+
+    .card-inner {
+        position: absolute;
+        inset: 0;
+        border-radius: 14px;
+        backface-visibility: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card-front {
+        background: linear-gradient(145deg, #2563eb, #22d3ee);
+        box-shadow: 0 8px 18px #2563eb44;
+    }
+
+    .card-front img {
+        width: 42px;
+        opacity: .9
+    }
+
+    .card-back {
+        background: #fff;
+        transform: rotateY(180deg);
+        font-weight: 700;
+        color: #2563eb;
+    }
+
+    .reward-card.reveal {
+        transform: rotateY(180deg) scale(1.05)
+    }
+
+    /* glow */
+    .reward-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 14px;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, .5), transparent);
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        0% {
+            transform: translateX(-100%)
+        }
+
+        100% {
+            transform: translateX(100%)
+        }
+    }
+
+    /* ===== FIELD ===== */
+    .field {
+        height: 270px;
+        background: linear-gradient(to top, #16a34a, #4ade80);
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0 12px 20px #0003;
+    }
+
+    .field::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, transparent 70px, rgba(255, 255, 255, .25) 72px, transparent 74px);
+    }
+
+    /* ===== BALL ===== */
+    .ball {
+        width: 110px;
+        position: fixed;
+        bottom: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        touch-action: none;
+        z-index: 10;
+        filter: drop-shadow(0 10px 14px #0004);
+    }
+
+    .ball:active {
+        transform: translateX(-50%) scale(1.1)
+    }
+
+    @media(max-width:420px) {
+        .reward-card {
+            height: 82px
+        }
+
+        .ball {
+            width: 95px
+        }
     }
 </style>
 
 <div class="stadium-bg">
     <div class="game-wrap">
 
+        <div class="game-title">⚽ Flick & Win</div>
+        <div class="spin-text">Swipe UP on the ball with power</div>
+
         <div class="cards-grid" id="cards">
             @for($i=0;$i<9;$i++)
                 <div class="reward-card" data-index="{{ $i }}">
+                <div class="card-inner card-front">
+                    <img src="/images/card-back.png">
+                </div>
+                <div class="card-inner card-back"></div>
         </div>
         @endfor
     </div>
 
-    <div class="game-title">Flick The Ball!</div>
+    <div class="field"></div>
 
-    <div class="field" style="border: 2px solid red;">
-        <img src="/images/ball.png" id="ball" class="ball">
-    </div>
-
-    <div class="spin-text">Swipe UP on the ball with power ⚡</div>
+    <img src="/images/ball.png" id="ball" class="ball">
 
 </div>
 </div>
@@ -139,18 +212,12 @@
     let startX, startY, isDragging = false,
         vx = 0,
         vy = 0,
-        gravity = 0.5,
-        anim, played = false;
+        gravity = 0.6,
+        played = false,
+        spin = 0;
 
-    function getPos(e) {
-        if (e.touches) return {
-            x: e.touches[0].clientX,
-            y: e.touches[0].clientY
-        };
-        return {
-            x: e.clientX,
-            y: e.clientY
-        };
+    function pos(e) {
+        return e.touches ? e.touches[0] : e;
     }
 
     ball.addEventListener('mousedown', startDrag);
@@ -158,9 +225,9 @@
 
     function startDrag(e) {
         if (played) return;
-        const pos = getPos(e);
-        startX = pos.x;
-        startY = pos.y;
+        let p = pos(e);
+        startX = p.clientX;
+        startY = p.clientY;
         isDragging = true;
     }
 
@@ -170,38 +237,37 @@
     function endDrag(e) {
         if (!isDragging || played) return;
         isDragging = false;
-
-        const pos = getPos(e.changedTouches ? e.changedTouches[0] : e);
-        let dx = pos.x - startX;
-        let dy = startY - pos.y;
-
-        if (dy < 30) return; // must swipe upward
+        let p = pos(e.changedTouches ? e.changedTouches[0] : e);
+        let dx = p.clientX - startX;
+        let dy = startY - p.clientY;
+        if (dy < 30) return;
 
         vx = dx * 0.15;
-        vy = -dy * 0.2;
+        vy = -dy * 0.25;
         played = true;
-        launchBall();
+        launch();
     }
 
-    function launchBall() {
+    function launch() {
         let rect = ball.getBoundingClientRect();
-        let x = rect.left;
-        let y = rect.top;
+        let x = rect.left,
+            y = rect.top;
 
         function step() {
             vy += gravity;
             x += vx;
             y += vy;
+            spin += 12;
 
             ball.style.left = x + 'px';
             ball.style.top = y + 'px';
+            ball.style.transform = `rotate(${spin}deg)`;
 
-            if (y < 150) { // card zone
-                cancelAnimationFrame(anim);
+            if (y < 180) {
                 hitCard();
                 return;
             }
-            anim = requestAnimationFrame(step);
+            requestAnimationFrame(step);
         }
         step();
     }
@@ -220,12 +286,26 @@
             })
         }).then(r => r.json()).then(data => {
             let reward = rewards[idx];
-            cards[idx].textContent = reward;
-            cards[idx].classList.add('reveal');
-            Swal.fire('Goal!!! ⚽🎉', reward, 'success');
+            let card = cards[idx];
+            card.querySelector('.card-back').textContent = reward;
+            card.classList.add('reveal');
+
+            confetti({
+                particleCount: 120,
+                spread: 90,
+                origin: {
+                    y: .6
+                }
+            });
+
+            Swal.fire({
+                title: 'GOAL!!! ⚽🎉',
+                text: reward,
+                icon: 'success',
+                confirmButtonColor: '#2563eb'
+            }).then(() => location.reload());
         });
     }
 </script>
-
 
 @endsection
