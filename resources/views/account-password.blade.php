@@ -16,25 +16,10 @@
 @if(session('success'))
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        function showColoredSuccess() {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: @json(session('success')),
-                background: '#ecfdf5',
-                color: '#065f46',
-                confirmButtonColor: '#22c55e',
-                iconColor: '#22c55e',
-            });
-        }
-        if (typeof Swal === 'undefined') {
-            const swalScript = document.createElement('script');
-            swalScript.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-            swalScript.onload = showColoredSuccess;
-            document.head.appendChild(swalScript);
-        } else {
-            showColoredSuccess();
-        }
+        nativeAlert(@json(session('success')), {
+            type: 'success',
+            title: 'Success'
+        });
     });
 </script>
 @endif
@@ -42,25 +27,10 @@
 @if($errors->any())
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        function showColoredError() {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                html: @json($errors->all()).join('<br>'),
-                background: '#020101',
-                color: '#991b1b',
-                confirmButtonColor: '#ef4444',
-                iconColor: '#ef4444',
-            });
-        }
-        if (typeof Swal === 'undefined') {
-            const swalScript = document.createElement('script');
-            swalScript.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-            swalScript.onload = showColoredError;
-            document.head.appendChild(swalScript);
-        } else {
-            showColoredError();
-        }
+        nativeAlert(@json($errors-> all()).join('\n'), {
+            type: 'error',
+            title: 'Error'
+        });
     });
 </script>
 @endif
@@ -119,11 +89,6 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        if (typeof Swal === 'undefined') {
-            const swalScript = document.createElement('script');
-            swalScript.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-            document.head.appendChild(swalScript);
-        }
         const sendBtn = document.getElementById('send-code-btn');
         const codeInput = document.getElementById('verification_code');
         const codeHint = document.getElementById('code-hint');
@@ -149,24 +114,18 @@
                     codeHint.textContent = 'Code sent! Check your email.';
                     codeInput.focus();
                     sendBtn.disabled = false;
-                    if (typeof Swal !== 'undefined') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Verification Code Sent',
-                            text: 'Check your email for the code.'
-                        });
-                    }
+                    nativeAlert('Verification Code Sent. Check your email for the code.', {
+                        type: 'success',
+                        title: 'Verification Code Sent'
+                    });
                 })
                 .catch(() => {
                     codeHint.textContent = 'Failed to send code. Try again.';
                     sendBtn.disabled = false;
-                    if (typeof Swal !== 'undefined') {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Failed to send code. Try again.'
-                        });
-                    }
+                    nativeAlert('Failed to send code. Try again.', {
+                        type: 'error',
+                        title: 'Error'
+                    });
                 });
         });
         codeInput.addEventListener('input', function() {
@@ -190,36 +149,27 @@
                             codeInput.disabled = true;
                             sendBtn.disabled = true;
                             codeVerified = true;
-                            if (typeof Swal !== 'undefined') {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Code Verified',
-                                    text: 'You may now change your password.'
-                                });
-                            }
+                            nativeAlert('You may now change your password.', {
+                                type: 'success',
+                                title: 'Code Verified'
+                            });
                         } else {
                             codeHint.textContent = 'Invalid code. Please check your email.';
                             updateBtn.disabled = true;
                             codeVerified = false;
-                            if (typeof Swal !== 'undefined') {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Invalid Code',
-                                    text: 'Please check your email and enter the correct code.'
-                                });
-                            }
+                            nativeAlert('Please check your email and enter the correct code.', {
+                                type: 'error',
+                                title: 'Invalid Code'
+                            });
                         }
                     })
                     .catch(() => {
                         codeHint.textContent = 'Verification failed. Try again.';
                         codeVerified = false;
-                        if (typeof Swal !== 'undefined') {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Verification Failed',
-                                text: 'Try again.'
-                            });
-                        }
+                        nativeAlert('Verification failed. Try again.', {
+                            type: 'error',
+                            title: 'Verification Failed'
+                        });
                     });
             } else {
                 updateBtn.disabled = true;
@@ -245,22 +195,10 @@
             }
             if (errors.length > 0) {
                 e.preventDefault();
-
-                function showAlert() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        html: errors.join('<br>')
-                    });
-                }
-                if (typeof Swal === 'undefined') {
-                    const swalScript = document.createElement('script');
-                    swalScript.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-                    swalScript.onload = showAlert;
-                    document.head.appendChild(swalScript);
-                } else {
-                    showAlert();
-                }
+                nativeAlert(errors.join('\n'), {
+                    type: 'error',
+                    title: 'Error'
+                });
                 return false;
             }
         });
