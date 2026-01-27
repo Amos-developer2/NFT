@@ -197,4 +197,19 @@ class Nft extends Model
         }
         return round((($last - $first) / $first) * 100, 2);
     }
+
+    /**
+     * Get all bids for this NFT through its auctions.
+     */
+    public function bids()
+    {
+        return $this->hasManyThrough(
+            \App\Models\Bid::class,
+            \App\Models\Auction::class,
+            'nft_id', // Foreign key on Auction table...
+            'auction_id', // Foreign key on Bid table...
+            'id', // Local key on NFT table...
+            'id' // Local key on Auction table...
+        );
+    }
 }
