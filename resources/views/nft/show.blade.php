@@ -132,32 +132,64 @@
     }
 
     .stat-card {
-        background: #f8fafc;
-        border-radius: 12px;
-        padding: 16px 12px;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 14px;
+        padding: 18px 14px;
         text-align: center;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #60a5fa 0%, #2563eb 100%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .stat-card:hover::before {
+        opacity: 1;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
     }
 
     .stat-label {
-        font-size: 11px;
+        font-size: 10px;
         color: #64748b;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.8px;
+        font-weight: 600;
     }
 
     .stat-value {
-        font-size: 16px;
-        font-weight: 700;
+        font-size: 18px;
+        font-weight: 800;
         color: #1e293b;
     }
 
     .stat-value.positive {
-        color: #22c55e;
+        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
     .stat-value.negative {
-        color: #ef4444;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
     .section-title {
@@ -169,17 +201,26 @@
 
     .bids-list {
         background: #fff;
-        border-radius: 12px;
+        border-radius: 16px;
         overflow: hidden;
         margin-bottom: 20px;
+        border: 1px solid #e2e8f0;
     }
 
     .bid-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 14px 16px;
+        padding: 16px 18px;
         border-bottom: 1px solid #f1f5f9;
+        transition: all 0.2s;
+        background: linear-gradient(90deg, transparent 0%, #f8fafc 100%);
+        background-size: 200% 100%;
+        background-position: 100% 0;
+    }
+
+    .bid-item:hover {
+        background-position: 0 0;
     }
 
     .bid-item:last-child {
@@ -189,27 +230,40 @@
     .bid-user {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         font-size: 14px;
         color: #1e293b;
-        font-weight: 500;
+        font-weight: 600;
+    }
+
+    .bid-user svg {
+        filter: drop-shadow(0 2px 4px rgba(96, 165, 250, 0.3));
     }
 
     .bid-amount {
-        font-size: 14px;
-        font-weight: 700;
-        color: #2563eb;
+        font-size: 15px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
     .no-bids-alert {
-        background: #eff6ff;
-        border: 1px solid #bfdbfe;
-        border-radius: 12px;
-        padding: 16px;
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        border: 2px dashed #93c5fd;
+        border-radius: 16px;
+        padding: 24px;
         text-align: center;
         color: #1e40af;
         font-size: 14px;
         margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .no-bids-alert svg {
+        color: #60a5fa;
+        filter: drop-shadow(0 2px 4px rgba(96, 165, 250, 0.3));
     }
 
     .sell-btn {
@@ -244,29 +298,32 @@
     .tabs-header {
         display: flex;
         gap: 8px;
-        background: #f8fafc;
-        padding: 6px;
-        border-radius: 12px;
-        margin-bottom: 20px;
+        background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        padding: 8px;
+        border-radius: 16px;
+        margin-bottom: 24px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
     .tab-btn {
         flex: 1;
-        padding: 10px 16px;
+        padding: 12px 16px;
         background: transparent;
         border: none;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 700;
         color: #64748b;
         cursor: pointer;
-        transition: all 0.2s;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
     }
 
     .tab-btn.active {
-        background: #fff;
-        color: #2563eb;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        transform: translateY(-1px);
     }
 
     .tab-content {
@@ -279,52 +336,78 @@
 
     .info-grid {
         display: grid;
-        gap: 12px;
+        gap: 10px;
     }
 
     .info-item {
-        background: #f8fafc;
-        border-radius: 12px;
-        padding: 14px 16px;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 14px;
+        padding: 16px 18px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        border: 1px solid #e2e8f0;
+        transition: all 0.2s;
+    }
+
+    .info-item:hover {
+        transform: translateX(4px);
+        border-color: #cbd5e1;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 
     .info-label {
-        font-size: 13px;
+        font-size: 12px;
         color: #64748b;
-        font-weight: 500;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .info-value {
         font-size: 14px;
         color: #1e293b;
-        font-weight: 600;
+        font-weight: 700;
     }
 
     .accept-bid-btn {
-        padding: 8px 16px;
+        padding: 10px 20px;
         background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
         border: none;
-        border-radius: 8px;
+        border-radius: 10px;
         color: #fff;
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
-        transition: transform 0.2s;
+        transition: all 0.3s;
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .accept-bid-btn:hover {
-        transform: translateY(-1px);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
+    }
+
+    .accept-bid-btn:active {
+        transform: translateY(0);
     }
 
     .bid-item-with-action {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 14px 16px;
+        padding: 16px 18px;
         border-bottom: 1px solid #f1f5f9;
+        transition: all 0.2s;
+        background: linear-gradient(90deg, transparent 0%, #f0fdf4 100%);
+        background-size: 200% 100%;
+        background-position: 100% 0;
+    }
+
+    .bid-item-with-action:hover {
+        background-position: 0 0;
     }
 
     .bid-item-with-action:last-child {
@@ -333,6 +416,9 @@
 
     .bid-left {
         flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
     }
 
 </style>
