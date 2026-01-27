@@ -450,7 +450,7 @@
                     {{ $profit >= 0 ? '+' : '' }}{{ number_format($profitPercent, 1) }}%
                 </div>
             </div>
-            <a href="{{ route('nft.purchase', $nft->id) }}" class="track-nft-action">View</a>
+            <a href="{{ route('nft.show', $nft->id) }}" class="track-nft-action">View</a>
         </div>
         @endforeach
     </div>
