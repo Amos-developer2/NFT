@@ -60,8 +60,8 @@
         }
 
         .preloader-logo {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: auto;
             margin: 0 auto 32px;
             animation: logoFloat 2.5s ease-in-out infinite;
             filter: drop-shadow(0 10px 30px rgba(37, 99, 235, 0.2));
