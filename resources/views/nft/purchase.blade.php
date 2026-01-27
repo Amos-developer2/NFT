@@ -724,13 +724,69 @@
 
     <!-- Bottom Action Bar -->
     <div class="bottom-bar">
-        <form action="{{ route('nft.buy', $nft->id) }}" method="POST" style="flex:1; display:flex;">
-            @csrf
-            <button type="submit" class="btn-buy">Buy now</button>
-        </form>
+        <button type="button" class="btn-buy" id="purchase-btn" onclick="confirmPurchase()">Buy now</button>
         <button class="btn-bid" onclick="window.location.href='{{ route('auction.index') }}'">Place a bid</button>
     </div>
 </div>
+
+<!-- Confirmation Modal -->
+<div id="purchaseModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: flex-end;">
+    <div style="width: 100%; background: #fff; border-radius: 20px 20px 0 0; padding: 20px; animation: slideUp 0.3s ease;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="margin: 0; font-size: 18px; font-weight: 700; color: #1e293b;">Confirm Purchase</h3>
+            <button onclick="closePurchaseModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #94a3b8;">✕</button>
+        </div>
+
+        <div style="background: #f8fafc; border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+            <div style="display: flex; gap: 12px;">
+                <img src="{{ $nft->image }}" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover;">
+                <div style="flex: 1;">
+                    <h4 style="margin: 0 0 4px; color: #1e293b; font-weight: 700;">{{ $nft->name }}</h4>
+                    <p style="margin: 4px 0; color: #64748b; font-size: 12px;">#{{ $nft->id }} · {{ $nft->rarity }}</p>
+                    <p style="margin: 8px 0 0; color: #2A6CF6; font-weight: 700; font-size: 16px;">{{ number_format($nft->price ?? 0, 2) }} USDT</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #f8fafc; border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span style="color: #64748b; font-size: 13px;">Your Balance</span>
+                <span style="color: #1e293b; font-weight: 700;">{{ number_format(Auth::user()->balance ?? 0, 2) }} USDT</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span style="color: #64748b; font-size: 13px;">Purchase Amount</span>
+                <span style="color: #ef4444; font-weight: 700;">-{{ number_format($nft->price ?? 0, 2) }} USDT</span>
+            </div>
+            <div style="border-top: 1px solid #e2e8f0; padding-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #1e293b; font-weight: 700;">After Purchase</span>
+                <span style="color: #22c55e; font-weight: 700; font-size: 16px;">{{ number_format((Auth::user()->balance ?? 0) - ($nft->price ?? 0), 2) }} USDT</span>
+            </div>
+        </div>
+
+        <p style="font-size: 12px; color: #64748b; margin-bottom: 20px; text-align: center;">
+            ✅ A receipt will be sent to <strong>{{ Auth::user()->email }}</strong>
+        </p>
+
+        <div style="display: flex; gap: 12px;">
+            <button type="button" onclick="closePurchaseModal()" style="flex: 1; padding: 14px; border: 1px solid #e2e8f0; background: #fff; border-radius: 10px; font-weight: 600; color: #64748b; cursor: pointer;">Cancel</button>
+            <form id="purchaseForm" action="{{ route('nft.buy', $nft->id) }}" method="POST" style="flex: 1;">
+                @csrf
+                <button type="submit" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #2A6CF6, #3B8CFF); border: none; border-radius: 10px; color: #fff; font-weight: 600; cursor: pointer; font-size: 14px;">Confirm & Purchase</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes slideUp {
+        from {
+            transform: translateY(100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+</style>
 @endsection
 
 @push('scripts')
@@ -822,6 +878,56 @@
     document.querySelectorAll('img').forEach(img => {
         img.setAttribute('draggable', 'false');
         img.addEventListener('dragstart', e => e.preventDefault());
+    });
+
+    // Purchase Modal Functions
+    function confirmPurchase() {
+        const modal = document.getElementById('purchaseModal');
+        modal.style.display = 'flex';
+    }
+
+    function closePurchaseModal() {
+        const modal = document.getElementById('purchaseModal');
+        modal.style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('purchaseModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closePurchaseModal();
+        }
+    });
+
+    // Prevent default form submission and use fetch instead
+    document.getElementById('purchaseForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+        
+        fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                _token: document.querySelector('input[name="_token"]').value
+            })
+        })
+        .then(() => {
+            submitBtn.textContent = 'Purchase Complete! ✓';
+            setTimeout(() => {
+                window.location.href = "{{ route('collection') }}";
+            }, 1500);
+        })
+        .catch(error => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Confirm & Purchase';
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        });
+    });
     });
 
     // Like button functionality

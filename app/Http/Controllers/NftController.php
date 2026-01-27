@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Nft;
+use App\Models\Receipt;
+use App\Mail\PurchaseReceiptMail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class NftController extends Controller
 {
@@ -181,14 +185,48 @@ class NftController extends Controller
         if ($user->balance < $price) {
             return redirect()->route('nft.purchase', ['id' => $id])->with('error', 'Insufficient USDT balance to purchase this NFT.');
         }
+        
         // Deduct price from user balance
         $user->balance -= $price;
         $user->save();
+        
         // Assign NFT to user and save purchase price
         $nft->user_id = $user->id;
         $nft->purchase_price = $price;
         $nft->save();
-        // TODO: Record transaction if needed
-        return redirect()->route('collection')->with('success', "Successfully purchased {$nft->name}!");
+        
+        // Create receipt record
+        $receiptNumber = 'RCP-' . now()->format('YmdHis') . '-' . Str::random(6);
+        $receipt = Receipt::create([
+            'user_id' => $user->id,
+            'nft_id' => $nft->id,
+            'amount' => $price,
+            'receipt_number' => $receiptNumber,
+            'status' => 'completed',
+            'payment_method' => 'USDT Balance',
+            'transaction_details' => [
+                'nft_id' => $nft->id,
+                'nft_name' => $nft->name,
+                'previous_owner' => $nft->user_id,
+                'payment_currency' => 'USDT',
+                'ip_address' => $request->ip(),
+            ],
+            'email_status' => 'pending',
+        ]);
+        
+        // Send receipt email asynchronously
+        try {
+            Mail::to($user->email)->send(new PurchaseReceiptMail($receipt));
+            $receipt->update([
+                'email_status' => 'sent',
+                'email_sent_at' => now(),
+            ]);
+        } catch (\Exception $e) {
+            // Log email error but don't fail the purchase
+            $receipt->update(['email_status' => 'failed']);
+            \Log::error('Failed to send receipt email: ' . $e->getMessage());
+        }
+        
+        return redirect()->route('collection')->with('success', "Successfully purchased {$nft->name}! Receipt sent to {$user->email}");
     }
 }

@@ -75,6 +75,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/nft/{id}/buy', [App\Http\Controllers\NftController::class, 'buy'])->name('nft.buy');
     Route::post('/nft/{id}/like', [App\Http\Controllers\NftController::class, 'toggleLike'])->name('nft.like');
 
+    // Receipt routes
+    Route::get('/receipts', [App\Http\Controllers\ReceiptController::class, 'index'])->name('receipt.index');
+    Route::get('/receipt/{id}', [App\Http\Controllers\ReceiptController::class, 'show'])->name('receipt.view');
+    Route::get('/receipt/{id}/download', [App\Http\Controllers\ReceiptController::class, 'download'])->name('receipt.download');
+
     // Team routes
     Route::get('/team', [App\Http\Controllers\TeamController::class, 'index'])->name('team');
     // Auction routes
