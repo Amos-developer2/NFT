@@ -731,7 +731,7 @@
 
 <!-- Confirmation Modal -->
 <div id="purchaseModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000;">
-    <div style="width: 100%; max-width: 430px; margin: auto; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 20px 20px 0 0; padding: 20px; animation: slideUp 0.3s ease;">
+    <div id="purchaseModalContent" style="width: 100%; max-width: 430px; margin: 0 auto; position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-radius: 20px 20px 0 0; padding: 20px; transform: translateY(100%); transition: transform 0.3s ease;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
             <h3 style="margin: 0; font-size: 18px; font-weight: 700; color: #1e293b;">Confirm Purchase</h3>
             <button onclick="closePurchaseModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #94a3b8;">✕</button>
@@ -776,17 +776,6 @@
         </div>
     </div>
 </div>
-
-<style>
-    @keyframes slideUp {
-        from {
-            transform: translateY(100%);
-        }
-        to {
-            transform: translateY(0);
-        }
-    }
-</style>
 @endsection
 
 @push('scripts')
@@ -883,15 +872,23 @@
     // Purchase Modal Functions
     function confirmPurchase() {
         const modal = document.getElementById('purchaseModal');
-        if (modal) {
-            modal.style.display = 'flex';
+        const modalContent = document.getElementById('purchaseModalContent');
+        if (modal && modalContent) {
+            modal.style.display = 'block';
+            setTimeout(() => {
+                modalContent.style.transform = 'translateY(0)';
+            }, 10);
         }
     }
 
     function closePurchaseModal() {
         const modal = document.getElementById('purchaseModal');
-        if (modal) {
-            modal.style.display = 'none';
+        const modalContent = document.getElementById('purchaseModalContent');
+        if (modal && modalContent) {
+            modalContent.style.transform = 'translateY(100%)';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
         }
     }
 
