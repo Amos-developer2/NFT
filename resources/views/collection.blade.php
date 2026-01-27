@@ -247,6 +247,8 @@
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         margin-bottom: 24px;
+        padding: 0;
+        gap: 10px
     }
 
     .nft-grid::-webkit-scrollbar {
