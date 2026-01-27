@@ -15,7 +15,7 @@
         position: relative;
         border-radius: 20px;
         overflow: hidden;
-        margin-bottom: 24px;
+        margin-bottom: 50px;
     }
 
     .track-summary-bg {
