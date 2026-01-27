@@ -244,20 +244,29 @@
     /* NFT Grid - Match Home Page Style */
     .nft-grid {
         display: flex;
-        flex-wrap: wrap;
         gap: 12px;
+        overflow-x: auto;
+        padding: 4px 2px 12px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
         margin-bottom: 24px;
     }
 
+    .nft-grid::-webkit-scrollbar {
+        display: none;
+    }
+
     .nft-scroll-card {
-        flex: 0 0 calc(50% - 6px);
-        min-width: calc(50% - 6px);
-        max-width: calc(50% - 6px);
+        flex: 0 0 calc(100% - 6px);
+        min-width: calc(100% - 6px);
+        max-width: calc(100% - 6px);
         background: #fff;
         border-radius: 14px;
         overflow: hidden;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
         border: 1px solid rgba(42, 108, 246, 0.08);
+        scroll-snap-align: start;
         transition: transform 0.2s ease;
         position: relative;
     }
