@@ -41,7 +41,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f8fafc;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -56,46 +56,81 @@
 
         .preloader-content {
             text-align: center;
+            max-width: 200px;
         }
 
         .preloader-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 24px;
-            animation: float 3s ease-in-out infinite;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 32px;
+            animation: logoFloat 2.5s ease-in-out infinite;
+            filter: drop-shadow(0 10px 30px rgba(37, 99, 235, 0.2));
         }
 
-        .preloader-spinner {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 20px;
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            border-top: 4px solid #fff;
+        .preloader-rings {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 24px;
+            position: relative;
+        }
+
+        .preloader-rings div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top-color: #60a5fa;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: ringRotate 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+
+        .preloader-rings div:nth-child(1) {
+            animation-delay: -0.45s;
+            border-top-color: #2563eb;
+        }
+
+        .preloader-rings div:nth-child(2) {
+            animation-delay: -0.3s;
+            border-top-color: #60a5fa;
+        }
+
+        .preloader-rings div:nth-child(3) {
+            animation-delay: -0.15s;
+            border-top-color: #93c5fd;
         }
 
         .preloader-text {
-            color: #fff;
-            font-size: 16px;
+            color: #1e293b;
+            font-size: 14px;
             font-weight: 600;
-            letter-spacing: 1px;
-            animation: pulse 1.5s ease-in-out infinite;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
         }
 
-        @keyframes spin {
+        .preloader-subtext {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .preloader-dots {
+            display: inline-block;
+            animation: dotsPulse 1.4s ease-in-out infinite;
+        }
+
+        @keyframes ringRotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        @keyframes dotsPulse {
+            0%, 80%, 100% { opacity: 0; }
+            40% { opacity: 1; }
         }
     </style>
     @stack('styles')
@@ -106,8 +141,13 @@
     <div id="preloader">
         <div class="preloader-content">
             <img src="{{ asset('images/vortex.png') }}" alt="VortexNFT" class="preloader-logo">
-            <div class="preloader-spinner"></div>
-            <div class="preloader-text">Loading...</div>
+            <div class="preloader-rings">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="preloader-text">Loading VortexNFT<span class="preloader-dots">...</span></div>
+            <div class="preloader-subtext">Please wait</div>
         </div>
     </div>
     <div class="mobile-container">
