@@ -37,11 +37,11 @@
                         <span>{{ Auth::user()->germs ?? 0 }} Germs</span>
                     </div>
                     <!-- <div class="crypto-item stars">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                                        </svg>
-                                        <span>{{ $userStats['stars'] ?? 100 }} Stars</span>
-                                    </div> -->
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                            </svg>
+                                            <span>{{ $userStats['stars'] ?? 100 }} Stars</span>
+                                        </div> -->
                     <div class="daily-checkin-btn-wrapper-small">
                         <a href="{{ route('daily.checkin') }}" class="daily-checkin-btn-small">
                             <span class="btn-icon">🎁</span>
@@ -71,7 +71,8 @@
         <!-- Quick Actions -->
         <div class="nft-quick-actions-wrapper">
             <a href="{{ route('daily.checkin') }}" class="action-item-card">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
+                    fill="currentColor">
                     <g clip-path="url(#clip0_4418_7533)">
                         <path
                             d="M8 5.75C7.59 5.75 7.25 5.41 7.25 5V2C7.25 1.59 7.59 1.25 8 1.25C8.41 1.25 8.75 1.59 8.75 2V5C8.75 5.41 8.41 5.75 8 5.75Z"
@@ -110,12 +111,23 @@
                 <span class="action-label">Check-In</span>
             </a>
             <a href="#" class="action-item-card">
-                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M3.17 7.44 12 12.55l8.77-5.08M12 21.61v-9.07" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path
-                        d="M9.93 2.48 4.59 5.45c-1.21.67-2.2 2.35-2.2 3.73v5.65c0 1.38.99 3.06 2.2 3.73l5.34 2.97c1.14.63 3.01.63 4.15 0l5.34-2.97c1.21-.67 2.2-2.35 2.2-3.73V9.18c0-1.38-.99-3.06-2.2-3.73l-5.34-2.97c-1.15-.64-3.01-.64-4.15 0Z"
-                        stroke-linecap="round" stroke-linejoin="round" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
+                    <g clip-path="url(#clip0_655_7214)">
+                        <path
+                            d="M15.7797 22H8.21973C6.01973 22 4.21973 20.2 4.21973 18V11.56C4.21973 9.36 6.01973 7.56 8.21973 7.56H15.7797C17.9797 7.56 19.7797 9.36 19.7797 11.56V18C19.7797 20.2 17.9797 22 15.7797 22Z"
+                            stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M12.0002 17.97C11.0302 17.64 8.66016 16.21 8.66016 13.89C8.66016 12.87 9.49016 12.03 10.5202 12.03C11.1302 12.03 11.6702 12.32 12.0102 12.77C12.3502 12.32 12.8902 12.03 13.5002 12.03C14.5202 12.03 15.3602 12.86 15.3602 13.89C15.3602 16.21 12.9902 17.65 12.0202 17.97H12.0002Z"
+                            stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M12.0095 6.26C12.0095 3.91 13.6395 2 15.6595 2C16.5195 2 17.2295 2.7 17.2295 3.57C17.2295 5.46 14.8895 7 11.9995 7C9.10953 7 6.76953 5.46 6.76953 3.57C6.76953 2.71 7.46953 2 8.34953 2C10.3695 2 11.9995 3.91 11.9995 6.26"
+                            stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_655_7214">
+                            <rect width="24" height="24" fill="white" />
+                        </clipPath>
+                    </defs>
                 </svg>
                 <span class="action-label">Lucky Box</span>
             </a>
@@ -899,7 +911,7 @@
             color: #64748b;
             font-weight: 600;
             line-height: 1.2;
-            margin-top:6px; 
+            margin-top: 6px;
         }
 
         .nft-quick-stats-card .stat-divider {
