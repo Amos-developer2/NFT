@@ -899,6 +899,7 @@
             color: #64748b;
             font-weight: 600;
             line-height: 1.2;
+            margin-top:6px; 
         }
 
         .nft-quick-stats-card .stat-divider {
