@@ -473,6 +473,45 @@
         background: linear-gradient(135deg, #16a34a, #15803d);
     }
 
+    .marketplace-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: linear-gradient(135deg, #8b5cf6, #6366f1);
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        animation: marketplacePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes marketplacePulse {
+        0%, 100% {
+            box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
+        }
+        50% {
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0);
+        }
+    }
+
+    .card-status-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px;
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #8b5cf6;
+        text-decoration: none;
+        flex-shrink: 0;
+    }
+
     .card-buy-btn.view-btn {
         background: linear-gradient(135deg, #a855f7, #8b5cf6);
     }
@@ -519,6 +558,20 @@
 <div class="collection-wrapper">
     <!-- Page Header -->
     @include('partials.header', ['title' => 'Collection'])
+
+    <!-- Error Display -->
+    @if(session('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof nativeAlert === 'function') {
+                nativeAlert(@json(session('error')), { 
+                    type: 'warning', 
+                    title: 'Notice' 
+                });
+            }
+        });
+    </script>
+    @endif
 
     <!-- Portfolio Summary -->
     <div class="portfolio-card">
@@ -599,6 +652,7 @@
             $profitPercent = ($nft->purchase_price ?? $nft->price ?? 0) > 0 
                 ? (($profit / ($nft->purchase_price ?? $nft->price)) * 100) 
                 : 0;
+            $hasActiveAuction = $nft->auctions()->where('status', 'Live')->exists();
         @endphp
         <div class="nft-scroll-card owned-card" 
              data-ownership="owned" 
@@ -607,7 +661,11 @@
             <div class="scroll-card-image">
                 <img src="{{ $nft->image }}" alt="{{ $nft->name }}">
                 <span class="rarity-tag {{ strtolower($nft->rarity) }}">{{ $nft->rarity }}</span>
-                <span class="owned-badge">Owned</span>
+                @if($hasActiveAuction)
+                    <span class="marketplace-badge">In Marketplace</span>
+                @else
+                    <span class="owned-badge">Owned</span>
+                @endif
             </div>
             <div class="scroll-card-info">
                 <div class="card-info-row">
@@ -619,7 +677,11 @@
                         <span class="price-label">Value</span>
                         <span class="price-value">{{ number_format($nft->value ?? 0, 2) }} <small>USDT</small></span>
                     </div>
-                    <a href="{{ url('/auction/create/' . $nft->id) }}" class="card-buy-btn sell-btn">Sell</a>
+                    @if($hasActiveAuction)
+                        <span class="card-status-badge">Listed</span>
+                    @else
+                        <a href="{{ url('/auction/create/' . $nft->id) }}" class="card-buy-btn sell-btn">Sell</a>
+                    @endif
                 </div>
             </div>
         </div>

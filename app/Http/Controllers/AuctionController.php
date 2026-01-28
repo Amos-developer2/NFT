@@ -41,6 +41,16 @@ class AuctionController extends Controller
         if ($nft->user_id !== Auth::id()) {
             abort(403, 'Unauthorized');
         }
+        
+        // Check if NFT already has an active auction
+        $existingAuction = \App\Models\Auction::where('nft_id', $nft_id)
+            ->where('status', 'Live')
+            ->first();
+            
+        if ($existingAuction) {
+            return redirect()->route('collection')->with('error', 'This NFT is already listed in the marketplace.');
+        }
+        
         return view('auction-create', compact('nft'));
     }
     public function index()
