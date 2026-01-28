@@ -1,109 +1,127 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="nft-home-wrapper">
-    <!-- Balance Card -->
-    <div class="nft-balance-card">
-        <div class="balance-card-bg"></div>
-        <div class="balance-card-content">
-            <div class="balance-header">
-                <div class="balance-label">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
-                        <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
-                        <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z" />
-                    </svg>
-                    <span>Total Balance</span>
-                </div>
-                <a href="{{ route('collection') }}" class="explore-link">
-                    Explore
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                </a>
-            </div>
-            <div class="balance-amount">
-                <span class="amount">{{ number_format(Auth::user()->balance ?? 0, 2) }}</span>
-                <span class="currency">USDT</span>
-            </div>
-            <div class="balance-crypto">
-                <div class="crypto-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                    </svg>
-                    <span>{{ Auth::user()->germs ?? 0 }} Germs</span>
-                </div>
-                <!-- <div class="crypto-item stars">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    <div class="nft-home-wrapper">
+        <!-- Balance Card -->
+        <div class="nft-balance-card">
+            <div class="balance-card-bg"></div>
+            <div class="balance-card-content">
+                <div class="balance-header">
+                    <div class="balance-label">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+                            <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+                            <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z" />
                         </svg>
-                        <span>{{ $userStats['stars'] ?? 100 }} Stars</span>
-                    </div> -->
-                <div class="daily-checkin-btn-wrapper-small">
-                    <a href="{{ route('daily.checkin') }}" class="daily-checkin-btn-small">
-                        <span class="btn-icon">🎁</span>
-                        <span>Daily Check-In</span>
+                        <span>Total Balance</span>
+                    </div>
+                    <a href="{{ route('collection') }}" class="explore-link">
+                        Explore
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="balance-amount">
+                    <span class="amount">{{ number_format(Auth::user()->balance ?? 0, 2) }}</span>
+                    <span class="currency">USDT</span>
+                </div>
+                <div class="balance-crypto">
+                    <div class="crypto-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                        </svg>
+                        <span>{{ Auth::user()->germs ?? 0 }} Germs</span>
+                    </div>
+                    <!-- <div class="crypto-item stars">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                            <span>{{ $userStats['stars'] ?? 100 }} Stars</span>
+                        </div> -->
+                    <div class="daily-checkin-btn-wrapper-small">
+                        <a href="{{ route('daily.checkin') }}" class="daily-checkin-btn-small">
+                            <span class="btn-icon">🎁</span>
+                            <span>Daily Check-In</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="balance-actions">
+                    <a href="{{ route('user.deposit') }}" class="balance-btn deposit">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M12 5v14M5 12l7-7 7 7" />
+                        </svg>
+                        <span>Deposit</span>
+                    </a>
+                    <a href="{{ route('user.withdrawal') }}" class="balance-btn withdraw">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M12 19V5M5 12l7 7 7-7" />
+                        </svg>
+                        <span>Withdraw</span>
                     </a>
                 </div>
             </div>
-            <div class="balance-actions">
-                <a href="{{ route('user.deposit') }}" class="balance-btn deposit">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M12 5v14M5 12l7-7 7 7" />
-                    </svg>
-                    <span>Deposit</span>
-                </a>
-                <a href="{{ route('user.withdrawal') }}" class="balance-btn withdraw">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M12 19V5M5 12l7 7 7-7" />
-                    </svg>
-                    <span>Withdraw</span>
-                </a>
-            </div>
         </div>
-    </div>
 
-    <!-- Quick Actions -->
-    <div class="nft-quick-actions-wrapper">
-        <a href="{{ route('daily.checkin') }}" class="action-item-card">
-            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M19.97 10h-1.96c-1.48 0-2.5-1.15-2.5-2.5 0-1.35 1.02-2.5 2.5-2.5h1.96M12 14.5v1M8 22h8c3.5 0 5-1.5 5-5v-6c0-3.5-1.5-5-5-5H8c-3.5 0-5 1.5-5 5v6c0 3.5 1.5 5 5 5Z" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="action-label">Check-In</span>
-        </a>
-        <a href="#" class="action-item-card">
-            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M3.17 7.44 12 12.55l8.77-5.08M12 21.61v-9.07" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9.93 2.48 4.59 5.45c-1.21.67-2.2 2.35-2.2 3.73v5.65c0 1.38.99 3.06 2.2 3.73l5.34 2.97c1.14.63 3.01.63 4.15 0l5.34-2.97c1.21-.67 2.2-2.35 2.2-3.73V9.18c0-1.38-.99-3.06-2.2-3.73l-5.34-2.97c-1.15-.64-3.01-.64-4.15 0Z" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="action-label">Lucky Box</span>
-        </a>
-        <a href="#" class="action-item-card">
-            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M18 7.16c-.94-.51-2.08-.8-3.33-.8h-5.34c-1.25 0-2.39.29-3.33.8M9 16.2h6M9.5 12h5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9.33 3.8h5.34c1.25 0 2.39.29 3.33.8 1.58.85 2.67 2.61 2.67 4.63v5.43c0 3.45-1.88 5.14-5.33 5.14H8.66c-3.45 0-5.33-1.69-5.33-5.14V9.23c0-2.02 1.09-3.78 2.67-4.63.94-.51 2.08-.8 3.33-.8Z" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="action-label">Invite</span>
-        </a>
-        <a href="#" class="action-item-card">
-            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M22 16.74V4.67c0-1.2-.98-2.09-2.17-1.99h-.06c-2.1.18-5.29 1.25-7.07 2.37l-.17.11c-.29.18-.77.18-1.06 0l-.25-.15C9.44 3.88 6.26 2.84 4.16 2.67 2.97 2.57 2 3.47 2 4.66v12.08c0 .96.78 1.86 1.74 1.98l.29.04c2.17.29 5.52 1.39 7.44 2.44l.04.02c.27.15.7.15.96 0 1.92-1.06 5.28-2.17 7.46-2.46l.33-.04c.96-.12 1.74-1.02 1.74-1.98ZM12 5.49v15M7.75 8.49H5.5M8.5 11.49h-3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="action-label">Guide</span>
-        </a>
-        <a href="#" class="action-item-card">
-            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M17 9c3.87 0 5.5 1.5 5.5 5v3c0 3.5-1.63 5-5.5 5H7c-3.87 0-5.5-1.5-5.5-5v-3c0-3.5 1.63-5 5.5-5h10ZM17 2H7C3.13 2 1.5 3.5 1.5 7h21c0-3.5-1.63-5-5.5-5Z" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M11.995 14.5h.01M7.995 14.5h.01M15.995 14.5h.01" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="action-label">Support</span>
-        </a>
-    </div>
+        <!-- Quick Actions -->
+        <div class="nft-quick-actions-wrapper">
+            <a href="{{ route('daily.checkin') }}" class="action-item-card">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path
+                        d="M19.97 10h-1.96c-1.48 0-2.5-1.15-2.5-2.5 0-1.35 1.02-2.5 2.5-2.5h1.96M12 14.5v1M8 22h8c3.5 0 5-1.5 5-5v-6c0-3.5-1.5-5-5-5H8c-3.5 0-5 1.5-5 5v6c0 3.5 1.5 5 5 5Z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="action-label">Check-In</span>
+            </a>
+            <a href="#" class="action-item-card">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M3.17 7.44 12 12.55l8.77-5.08M12 21.61v-9.07" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M9.93 2.48 4.59 5.45c-1.21.67-2.2 2.35-2.2 3.73v5.65c0 1.38.99 3.06 2.2 3.73l5.34 2.97c1.14.63 3.01.63 4.15 0l5.34-2.97c1.21-.67 2.2-2.35 2.2-3.73V9.18c0-1.38-.99-3.06-2.2-3.73l-5.34-2.97c-1.15-.64-3.01-.64-4.15 0Z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="action-label">Lucky Box</span>
+            </a>
+            <a href="#" class="action-item-card">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 7.16c-.94-.51-2.08-.8-3.33-.8h-5.34c-1.25 0-2.39.29-3.33.8M9 16.2h6M9.5 12h5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M9.33 3.8h5.34c1.25 0 2.39.29 3.33.8 1.58.85 2.67 2.61 2.67 4.63v5.43c0 3.45-1.88 5.14-5.33 5.14H8.66c-3.45 0-5.33-1.69-5.33-5.14V9.23c0-2.02 1.09-3.78 2.67-4.63.94-.51 2.08-.8 3.33-.8Z"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="action-label">Invite</span>
+            </a>
+            <a href="#" class="action-item-card">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path
+                        d="M22 16.74V4.67c0-1.2-.98-2.09-2.17-1.99h-.06c-2.1.18-5.29 1.25-7.07 2.37l-.17.11c-.29.18-.77.18-1.06 0l-.25-.15C9.44 3.88 6.26 2.84 4.16 2.67 2.97 2.57 2 3.47 2 4.66v12.08c0 .96.78 1.86 1.74 1.98l.29.04c2.17.29 5.52 1.39 7.44 2.44l.04.02c.27.15.7.15.96 0 1.92-1.06 5.28-2.17 7.46-2.46l.33-.04c.96-.12 1.74-1.02 1.74-1.98ZM12 5.49v15M7.75 8.49H5.5M8.5 11.49h-3"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="action-label">Guide</span>
+            </a>
+            <a href="#" class="action-item-card">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path
+                        d="M17 9c3.87 0 5.5 1.5 5.5 5v3c0 3.5-1.63 5-5.5 5H7c-3.87 0-5.5-1.5-5.5-5v-3c0-3.5 1.63-5 5.5-5h10ZM17 2H7C3.13 2 1.5 3.5 1.5 7h21c0-3.5-1.63-5-5.5-5Z"
+                        stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M11.995 14.5h.01M7.995 14.5h.01M15.995 14.5h.01" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span class="action-label">Support</span>
+            </a>
+        </div>
 
-    <!-- Gamification Section -->
-    <!-- <div class="nft-gamification-card">
+        <!-- Gamification Section -->
+        <div class="nft-gamification-card">
             <h3 class="gamification-title">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <path d="M8 12l2 2 4-4" />
                 </svg>
@@ -132,1502 +150,1529 @@
                     <span class="challenge-reward completed">Completed!</span>
                 </li>
             </ul>
-        </div> -->
+        </div>
 
 
-    <!-- Search Section -->
-    <div class="nft-search-section">
-        <div class="search-wrapper">
-            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.35-4.35" />
-            </svg>
-            <input type="text" placeholder="Search NFTs..." class="nft-search-input" id="nftSearch">
-            <button class="filter-toggle">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+        <!-- Search Section -->
+        <div class="nft-search-section">
+            <div class="search-wrapper">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
                 </svg>
-            </button>
+                <input type="text" placeholder="Search NFTs..." class="nft-search-input" id="nftSearch">
+                <button class="filter-toggle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                    </svg>
+                </button>
+            </div>
+            <div class="filter-chips">
+                <button class="nft-chip active" data-filter="all">
+                    <span class="chip-icon">🔥</span>
+                    <span>Trending</span>
+                </button>
+                <button class="nft-chip" data-filter="Common">
+                    <span class="chip-icon">⭐</span>
+                    <span>Common</span>
+                </button>
+                <button class="nft-chip" data-filter="Rare">
+                    <span class="chip-icon">💎</span>
+                    <span>Rare</span>
+                </button>
+                <button class="nft-chip" data-filter="Epic">
+                    <span class="chip-icon">🎯</span>
+                    <span>Epic</span>
+                </button>
+                <button class="nft-chip" data-filter="Legendary">
+                    <span class="chip-icon">👑</span>
+                    <span>Legendary</span>
+                </button>
+            </div>
         </div>
-        <div class="filter-chips">
-            <button class="nft-chip active" data-filter="all">
-                <span class="chip-icon">🔥</span>
-                <span>Trending</span>
-            </button>
-            <button class="nft-chip" data-filter="Common">
-                <span class="chip-icon">⭐</span>
-                <span>Common</span>
-            </button>
-            <button class="nft-chip" data-filter="Rare">
-                <span class="chip-icon">💎</span>
-                <span>Rare</span>
-            </button>
-            <button class="nft-chip" data-filter="Epic">
-                <span class="chip-icon">🎯</span>
-                <span>Epic</span>
-            </button>
-            <button class="nft-chip" data-filter="Legendary">
-                <span class="chip-icon">👑</span>
-                <span>Legendary</span>
-            </button>
-        </div>
-    </div>
 
-    <!-- NFT Market (Hot) Section -->
-    <div class="nft-scroll-section">
-        <div class="scroll-section-header">
-            <h2 class="scroll-section-title">
-                <span class="title-icon hot">🔥</span>
-                NFT Market
-                <span class="hot-badge">Hot</span>
-            </h2>
-            <a href="{{ route('collection') }}" class="view-more-btn">
-                View More
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-            </a>
-        </div>
-        <div class="nft-scroll-container">
-            @forelse($nfts ?? [] as $nft)
-            @php
-            $profit = $nft['value'] - $nft['price'];
-            $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
-            @endphp
-            <div class="nft-scroll-card" data-rarity="{{ $nft['rarity'] }}" data-name="{{ strtolower($nft['name']) }}">
-                <div class="scroll-card-image">
-                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
-                    <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
-                    <span class="profit-tag {{ $profitPercent >= 0 ? 'up' : 'down' }}">
-                        {{ $profitPercent >= 0 ? '+' : '' }}{{ number_format($profitPercent, 0) }}%
-                    </span>
-                </div>
-                <div class="scroll-card-info">
-                    <div class="card-info-row">
-                        <h3 class="card-name">{{ $nft['name'] }}</h3>
-                        <span class="card-id">#{{ $nft['id'] }}</span>
-                    </div>
-                    <div class="card-info-row">
-                        <div class="card-price">
-                            <span class="price-label">Price</span>
-                            <span class="price-value">{{ number_format($nft['price'], 2) }} <small>USDT</small></span>
+        <!-- NFT Market (Hot) Section -->
+        <div class="nft-scroll-section">
+            <div class="scroll-section-header">
+                <h2 class="scroll-section-title">
+                    <span class="title-icon hot">🔥</span>
+                    NFT Market
+                    <span class="hot-badge">Hot</span>
+                </h2>
+                <a href="{{ route('collection') }}" class="view-more-btn">
+                    View More
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+            <div class="nft-scroll-container">
+                @forelse($nfts ?? [] as $nft)
+                    @php
+                        $profit = $nft['value'] - $nft['price'];
+                        $profitPercent = $nft['price'] > 0 ? ($profit / $nft['price']) * 100 : 0;
+                    @endphp
+                    <div class="nft-scroll-card" data-rarity="{{ $nft['rarity'] }}"
+                        data-name="{{ strtolower($nft['name']) }}">
+                        <div class="scroll-card-image">
+                            <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
+                            <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
+                            <span class="profit-tag {{ $profitPercent >= 0 ? 'up' : 'down' }}">
+                                {{ $profitPercent >= 0 ? '+' : '' }}{{ number_format($profitPercent, 0) }}%
+                            </span>
                         </div>
-                        <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
-                    </div>
-                </div>
-            </div>
-            @empty
-            <div class="empty-scroll-state">
-                <span>🎨</span>
-                <p>No NFTs available</p>
-            </div>
-            @endforelse
-        </div>
-    </div>
-
-    <!-- Top Profits Section -->
-    <div class="nft-scroll-section">
-        <div class="scroll-section-header">
-            <h2 class="scroll-section-title">
-                <span class="title-icon profit">📈</span>
-                Top Profits
-            </h2>
-            <a href="{{ route('collection') }}" class="view-more-btn">
-                View More
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-            </a>
-        </div>
-        <div class="nft-scroll-container">
-            @php
-            $topProfits = collect($nfts ?? [])->sortByDesc(function($nft) {
-                return $nft['price'] > 0 ? (($nft['value'] - $nft['price']) / $nft['price']) * 100 : 0;
-            })->take(10);
-            @endphp
-            @forelse($topProfits as $nft)
-            @php
-            $profit = $nft['value'] - $nft['price'];
-            $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
-            @endphp
-            <div class="nft-scroll-card profit-card">
-                <div class="scroll-card-image">
-                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
-                    <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
-                    <span class="profit-tag up large">
-                        +{{ number_format($profitPercent, 0) }}%
-                    </span>
-                </div>
-                <div class="scroll-card-info">
-                    <div class="card-info-row">
-                        <h3 class="card-name">{{ $nft['name'] }}</h3>
-                        <span class="card-id">#{{ $nft['id'] }}</span>
-                    </div>
-                    <div class="card-info-row">
-                        <div class="card-price">
-                            <span class="price-label">Price</span>
-                            <span class="price-value">{{ number_format($nft['price'], 2) }} <small>USDT</small></span>
+                        <div class="scroll-card-info">
+                            <div class="card-info-row">
+                                <h3 class="card-name">{{ $nft['name'] }}</h3>
+                                <span class="card-id">#{{ $nft['id'] }}</span>
+                            </div>
+                            <div class="card-info-row">
+                                <div class="card-price">
+                                    <span class="price-label">Price</span>
+                                    <span class="price-value">{{ number_format($nft['price'], 2) }}
+                                        <small>USDT</small></span>
+                                </div>
+                                <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
+                            </div>
                         </div>
-                        <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
                     </div>
-                </div>
+                @empty
+                    <div class="empty-scroll-state">
+                        <span>🎨</span>
+                        <p>No NFTs available</p>
+                    </div>
+                @endforelse
             </div>
-            @empty
-            <div class="empty-scroll-state">
-                <span>📈</span>
-                <p>No profitable NFTs</p>
-            </div>
-            @endforelse
         </div>
-    </div>
 
-    <!-- Top Selling Section -->
-    <div class="nft-scroll-section">
-        <div class="scroll-section-header">
-            <h2 class="scroll-section-title">
-                <span class="title-icon selling">💰</span>
-                Top Selling
-            </h2>
-            <a href="{{ route('collection') }}" class="view-more-btn">
-                View More
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-            </a>
-        </div>
-        <div class="nft-scroll-container">
-            @php
-            $topSelling = collect($nfts ?? [])->sortByDesc('price')->take(10);
-            @endphp
-            @forelse($topSelling as $nft)
-            @php
-            $profit = $nft['value'] - $nft['price'];
-            $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
-            @endphp
-            <div class="nft-scroll-card selling-card">
-                <div class="scroll-card-image">
-                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
-                    <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
-                    <span class="sell-rank">🏆</span>
-                </div>
-                <div class="scroll-card-info">
-                    <div class="card-info-row">
-                        <h3 class="card-name">{{ $nft['name'] }}</h3>
-                        <span class="card-id">#{{ $nft['id'] }}</span>
-                    </div>
-                    <div class="card-info-row">
-                        <div class="card-price">
-                            <span class="price-label">Price</span>
-                            <span class="price-value highlight">{{ number_format($nft['price'], 2) }} <small>USDT</small></span>
+        <!-- Top Profits Section -->
+        <div class="nft-scroll-section">
+            <div class="scroll-section-header">
+                <h2 class="scroll-section-title">
+                    <span class="title-icon profit">📈</span>
+                    Top Profits
+                </h2>
+                <a href="{{ route('collection') }}" class="view-more-btn">
+                    View More
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+            <div class="nft-scroll-container">
+                @php
+                    $topProfits = collect($nfts ?? [])
+                        ->sortByDesc(function ($nft) {
+                            return $nft['price'] > 0 ? (($nft['value'] - $nft['price']) / $nft['price']) * 100 : 0;
+                        })
+                        ->take(10);
+                @endphp
+                @forelse($topProfits as $nft)
+                    @php
+                        $profit = $nft['value'] - $nft['price'];
+                        $profitPercent = $nft['price'] > 0 ? ($profit / $nft['price']) * 100 : 0;
+                    @endphp
+                    <div class="nft-scroll-card profit-card">
+                        <div class="scroll-card-image">
+                            <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
+                            <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
+                            <span class="profit-tag up large">
+                                +{{ number_format($profitPercent, 0) }}%
+                            </span>
                         </div>
-                        <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
-                    </div>
-                </div>
-            </div>
-            @empty
-            <div class="empty-scroll-state">
-                <span>💰</span>
-                <p>No top selling NFTs</p>
-            </div>
-            @endforelse
-        </div>
-    </div>
-
-    <!-- Editor's Choice Section -->
-    <div class="nft-scroll-section">
-        <div class="scroll-section-header">
-            <h2 class="scroll-section-title">
-                <span class="title-icon editor">⭐</span>
-                Editor's Choice
-            </h2>
-            <a href="{{ route('collection') }}" class="view-more-btn">
-                View More
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-            </a>
-        </div>
-        <div class="nft-scroll-container">
-            @php
-            $editorChoice = collect($nfts ?? [])->whereIn('rarity', ['Legendary', 'Epic'])->take(10);
-            @endphp
-            @forelse($editorChoice as $nft)
-            @php
-            $profit = $nft['value'] - $nft['price'];
-            $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
-            @endphp
-            <div class="nft-scroll-card editor-card">
-                <div class="editor-badge">✨ Editor Pick</div>
-                <div class="scroll-card-image">
-                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
-                </div>
-                <div class="scroll-card-info">
-                    <div class="card-info-row">
-                        <h3 class="card-name">{{ $nft['name'] }}</h3>
-                        <span class="card-id">#{{ $nft['id'] }}</span>
-                    </div>
-                    <div class="card-info-row">
-                        <div class="card-price">
-                            <span class="price-label">Price</span>
-                            <span class="price-value">{{ number_format($nft['price'], 2) }} <small>USDT</small></span>
+                        <div class="scroll-card-info">
+                            <div class="card-info-row">
+                                <h3 class="card-name">{{ $nft['name'] }}</h3>
+                                <span class="card-id">#{{ $nft['id'] }}</span>
+                            </div>
+                            <div class="card-info-row">
+                                <div class="card-price">
+                                    <span class="price-label">Price</span>
+                                    <span class="price-value">{{ number_format($nft['price'], 2) }}
+                                        <small>USDT</small></span>
+                                </div>
+                                <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
+                            </div>
                         </div>
-                        <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
                     </div>
-                </div>
+                @empty
+                    <div class="empty-scroll-state">
+                        <span>📈</span>
+                        <p>No profitable NFTs</p>
+                    </div>
+                @endforelse
             </div>
-            @empty
-            <div class="empty-scroll-state">
-                <span>⭐</span>
-                <p>No editor picks yet</p>
-            </div>
-            @endforelse
         </div>
-    </div>
 
-    <!-- NFT Pool Section -->
-    <div class="nft-scroll-section">
-        <div class="scroll-section-header">
-            <h2 class="scroll-section-title">
-                <span class="title-icon pool">🎱</span>
-                NFT Pool
-                <span class="pool-badge">New</span>
-            </h2>
-            <a href="{{ route('collection') }}" class="view-more-btn">
-                View More
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-            </a>
-        </div>
-        <div class="nft-scroll-container">
-            @php
-            $nftPool = collect($nfts ?? [])->shuffle()->take(10);
-            @endphp
-            @forelse($nftPool as $nft)
-            @php
-            $profit = $nft['value'] - $nft['price'];
-            $profitPercent = $nft['price'] > 0 ? (($profit / $nft['price']) * 100) : 0;
-            @endphp
-            <div class="nft-scroll-card pool-card">
-                <div class="pool-glow"></div>
-                <div class="scroll-card-image">
-                    <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
-                    <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
-                    <span class="pool-icon">🎱</span>
-                </div>
-                <div class="scroll-card-info">
-                    <div class="card-info-row">
-                        <h3 class="card-name">{{ $nft['name'] }}</h3>
-                        <span class="card-id">#{{ $nft['id'] }}</span>
-                    </div>
-                    <div class="card-info-row">
-                        <div class="card-price">
-                            <span class="price-label">Pool Price</span>
-                            <span class="price-value pool-price">{{ number_format($nft['price'], 2) }} <small>USDT</small></span>
+        <!-- Top Selling Section -->
+        <div class="nft-scroll-section">
+            <div class="scroll-section-header">
+                <h2 class="scroll-section-title">
+                    <span class="title-icon selling">💰</span>
+                    Top Selling
+                </h2>
+                <a href="{{ route('collection') }}" class="view-more-btn">
+                    View More
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+            <div class="nft-scroll-container">
+                @php
+                    $topSelling = collect($nfts ?? [])
+                        ->sortByDesc('price')
+                        ->take(10);
+                @endphp
+                @forelse($topSelling as $nft)
+                    @php
+                        $profit = $nft['value'] - $nft['price'];
+                        $profitPercent = $nft['price'] > 0 ? ($profit / $nft['price']) * 100 : 0;
+                    @endphp
+                    <div class="nft-scroll-card selling-card">
+                        <div class="scroll-card-image">
+                            <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
+                            <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
+                            <span class="sell-rank">🏆</span>
                         </div>
-                        <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn pool-btn">Join</a>
+                        <div class="scroll-card-info">
+                            <div class="card-info-row">
+                                <h3 class="card-name">{{ $nft['name'] }}</h3>
+                                <span class="card-id">#{{ $nft['id'] }}</span>
+                            </div>
+                            <div class="card-info-row">
+                                <div class="card-price">
+                                    <span class="price-label">Price</span>
+                                    <span class="price-value highlight">{{ number_format($nft['price'], 2) }}
+                                        <small>USDT</small></span>
+                                </div>
+                                <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                @empty
+                    <div class="empty-scroll-state">
+                        <span>💰</span>
+                        <p>No top selling NFTs</p>
+                    </div>
+                @endforelse
             </div>
-            @empty
-            <div class="empty-scroll-state">
-                <span>🎱</span>
-                <p>No pool NFTs available</p>
+        </div>
+
+        <!-- Editor's Choice Section -->
+        <div class="nft-scroll-section">
+            <div class="scroll-section-header">
+                <h2 class="scroll-section-title">
+                    <span class="title-icon editor">⭐</span>
+                    Editor's Choice
+                </h2>
+                <a href="{{ route('collection') }}" class="view-more-btn">
+                    View More
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
             </div>
-            @endforelse
+            <div class="nft-scroll-container">
+                @php
+                    $editorChoice = collect($nfts ?? [])
+                        ->whereIn('rarity', ['Legendary', 'Epic'])
+                        ->take(10);
+                @endphp
+                @forelse($editorChoice as $nft)
+                    @php
+                        $profit = $nft['value'] - $nft['price'];
+                        $profitPercent = $nft['price'] > 0 ? ($profit / $nft['price']) * 100 : 0;
+                    @endphp
+                    <div class="nft-scroll-card editor-card">
+                        <div class="editor-badge">✨ Editor Pick</div>
+                        <div class="scroll-card-image">
+                            <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
+                        </div>
+                        <div class="scroll-card-info">
+                            <div class="card-info-row">
+                                <h3 class="card-name">{{ $nft['name'] }}</h3>
+                                <span class="card-id">#{{ $nft['id'] }}</span>
+                            </div>
+                            <div class="card-info-row">
+                                <div class="card-price">
+                                    <span class="price-label">Price</span>
+                                    <span class="price-value">{{ number_format($nft['price'], 2) }}
+                                        <small>USDT</small></span>
+                                </div>
+                                <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn">Buy</a>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="empty-scroll-state">
+                        <span>⭐</span>
+                        <p>No editor picks yet</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <!-- NFT Pool Section -->
+        <div class="nft-scroll-section">
+            <div class="scroll-section-header">
+                <h2 class="scroll-section-title">
+                    <span class="title-icon pool">🎱</span>
+                    NFT Pool
+                    <span class="pool-badge">New</span>
+                </h2>
+                <a href="{{ route('collection') }}" class="view-more-btn">
+                    View More
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+            <div class="nft-scroll-container">
+                @php
+                    $nftPool = collect($nfts ?? [])
+                        ->shuffle()
+                        ->take(10);
+                @endphp
+                @forelse($nftPool as $nft)
+                    @php
+                        $profit = $nft['value'] - $nft['price'];
+                        $profitPercent = $nft['price'] > 0 ? ($profit / $nft['price']) * 100 : 0;
+                    @endphp
+                    <div class="nft-scroll-card pool-card">
+                        <div class="pool-glow"></div>
+                        <div class="scroll-card-image">
+                            <img src="{{ $nft['image'] }}" alt="{{ $nft['name'] }}">
+                            <span class="rarity-tag {{ strtolower($nft['rarity']) }}">{{ $nft['rarity'] }}</span>
+                            <span class="pool-icon">🎱</span>
+                        </div>
+                        <div class="scroll-card-info">
+                            <div class="card-info-row">
+                                <h3 class="card-name">{{ $nft['name'] }}</h3>
+                                <span class="card-id">#{{ $nft['id'] }}</span>
+                            </div>
+                            <div class="card-info-row">
+                                <div class="card-price">
+                                    <span class="price-label">Pool Price</span>
+                                    <span class="price-value pool-price">{{ number_format($nft['price'], 2) }}
+                                        <small>USDT</small></span>
+                                </div>
+                                <a href="{{ route('nft.purchase', $nft['id']) }}" class="card-buy-btn pool-btn">Join</a>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="empty-scroll-state">
+                        <span>🎱</span>
+                        <p>No pool NFTs available</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <!-- Bottom Stats -->
+        <div class="nft-bottom-stats">
+            <div class="bottom-stat">
+                <span class="stat-num">50K+</span>
+                <span class="stat-text">Users</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="bottom-stat">
+                <span class="stat-num">$2.5M</span>
+                <span class="stat-text">Volume</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="bottom-stat">
+                <span class="stat-num">{{ count($nfts ?? []) }}</span>
+                <span class="stat-text">NFTs</span>
+            </div>
         </div>
     </div>
 
-    <!-- Bottom Stats -->
-    <div class="nft-bottom-stats">
-        <div class="bottom-stat">
-            <span class="stat-num">50K+</span>
-            <span class="stat-text">Users</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="bottom-stat">
-            <span class="stat-num">$2.5M</span>
-            <span class="stat-text">Volume</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="bottom-stat">
-            <span class="stat-num">{{ count($nfts ?? []) }}</span>
-            <span class="stat-text">NFTs</span>
-        </div>
-    </div>
-</div>
-
-<style>
-    .daily-checkin-btn-wrapper,
-    .daily-checkin-btn-wrapper-small {
-        display: flex;
-        justify-content: center;
-        margin-top: 0;
-    }
-
-    .daily-checkin-btn-small {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        padding: 4px 12px;
-        background: linear-gradient(90deg, #fbbf24, #2A6CF6, #3B8CFF);
-        color: #fff;
-        font-size: 12px;
-        font-weight: 700;
-        border-radius: 16px;
-        text-decoration: none;
-        box-shadow: 0 2px 8px rgba(42, 108, 246, 0.10);
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.2s, box-shadow 0.2s;
-        margin-top: 4px;
-        margin-bottom: 0;
-        animation: bounce 1.2s infinite alternate;
-    }
-
-    .daily-checkin-btn-small .btn-icon {
-        font-size: 15px;
-        animation: spin 2s linear infinite;
-    }
-
-    .daily-checkin-btn-small:hover {
-        transform: scale(1.08);
-        box-shadow: 0 4px 12px rgba(42, 108, 246, 0.18);
-    }
-
-    .daily-checkin-btn-wrapper {
-        display: flex;
-        justify-content: center;
-        margin-top: 18px;
-    }
-
-    .daily-checkin-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 14px 32px;
-        background: linear-gradient(90deg, #fbbf24, #2A6CF6, #3B8CFF);
-        color: #fff;
-        font-size: 16px;
-        font-weight: 800;
-        border-radius: 30px;
-        text-decoration: none;
-        box-shadow: 0 4px 16px rgba(42, 108, 246, 0.10);
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.2s, box-shadow 0.2s;
-        animation: bounce 1.2s infinite alternate;
-    }
-
-    .daily-checkin-btn .btn-icon {
-        font-size: 22px;
-        animation: spin 2s linear infinite;
-    }
-
-    .daily-checkin-btn:hover {
-        transform: scale(1.06);
-        box-shadow: 0 8px 24px rgba(42, 108, 246, 0.18);
-    }
-
-    @keyframes bounce {
-        0% {
-            transform: translateY(0);
+    <style>
+        .daily-checkin-btn-wrapper,
+        .daily-checkin-btn-wrapper-small {
+            display: flex;
+            justify-content: center;
+            margin-top: 0;
         }
 
-        100% {
-            transform: translateY(-8px);
+        .daily-checkin-btn-small {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            background: linear-gradient(90deg, #fbbf24, #2A6CF6, #3B8CFF);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 16px;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(42, 108, 246, 0.10);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 4px;
+            margin-bottom: 0;
+            animation: bounce 1.2s infinite alternate;
         }
-    }
 
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
+        .daily-checkin-btn-small .btn-icon {
+            font-size: 15px;
+            animation: spin 2s linear infinite;
         }
 
-        100% {
-            transform: rotate(360deg);
+        .daily-checkin-btn-small:hover {
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(42, 108, 246, 0.18);
         }
-    }
 
-    .nft-home-wrapper {
-        padding: 0 16px 100px;
-        background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-        min-height: 100vh;
-    }
+        .daily-checkin-btn-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 18px;
+        }
 
-    .nft-gamification-card {
-        background: #fff;
-        border-radius: 16px;
-        margin: 18px 0 24px 0;
-        padding: 18px 16px 14px 16px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-        border: 1px solid rgba(42, 108, 246, 0.08);
-    }
+        .daily-checkin-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(90deg, #fbbf24, #2A6CF6, #3B8CFF);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 800;
+            border-radius: 30px;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(42, 108, 246, 0.10);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: bounce 1.2s infinite alternate;
+        }
 
-    .gamification-title {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 16px;
-        font-weight: 700;
-        color: #2A6CF6;
-        margin-bottom: 12px;
-    }
+        .daily-checkin-btn .btn-icon {
+            font-size: 22px;
+            animation: spin 2s linear infinite;
+        }
 
-    .gamification-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
+        .daily-checkin-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 8px 24px rgba(42, 108, 246, 0.18);
+        }
 
-    .gamification-list li {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #f8fafc;
-        border-radius: 10px;
-        padding: 10px 12px;
-        gap: 10px;
-    }
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
 
-    .challenge-name {
-        font-size: 13px;
-        font-weight: 600;
-        color: #1e293b;
-        flex: 2;
-    }
+            100% {
+                transform: translateY(-8px);
+            }
+        }
 
-    .challenge-progress {
-        flex: 2;
-        background: #e2e8f0;
-        border-radius: 6px;
-        height: 8px;
-        width: 100%;
-        margin: 0 10px;
-        position: relative;
-        overflow: hidden;
-    }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
 
-    .progress-bar {
-        background: linear-gradient(90deg, #2A6CF6, #3B8CFF);
-        height: 100%;
-        border-radius: 6px;
-        transition: width 0.4s;
-    }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
-    .challenge-reward {
-        font-size: 12px;
-        font-weight: 700;
-        color: #22c55e;
-        flex: 1;
-        text-align: right;
-    }
+        .nft-home-wrapper {
+            padding: 0 16px 100px;
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            min-height: 100vh;
+        }
 
-    .challenge-reward.completed {
-        color: #64748b;
-    }
+        .nft-gamification-card {
+            background: #fff;
+            border-radius: 16px;
+            margin: 18px 0 24px 0;
+            padding: 18px 16px 14px 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(42, 108, 246, 0.08);
+        }
 
-    .nft-balance-card {
-        position: relative;
-        border-radius: 10px;
-        overflow: hidden;
-        margin-bottom: 20px;
-    }
+        .gamification-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #2A6CF6;
+            margin-bottom: 12px;
+        }
 
-    .balance-card-bg {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 50%, #60a5fa 100%);
-    }
+        .gamification-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-    .balance-card-bg::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-        animation: shimmer 3s infinite;
-    }
+        .gamification-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 10px 12px;
+            gap: 10px;
+        }
 
-    @keyframes shimmer {
-        0% {
+        .challenge-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+            flex: 2;
+        }
+
+        .challenge-progress {
+            flex: 2;
+            background: #e2e8f0;
+            border-radius: 6px;
+            height: 8px;
+            width: 100%;
+            margin: 0 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #2A6CF6, #3B8CFF);
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.4s;
+        }
+
+        .challenge-reward {
+            font-size: 12px;
+            font-weight: 700;
+            color: #22c55e;
+            flex: 1;
+            text-align: right;
+        }
+
+        .challenge-reward.completed {
+            color: #64748b;
+        }
+
+        .nft-balance-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .balance-card-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #2A6CF6 0%, #3B8CFF 50%, #60a5fa 100%);
+        }
+
+        .balance-card-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
             left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            animation: shimmer 3s infinite;
         }
 
-        100% {
-            left: 100%;
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
         }
-    }
-
-    .balance-card-content {
-        position: relative;
-        padding: 15px;
-        color: #fff;
-    }
-
-    .balance-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        /* margin-bottom: 16px; */
-    }
-
-    .balance-label {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 14px;
-        opacity: 0.9;
-    }
-
-    .explore-link {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        padding: 6px 14px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 600;
-        color: #fff;
-        text-decoration: none;
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
-    }
-
-    .explore-link:active {
-        transform: scale(0.96);
-        background: rgba(255, 255, 255, 0.3);
-    }
-
-    .balance-amount {
-        margin-bottom: 12px;
-    }
-
-    .balance-amount .amount {
-        font-size: 36px;
-        font-weight: 800;
-        letter-spacing: -1px;
-    }
-
-    .balance-amount .currency {
-        font-size: 18px;
-        font-weight: 600;
-        opacity: 0.9;
-        margin-left: 8px;
-    }
-
-    .balance-crypto {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 20px;
-    }
-
-    .crypto-item {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 14px;
-        opacity: 0.9;
-    }
-
-    .crypto-item.stars svg {
-        fill: #fbbf24;
-        stroke: #fbbf24;
-    }
-
-    .balance-actions {
-        display: flex;
-        gap: 12px;
-    }
-
-    .balance-btn {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 14px;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-    .balance-btn.deposit {
-        background: rgba(255, 255, 255, 0.2);
-        color: #fff;
-        backdrop-filter: blur(10px);
-    }
-
-    .balance-btn.withdraw {
-        background: #fff;
-        color: #2A6CF6;
-    }
-
-    .balance-btn:active {
-        transform: scale(0.98);
-    }
-
-    .nft-quick-stats-card {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #fff;
-        border-radius: 16px;
-        padding: 16px 12px;
-        margin-bottom: 24px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-        border: 1px solid rgba(42, 108, 246, 0.08);
-    }
-
-    .nft-quick-actions-wrapper {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 24px;
-    }
-
-    .action-item-card {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 10px 6px;
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-        border: 1px solid rgba(42, 108, 246, 0.08);
-        text-decoration: none;
-        transition: all 0.2s ease;
-    }
-
-    .action-item-card:active {
-        transform: scale(0.95);
-        background: rgba(42, 108, 246, 0.05);
-        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
-    }
-
-    .action-item-card .action-icon {
-        width: 24px;
-        height: 24px;
-        margin-bottom: 4px;
-        display: block;
-        color: #2A6CF6;
-        flex-shrink: 0;
-    }
-
-    .action-item-card .action-label {
-        font-size: 10px;
-        color: #64748b;
-        font-weight: 600;
-        line-height: 1.2;
-    }
-
-    .nft-quick-stats-card .stat-divider {
-        width: 1px;
-        height: 36px;
-        background: linear-gradient(180deg, transparent, #e2e8f0, transparent);
-        flex-shrink: 0;
-    }
-
-    .nft-search-section {
-        margin-bottom: 24px;
-        width: 100%;
-        max-width: 100%;
-        overflow: hidden;
-    }
-
-    .search-wrapper {
-        position: relative;
-        margin-bottom: 14px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .search-wrapper::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 14px;
-        padding: 2px;
-        background: linear-gradient(135deg, #e2e8f0, #f1f5f9);
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        pointer-events: none;
-        opacity: 0.6;
-        transition: all 0.3s ease;
-    }
-
-    .search-wrapper:focus-within::before {
-        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
-        opacity: 1;
-    }
-
-    .search-icon {
-        position: absolute;
-        left: 14px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #94a3b8;
-        z-index: 1;
-        flex-shrink: 0;
-    }
-
-    .search-wrapper:focus-within .search-icon {
-        color: #2A6CF6;
-    }
-
-    .nft-search-input {
-        width: 100%;
-        padding: 14px 56px 14px 44px;
-        background: #fff;
-        border: none;
-        border-radius: 14px;
-        font-size: 14px;
-        color: #1e293b;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        box-sizing: border-box;
-    }
-
-    .nft-search-input::placeholder {
-        color: #94a3b8;
-    }
-
-    .nft-search-input:focus {
-        outline: none;
-    }
-
-    .filter-toggle {
-        position: absolute;
-        right: 6px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
-        border: none;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        flex-shrink: 0;
-    }
-
-    .filter-chips {
-        display: flex;
-        gap: 10px;
-        overflow-x: auto;
-        padding-bottom: 4px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-
-    .filter-chips::-webkit-scrollbar {
-        display: none;
-    }
-
-    .nft-chip {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        padding: 10px 16px;
-        background: #fff;
-        border: 1px solid rgba(42, 108, 246, 0.1);
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 500;
-        color: #64748b;
-        white-space: nowrap;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .nft-chip .chip-icon {
-        font-size: 14px;
-    }
-
-    .nft-chip.active {
-        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
-        border-color: transparent;
-        color: #fff;
-    }
-
-    .nft-section-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 16px;
-    }
-
-    .section-title {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 18px;
-        font-weight: 700;
-        color: #1e293b;
-        margin: 0;
-    }
-
-    .section-title svg {
-        color: #2A6CF6;
-    }
-
-    .see-all-btn {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        font-size: 14px;
-        font-weight: 600;
-        color: #2A6CF6;
-        text-decoration: none;
-    }
-
-    /* Horizontal Scroll Sections */
-    .nft-scroll-section {
-        margin-bottom: 28px;
-    }
-
-    .scroll-section-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 14px;
-        padding: 0 2px;
-    }
-
-    .scroll-section-title {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 17px;
-        font-weight: 700;
-        color: #1e293b;
-        margin: 0;
-    }
-
-    .title-icon {
-        font-size: 18px;
-    }
-
-    .hot-badge {
-        background: linear-gradient(135deg, #ef4444, #f97316);
-        color: #fff;
-        font-size: 10px;
-        font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .view-more-btn {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        font-size: 13px;
-        font-weight: 600;
-        color: #2A6CF6;
-        text-decoration: none;
-        padding: 6px 12px;
-        background: rgba(42, 108, 246, 0.08);
-        border-radius: 16px;
-        transition: all 0.2s ease;
-    }
-
-    .view-more-btn:active {
-        transform: scale(0.96);
-        background: rgba(42, 108, 246, 0.15);
-    }
-
-    .nft-scroll-container {
-        display: flex;
-        gap: 12px;
-        overflow-x: auto;
-        padding: 4px 2px 12px;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-
-    .nft-scroll-container::-webkit-scrollbar {
-        display: none;
-    }
-
-    .nft-scroll-card {
-        flex: 0 0 calc(50% - 6px);
-        min-width: calc(50% - 6px);
-        max-width: calc(50% - 6px);
-        background: #fff;
-        border-radius: 14px;
-        overflow: hidden;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-        border: 1px solid rgba(42, 108, 246, 0.08);
-        scroll-snap-align: start;
-        transition: transform 0.2s ease;
-        position: relative;
-    }
-
-    .nft-scroll-card:active {
-        transform: scale(0.98);
-    }
-
-    .scroll-card-image {
-        position: relative;
-        aspect-ratio: 1;
-        overflow: hidden;
-        padding: 6px;
-    }
-
-    .scroll-card-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-
-    .scroll-card-image .rarity-tag {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 9px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .scroll-card-image .profit-tag {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 10px;
-        font-weight: 700;
-    }
-
-    .profit-tag.large {
-        font-size: 11px;
-        padding: 5px 10px;
-    }
-
-    .sell-rank {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 18px;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-    }
-
-    .scroll-card-info {
-        padding: 12px;
-    }
-
-    .card-info-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-    }
-
-    .card-info-row:first-child {
-        margin-bottom: 8px;
-    }
-
-    .card-name {
-        font-size: 13px;
-        font-weight: 700;
-        color: #1e293b;
-        margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        flex: 1;
-        min-width: 0;
-    }
-
-    .card-id {
-        font-size: 10px;
-        color: #94a3b8;
-        font-weight: 500;
-        flex-shrink: 0;
-    }
-
-    .card-price {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-
-    .price-label {
-        font-size: 10px;
-        color: #94a3b8;
-        font-weight: 500;
-    }
-
-    .price-value {
-        font-size: 13px;
-        font-weight: 700;
-        color: #1e293b;
-    }
-
-    .price-value.highlight {
-        color: #22c55e;
-    }
-
-    .price-value small {
-        font-size: 10px;
-        color: #94a3b8;
-        font-weight: 500;
-    }
-
-    .card-buy-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 8px 16px;
-        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
-        border: none;
-        border-radius: 8px;
-        font-size: 12px;
-        font-weight: 600;
-        color: #fff;
-        text-decoration: none;
-        transition: all 0.2s ease;
-        flex-shrink: 0;
-    }
-
-    .card-buy-btn:active {
-        transform: scale(0.95);
-        background: linear-gradient(135deg, #1d5ed9, #2a7cf6);
-    }
-
-    /* Editor's Choice Card */
-    .editor-card {
-        border: 2px solid rgba(251, 191, 36, 0.3);
-    }
-
-    .editor-badge {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(90deg, #fbbf24, #f59e0b);
-        color: #fff;
-        font-size: 10px;
-        font-weight: 700;
-        padding: 4px;
-        text-align: center;
-        z-index: 10;
-    }
-
-    .editor-card .scroll-card-image {
-        padding-top: 26px;
-    }
-
-    /* Profit Card */
-    .profit-card {
-        border: 1px solid rgba(34, 197, 94, 0.2);
-    }
-
-    /* Selling Card */
-    .selling-card {
-        border: 1px solid rgba(42, 108, 246, 0.15);
-    }
-
-    /* Pool Card */
-    .pool-card {
-        border: 2px solid rgba(139, 92, 246, 0.25);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .pool-glow {
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: conic-gradient(from 0deg, transparent, rgba(139, 92, 246, 0.1), transparent, rgba(59, 130, 246, 0.1), transparent);
-        animation: poolRotate 6s linear infinite;
-        pointer-events: none;
-    }
-
-    @keyframes poolRotate {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    .pool-badge {
-        background: linear-gradient(135deg, #8b5cf6, #6366f1);
-        color: #fff;
-        font-size: 10px;
-        font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .pool-icon {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 18px;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-    }
-
-    .price-value.pool-price {
-        color: #8b5cf6;
-    }
-
-    .card-buy-btn.pool-btn {
-        background: linear-gradient(135deg, #8b5cf6, #6366f1);
-    }
-
-    .card-buy-btn.pool-btn:active {
-        background: linear-gradient(135deg, #7c3aed, #4f46e5);
-    }
-
-    .empty-scroll-state {
-        flex: 0 0 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 32px 20px;
-        background: #fff;
-        border-radius: 14px;
-        text-align: center;
-    }
-
-    .empty-scroll-state span {
-        font-size: 32px;
-        margin-bottom: 8px;
-    }
-
-    .empty-scroll-state p {
-        font-size: 13px;
-        color: #64748b;
-        margin: 0;
-    }
-
-    .nft-market-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        margin-bottom: 24px;
-    }
-
-    .nft-market-card {
-        background: #fff;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-        border: 1px solid rgba(42, 108, 246, 0.08);
-        transition: transform 0.2s ease;
-    }
-
-    .nft-market-card:active {
-        transform: scale(0.98);
-    }
-
-    .nft-market-card .card-image-section {
-        position: relative;
-        aspect-ratio: 1;
-        overflow: hidden;
-        padding: 4px;
-        /* background: linear-gradient(135deg, #f1f5f9, #e2e8f0); */
-    }
-
-    .nft-market-card .card-image {
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-        object-fit: cover;
-    }
-
-    .nft-market-card .rarity-tag {
-        position: absolute;
-        top: 8px;
-        left: 8px;
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 9px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .rarity-tag.legendary {
-        background: linear-gradient(135deg, #fbbf24, #f59e0b);
-        color: #fff;
-    }
-
-    .rarity-tag.epic {
-        background: linear-gradient(135deg, #a855f7, #8b5cf6);
-        color: #fff;
-    }
-
-    .rarity-tag.rare {
-        background: linear-gradient(135deg, #3b82f6, #2563eb);
-        color: #fff;
-    }
-
-    .rarity-tag.common {
-        background: #e2e8f0;
-        color: #64748b;
-    }
-
-    .nft-market-card .profit-tag {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        padding: 4px 6px;
-        border-radius: 6px;
-        font-size: 10px;
-        font-weight: 700;
-    }
-
-    .profit-tag.up {
-        background: rgba(34, 197, 94, 0.9);
-        color: #fff;
-    }
-
-    .profit-tag.down {
-        background: rgba(239, 68, 68, 0.9);
-        color: #fff;
-    }
-
-    .nft-market-card .card-details {
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-        gap: 6px;
-    }
-
-    .nft-market-card .details-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-    }
-
-    .nft-market-card .nft-name {
-        font-size: 12px;
-        font-weight: 700;
-        color: #1e293b;
-        margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        flex: 1;
-        min-width: 0;
-    }
-
-    .nft-market-card .nft-id {
-        font-size: 10px;
-        color: #94a3b8;
-        font-weight: 500;
-        flex-shrink: 0;
-    }
-
-    .nft-market-card .nft-price {
-        font-size: 12px;
-        font-weight: 700;
-        color: #1e293b;
-        white-space: nowrap;
-        line-height: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .nft-price {
-        position: relative;
-    }
-
-    .nft-market-card .nft-price span {
-        font-size: 9px;
-        color: #64748b;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 12px;
-    }
-
-    .nft-market-card .buy-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 6px 14px;
-        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
-        border: none;
-        border-radius: 6px;
-        font-size: 11px;
-        font-weight: 600;
-        color: #fff;
-        text-decoration: none;
-        transition: all 0.2s ease;
-        flex-shrink: 0;
-        width: fit-content;
-    }
-
-    .nft-market-card .buy-btn:active {
-        transform: scale(0.95);
-        background: linear-gradient(135deg, #1d5ed9, #2a7cf6);
-    }
-
-    .empty-state {
-        grid-column: 1 / -1;
-        text-align: center;
-        padding: 48px 20px;
-    }
-
-    .empty-icon {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 16px;
-        border-radius: 20px;
-        background: linear-gradient(135deg, rgba(42, 108, 246, 0.1), rgba(59, 140, 255, 0.1));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #2A6CF6;
-    }
-
-    .empty-state h3 {
-        font-size: 18px;
-        font-weight: 700;
-        color: #1e293b;
-        margin: 0 0 8px;
-    }
-
-    .empty-state p {
-        font-size: 14px;
-        color: #64748b;
-        margin: 0;
-    }
-
-    .nft-bottom-stats {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 32px;
-        padding: 20px;
-        background: #fff;
-        border-radius: 20px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-        border: 1px solid rgba(42, 108, 246, 0.08);
-    }
-
-    .bottom-stat {
-        text-align: center;
-    }
-
-    .bottom-stat .stat-num {
-        display: block;
-        font-size: 20px;
-        font-weight: 700;
-        background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .bottom-stat .stat-text {
-        font-size: 11px;
-        color: #64748b;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .nft-bottom-stats .stat-divider {
-        width: 1px;
-        height: 32px;
-        background: linear-gradient(180deg, transparent, #e2e8f0, transparent);
-    }
-
-    @media (max-width: 360px) {
+
+        .balance-card-content {
+            position: relative;
+            padding: 15px;
+            color: #fff;
+        }
+
+        .balance-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* margin-bottom: 16px; */
+        }
+
+        .balance-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .explore-link {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .explore-link:active {
+            transform: scale(0.96);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .balance-amount {
+            margin-bottom: 12px;
+        }
+
+        .balance-amount .amount {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .balance-amount .currency {
+            font-size: 18px;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-left: 8px;
+        }
+
+        .balance-crypto {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .crypto-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .crypto-item.stars svg {
+            fill: #fbbf24;
+            stroke: #fbbf24;
+        }
+
+        .balance-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .balance-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .balance-btn.deposit {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            backdrop-filter: blur(10px);
+        }
+
+        .balance-btn.withdraw {
+            background: #fff;
+            color: #2A6CF6;
+        }
+
+        .balance-btn:active {
+            transform: scale(0.98);
+        }
+
+        .nft-quick-stats-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(42, 108, 246, 0.08);
+        }
+
+        .nft-quick-actions-wrapper {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .action-item-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px 6px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(42, 108, 246, 0.08);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .action-item-card:active {
+            transform: scale(0.95);
+            background: rgba(42, 108, 246, 0.05);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .action-item-card .action-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+            display: block;
+            color: #2A6CF6;
+            flex-shrink: 0;
+        }
+
+        .action-item-card .action-label {
+            font-size: 10px;
+            color: #64748b;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .nft-quick-stats-card .stat-divider {
+            width: 1px;
+            height: 36px;
+            background: linear-gradient(180deg, transparent, #e2e8f0, transparent);
+            flex-shrink: 0;
+        }
+
+        .nft-search-section {
+            margin-bottom: 24px;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .search-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            padding: 2px;
+            background: linear-gradient(135deg, #e2e8f0, #f1f5f9);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .search-wrapper:focus-within::before {
+            background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+            opacity: 1;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+
+        .search-wrapper:focus-within .search-icon {
+            color: #2A6CF6;
+        }
+
+        .nft-search-input {
+            width: 100%;
+            padding: 14px 56px 14px 44px;
+            background: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 14px;
+            color: #1e293b;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            box-sizing: border-box;
+        }
+
+        .nft-search-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .nft-search-input:focus {
+            outline: none;
+        }
+
+        .filter-toggle {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+            border: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .filter-chips::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nft-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            background: #fff;
+            border: 1px solid rgba(42, 108, 246, 0.1);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748b;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nft-chip .chip-icon {
+            font-size: 14px;
+        }
+
+        .nft-chip.active {
+            background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        .nft-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .section-title svg {
+            color: #2A6CF6;
+        }
+
+        .see-all-btn {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2A6CF6;
+            text-decoration: none;
+        }
+
+        /* Horizontal Scroll Sections */
+        .nft-scroll-section {
+            margin-bottom: 28px;
+        }
+
+        .scroll-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            padding: 0 2px;
+        }
+
+        .scroll-section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .title-icon {
+            font-size: 18px;
+        }
+
+        .hot-badge {
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .view-more-btn {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #2A6CF6;
+            text-decoration: none;
+            padding: 6px 12px;
+            background: rgba(42, 108, 246, 0.08);
+            border-radius: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .view-more-btn:active {
+            transform: scale(0.96);
+            background: rgba(42, 108, 246, 0.15);
+        }
+
+        .nft-scroll-container {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 4px 2px 12px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .nft-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nft-scroll-card {
+            flex: 0 0 calc(50% - 6px);
+            min-width: calc(50% - 6px);
+            max-width: calc(50% - 6px);
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(42, 108, 246, 0.08);
+            scroll-snap-align: start;
+            transition: transform 0.2s ease;
+            position: relative;
+        }
+
+        .nft-scroll-card:active {
+            transform: scale(0.98);
+        }
+
+        .scroll-card-image {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            padding: 6px;
+        }
+
+        .scroll-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .scroll-card-image .rarity-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .scroll-card-image .profit-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .profit-tag.large {
+            font-size: 11px;
+            padding: 5px 10px;
+        }
+
+        .sell-rank {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .scroll-card-info {
+            padding: 12px;
+        }
+
+        .card-info-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .card-info-row:first-child {
+            margin-bottom: 8px;
+        }
+
+        .card-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-id {
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .card-price {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .price-label {
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .price-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .price-value.highlight {
+            color: #22c55e;
+        }
+
+        .price-value small {
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .card-buy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .card-buy-btn:active {
+            transform: scale(0.95);
+            background: linear-gradient(135deg, #1d5ed9, #2a7cf6);
+        }
+
+        /* Editor's Choice Card */
+        .editor-card {
+            border: 2px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .editor-badge {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .editor-card .scroll-card-image {
+            padding-top: 26px;
+        }
+
+        /* Profit Card */
+        .profit-card {
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        /* Selling Card */
+        .selling-card {
+            border: 1px solid rgba(42, 108, 246, 0.15);
+        }
+
+        /* Pool Card */
+        .pool-card {
+            border: 2px solid rgba(139, 92, 246, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pool-glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(139, 92, 246, 0.1), transparent, rgba(59, 130, 246, 0.1), transparent);
+            animation: poolRotate 6s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes poolRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .pool-badge {
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pool-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .price-value.pool-price {
+            color: #8b5cf6;
+        }
+
+        .card-buy-btn.pool-btn {
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+        }
+
+        .card-buy-btn.pool-btn:active {
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+        }
+
+        .empty-scroll-state {
+            flex: 0 0 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 20px;
+            background: #fff;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .empty-scroll-state span {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .empty-scroll-state p {
+            font-size: 13px;
+            color: #64748b;
+            margin: 0;
+        }
+
         .nft-market-grid {
-            grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
-        .nft-quick-stats {
-            grid-template-columns: 1fr;
+        .nft-market-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(42, 108, 246, 0.08);
+            transition: transform 0.2s ease;
         }
-    }
-</style>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        function updateChange2m() {
-            fetch('/api/portfolio-change')
-                .then(res => res.json())
-                .then(data => {
-                    let change = parseFloat(data.change24h || 0);
-                    let isUp = change > 0;
-                    let isDown = change < 0;
-                    let arrow = isUp ? '▲' : (isDown ? '▼' : '');
-                    let color = isUp ? '#22c55e' : (isDown ? '#ef4444' : '#64748b');
-                    let sign = isUp ? '+' : '';
-                    document.getElementById('change2m-value').style.color = color;
-                    document.getElementById('change2m-arrow').textContent = arrow;
-                    document.getElementById('change2m-sign').textContent = sign;
-                    document.getElementById('change2m-num').textContent = change.toFixed(2);
-                });
+        .nft-market-card:active {
+            transform: scale(0.98);
         }
-        setInterval(updateChange2m, 15000);
 
-        // Filter chips for the first NFT Market section
-        document.querySelectorAll('.nft-chip').forEach(chip => {
-            chip.addEventListener('click', function() {
-                document.querySelectorAll('.nft-chip').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
+        .nft-market-card .card-image-section {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            padding: 4px;
+            /* background: linear-gradient(135deg, #f1f5f9, #e2e8f0); */
+        }
 
-                const filter = this.dataset.filter;
-                // Only filter the first NFT Market section
-                const marketSection = document.querySelector('.nft-scroll-section');
-                if (marketSection) {
-                    marketSection.querySelectorAll('.nft-scroll-card').forEach(card => {
-                        if (filter === 'all' || card.dataset.rarity === filter) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
+        .nft-market-card .card-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .nft-market-card .rarity-tag {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .rarity-tag.legendary {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #fff;
+        }
+
+        .rarity-tag.epic {
+            background: linear-gradient(135deg, #a855f7, #8b5cf6);
+            color: #fff;
+        }
+
+        .rarity-tag.rare {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #fff;
+        }
+
+        .rarity-tag.common {
+            background: #e2e8f0;
+            color: #64748b;
+        }
+
+        .nft-market-card .profit-tag {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .profit-tag.up {
+            background: rgba(34, 197, 94, 0.9);
+            color: #fff;
+        }
+
+        .profit-tag.down {
+            background: rgba(239, 68, 68, 0.9);
+            color: #fff;
+        }
+
+        .nft-market-card .card-details {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            gap: 6px;
+        }
+
+        .nft-market-card .details-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .nft-market-card .nft-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .nft-market-card .nft-id {
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .nft-market-card .nft-price {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1e293b;
+            white-space: nowrap;
+            line-height: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .nft-price {
+            position: relative;
+        }
+
+        .nft-market-card .nft-price span {
+            font-size: 9px;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 12px;
+        }
+
+        .nft-market-card .buy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+            border: none;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            width: fit-content;
+        }
+
+        .nft-market-card .buy-btn:active {
+            transform: scale(0.95);
+            background: linear-gradient(135deg, #1d5ed9, #2a7cf6);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 48px 20px;
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(42, 108, 246, 0.1), rgba(59, 140, 255, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2A6CF6;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0 0 8px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .nft-bottom-stats {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(42, 108, 246, 0.08);
+        }
+
+        .bottom-stat {
+            text-align: center;
+        }
+
+        .bottom-stat .stat-num {
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2A6CF6, #3B8CFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bottom-stat .stat-text {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nft-bottom-stats .stat-divider {
+            width: 1px;
+            height: 32px;
+            background: linear-gradient(180deg, transparent, #e2e8f0, transparent);
+        }
+
+        @media (max-width: 360px) {
+            .nft-market-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nft-quick-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateChange2m() {
+                fetch('/api/portfolio-change')
+                    .then(res => res.json())
+                    .then(data => {
+                        let change = parseFloat(data.change24h || 0);
+                        let isUp = change > 0;
+                        let isDown = change < 0;
+                        let arrow = isUp ? '▲' : (isDown ? '▼' : '');
+                        let color = isUp ? '#22c55e' : (isDown ? '#ef4444' : '#64748b');
+                        let sign = isUp ? '+' : '';
+                        document.getElementById('change2m-value').style.color = color;
+                        document.getElementById('change2m-arrow').textContent = arrow;
+                        document.getElementById('change2m-sign').textContent = sign;
+                        document.getElementById('change2m-num').textContent = change.toFixed(2);
                     });
-                }
-            });
-        });
+            }
+            setInterval(updateChange2m, 15000);
 
-        // Search functionality
-        document.getElementById('nftSearch').addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            document.querySelectorAll('.nft-scroll-card').forEach(card => {
-                const name = card.dataset.name || '';
-                card.style.display = name.includes(query) ? 'block' : 'none';
-            });
-        });
+            // Filter chips for the first NFT Market section
+            document.querySelectorAll('.nft-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    document.querySelectorAll('.nft-chip').forEach(c => c.classList.remove(
+                        'active'));
+                    this.classList.add('active');
 
-        document.querySelectorAll('.card-favorite-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                this.classList.toggle('active');
+                    const filter = this.dataset.filter;
+                    // Only filter the first NFT Market section
+                    const marketSection = document.querySelector('.nft-scroll-section');
+                    if (marketSection) {
+                        marketSection.querySelectorAll('.nft-scroll-card').forEach(card => {
+                            if (filter === 'all' || card.dataset.rarity === filter) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Search functionality
+            document.getElementById('nftSearch').addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                document.querySelectorAll('.nft-scroll-card').forEach(card => {
+                    const name = card.dataset.name || '';
+                    card.style.display = name.includes(query) ? 'block' : 'none';
+                });
+            });
+
+            document.querySelectorAll('.card-favorite-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                });
             });
         });
-    });
-</script>
+    </script>
 @endsection
