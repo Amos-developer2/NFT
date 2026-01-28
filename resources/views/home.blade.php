@@ -71,7 +71,7 @@
         <!-- Quick Actions -->
         <div class="nft-quick-actions-wrapper">
             <a href="{{ route('daily.checkin') }}" class="action-item-card">
-                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="#2A6CF6" stroke-width="1.5">
                     <path d="M19.97 10h-1.96c-1.48 0-2.5-1.15-2.5-2.5 0-1.35 1.02-2.5 2.5-2.5h1.96M12 14.5v1M8 22h8c3.5 0 5-1.5 5-5v-6c0-3.5-1.5-5-5-5H8c-3.5 0-5 1.5-5 5v6c0 3.5 1.5 5 5 5Z" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 <span class="action-label">Check-In</span>
