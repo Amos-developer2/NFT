@@ -66,23 +66,36 @@
     <!-- Quick Actions -->
     <div class="nft-quick-actions-wrapper">
         <a href="{{ route('daily.checkin') }}" class="action-item-card">
-            <span class="action-icon">🎁</span>
+            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M19.97 10h-1.96c-1.48 0-2.5-1.15-2.5-2.5 0-1.35 1.02-2.5 2.5-2.5h1.96M12 14.5v1M8 22h8c3.5 0 5-1.5 5-5v-6c0-3.5-1.5-5-5-5H8c-3.5 0-5 1.5-5 5v6c0 3.5 1.5 5 5 5Z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
             <span class="action-label">Check-In</span>
         </a>
         <a href="#" class="action-item-card">
-            <span class="action-icon">🎲</span>
+            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3.17 7.44 12 12.55l8.77-5.08M12 21.61v-9.07" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.93 2.48 4.59 5.45c-1.21.67-2.2 2.35-2.2 3.73v5.65c0 1.38.99 3.06 2.2 3.73l5.34 2.97c1.14.63 3.01.63 4.15 0l5.34-2.97c1.21-.67 2.2-2.35 2.2-3.73V9.18c0-1.38-.99-3.06-2.2-3.73l-5.34-2.97c-1.15-.64-3.01-.64-4.15 0Z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
             <span class="action-label">Lucky Box</span>
         </a>
         <a href="#" class="action-item-card">
-            <span class="action-icon">👥</span>
+            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M18 7.16c-.94-.51-2.08-.8-3.33-.8h-5.34c-1.25 0-2.39.29-3.33.8M9 16.2h6M9.5 12h5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.33 3.8h5.34c1.25 0 2.39.29 3.33.8 1.58.85 2.67 2.61 2.67 4.63v5.43c0 3.45-1.88 5.14-5.33 5.14H8.66c-3.45 0-5.33-1.69-5.33-5.14V9.23c0-2.02 1.09-3.78 2.67-4.63.94-.51 2.08-.8 3.33-.8Z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
             <span class="action-label">Invite</span>
         </a>
         <a href="#" class="action-item-card">
-            <span class="action-icon">📖</span>
+            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M22 16.74V4.67c0-1.2-.98-2.09-2.17-1.99h-.06c-2.1.18-5.29 1.25-7.07 2.37l-.17.11c-.29.18-.77.18-1.06 0l-.25-.15C9.44 3.88 6.26 2.84 4.16 2.67 2.97 2.57 2 3.47 2 4.66v12.08c0 .96.78 1.86 1.74 1.98l.29.04c2.17.29 5.52 1.39 7.44 2.44l.04.02c.27.15.7.15.96 0 1.92-1.06 5.28-2.17 7.46-2.46l.33-.04c.96-.12 1.74-1.02 1.74-1.98ZM12 5.49v15M7.75 8.49H5.5M8.5 11.49h-3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
             <span class="action-label">Guide</span>
         </a>
         <a href="#" class="action-item-card">
-            <span class="action-icon">💬</span>
+            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M17 9c3.87 0 5.5 1.5 5.5 5v3c0 3.5-1.63 5-5.5 5H7c-3.87 0-5.5-1.5-5.5-5v-3c0-3.5 1.63-5 5.5-5h10ZM17 2H7C3.13 2 1.5 3.5 1.5 7h21c0-3.5-1.63-5-5.5-5Z" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M11.995 14.5h.01M7.995 14.5h.01M15.995 14.5h.01" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
             <span class="action-label">Support</span>
         </a>
     </div>
@@ -803,9 +816,12 @@
     }
 
     .action-item-card .action-icon {
-        font-size: 22px;
+        width: 24px;
+        height: 24px;
         margin-bottom: 4px;
         display: block;
+        color: #2A6CF6;
+        flex-shrink: 0;
     }
 
     .action-item-card .action-label {
