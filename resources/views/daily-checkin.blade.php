@@ -3,464 +3,330 @@
 @push('head')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-@endpush
-
-@push('styles')
-<style>
-    .checkin-summary-bar {
-        width: 100%;
-        max-width: 420px;
-        margin: 0 auto 1.2rem auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: transparent;
-    }
-
-    .summary-flex {
-        width: 92%;
-        /* border: 2px solid red; */
-        margin: -45px 0 0 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: linear-gradient(90deg, #3a8dde 0%, #4f8cff 100%);
-        border-radius: 16px;
-        box-shadow: 0 2px 8px 0 #e6e6e6;
-        padding: 1.2rem 1rem;
-        color: #fff;
-    }
-
-    .summary-item {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        min-width: 80px;
-    }
-
-    .summary-label {
-        font-size: 0.92rem;
-        color: #e0eaff;
-        margin-bottom: 0.2rem;
-    }
-
-    .summary-value {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: #fff;
-    }
-
-    .summary-value.reward {
-        color: #aaffb0;
-    }
-
-    .summary-value.streak {
-        color: #ffe082;
-    }
-
-    .summary-divider {
-        width: 1px;
-        height: 2.2rem;
-        background: rgba(255, 255, 255, 0.25);
-        margin: 0 1.2rem;
-    }
-
-    .checkin-container {
-        max-width: 420px;
-        margin: 16px auto 0 auto;
-        background: #fff;
-        border-radius: 18px;
-        box-shadow: 0 2px 12px 0 #e6e6e6;
-        padding: 1.2rem 0.7rem 2rem 0.7rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .checkin-header {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 0.7rem;
-    }
-
-    .streak {
-        font-size: 1rem;
-        color: #888;
-        margin-top: 0.5rem;
-    }
-
-    .spin-section {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 1.5rem;
-        margin-top: 0.5rem;
-    }
-
-    .wheel-wrapper {
-        position: relative;
-        width: 280px;
-        height: 280px;
-        max-width: 90vw;
-        max-height: 90vw;
-        margin: 0 auto 1.2rem auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #spin-wheel {
-        width: 100%;
-        height: auto;
-        border-radius: 50%;
-        box-shadow: 0 2px 8px 0 #e6e6e6;
-        background: #f9f9f9;
-        display: block;
-    }
-
-    .spin-btn {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        background: linear-gradient(90deg, #ffb347 0%, #ffcc33 100%);
-        color: #fff;
-        border: none;
-        border-radius: 50%;
-        width: 80px;
-        height: 80px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        box-shadow: 0 2px 8px 0 #e6e6e6;
-        cursor: pointer;
-        z-index: 2;
-        transition: background 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .spin-btn:active {
-        background: linear-gradient(90deg, #ffcc33 0%, #ffb347 100%);
-    }
-
-    .spin-result {
-        min-height: 2rem;
-        font-size: 1.1rem;
-        color: #2e7d32;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        text-align: center;
-    }
-
-    .checkin-history {
-        width: 100%;
-        margin-bottom: 1rem;
-    }
-
-    .checkin-history ul {
-        padding-left: 1.2rem;
-        font-size: 0.98rem;
-    }
-
-    .checkin-info {
-        width: 100%;
-        text-align: center;
-        color: #888;
-        font-size: 0.95rem;
-    }
-
-    @media (max-width: 500px) {
-        .checkin-summary-bar {
-            padding: 0;
-            max-width: 100vw;
-        }
-
-        .summary-flex {
-            padding: 0.7rem 0.5rem;
-        }
-
-        .summary-item {
-            min-width: 60px;
-            font-size: 0.98rem;
-        }
-
-        .summary-divider {
-            margin: 0 0.5rem;
-            height: 1.6rem;
-        }
-
-        .checkin-container {
-            padding: 0.7rem 0.1rem 1.2rem 0.1rem;
-            max-width: 100vw;
-        }
-
-        .wheel-wrapper {
-            width: 90vw;
-            height: 90vw;
-            max-width: 320px;
-            max-height: 320px;
-        }
-
-        #spin-wheel {
-            width: 100%;
-            height: auto;
-        }
-
-        .spin-btn {
-            width: 60px;
-            height: 60px;
-            font-size: 1rem;
-        }
-    }
-</style>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 @endpush
 
 @section('content')
-@include('partials.header', ['title' => 'Daily Check-in'])
-<div class="market-header-spacer"></div>
 
-<div class="checkin-summary-bar">
-    <div class="summary-flex">
-        <div class="summary-item">
-            <div class="summary-label">Total Check-Ins</div>
-            <div class="summary-value">{{ $totalCheckins ?? 0 }}</div>
-        </div>
-        <div class="summary-divider"></div>
-        <div class="summary-item">
-            <div class="summary-label">Total Rewards</div>
-            <div class="summary-value reward">{{ $totalRewards ?? '+0' }}</div>
-        </div>
-        <div class="summary-divider"></div>
-        <div class="summary-item">
-            <div class="summary-label">Streak</div>
-            <div class="summary-value streak">{{ $streak ?? 0 }}</div>
-        </div>
-    </div>
-</div>
-
-<div class="checkin-container">
-    <div class="checkin-header">
-        <h2>Daily Luck Spin</h2>
-        <div class="streak">Streak: <span id="streak-count">{{ $streak ?? 0 }}</span> days</div>
-    </div>
-
-    <div class="spin-section">
-        <div class="wheel-wrapper">
-            <canvas id="spin-wheel" width="400" height="400"></canvas>
-            <button id="spin-btn" class="spin-btn">SPIN</button>
-        </div>
-        <div class="spin-result" id="spin-result"></div>
-    </div>
-
-    <div class="checkin-rules-box">
-        <h4>How Daily Check-in Works</h4>
-        <ul>
-            <li>Spin the wheel once every day for a chance to win exciting rewards.</li>
-            <li>Each spin is <b>free</b> and resets at midnight (server time).</li>
-            <li>Possible rewards include Germs, Coins, NFTs, Mystery Boxes, and more!</li>
-            <li>Keep your streak going by checking in every day—longer streaks may unlock special bonuses in the future.</li>
-            <li>Rewards are credited instantly to your account after each spin.</li>
-            <li>You can view your recent check-ins and rewards in the history above.</li>
-            <li>Abuse or attempts to bypass the daily limit may result in account restrictions.</li>
-        </ul>
-    </div>
-    <style>
-        .checkin-rules-box {
-            background: linear-gradient(90deg, #e3f0ff 0%, #f8fbff 100%);
-            border-radius: 14px;
-            box-shadow: 0 2px 8px 0 #e6e6e6;
-            padding: 1.1rem 1.2rem 1.1rem 1.2rem;
-            margin: -2.0rem 10px 0 10px;
-            max-width: 420px;
-            color: #2a3b4c;
-            font-size: 0.9rem;
-        }
-
-        .checkin-rules-box h4 {
-            margin-top: 0;
-            text-decoration: underline;
-            margin-bottom: 0.7rem;
-            color: #3a8dde;
-            font-size: 1.13rem;
-            font-weight: 700;
-        }
-
-        .checkin-rules-box ul {
-            padding-left: 1.2rem;
-            margin: 0;
-        }
-
-        .checkin-rules-box li {
-            margin-bottom: 0.35rem;
-            line-height: 1.5;
-        }
-    </style>
-</div>
-
-@include('partials.footer')
-<div class="pb-20"></div>
-
-<script>
-    const rewards = [{
-            label: '+1 NFT',
-            color: '#FFD700'
-        },
-        {
-            label: '+10 Coins',
-            color: '#FF8C00'
-        },
-        {
-            label: '+5 Coins',
-            color: '#4CAF50'
-        },
-        {
-            label: 'Try Again',
-            color: '#B0BEC5'
-        },
-        {
-            label: '+2 Coins',
-            color: '#2196F3'
-        },
-        {
-            label: '+3 Coins',
-            color: '#E91E63'
-        },
-        {
-            label: '+1 Coin',
-            color: '#9C27B0'
-        },
-        {
-            label: 'Mystery Box',
-            color: '#00BCD4'
-        }
-    ];
-
-    const wheelCanvas = document.getElementById('spin-wheel');
-    const ctx = wheelCanvas.getContext('2d');
-    const spinBtn = document.getElementById('spin-btn');
-    const resultDiv = document.getElementById('spin-result');
-    let spinning = false;
-    let currentAngle = 0;
-
-    function drawWheel(angle = 0) {
-        const size = wheelCanvas.width;
-        const center = size / 2;
-        const segAngle = 2 * Math.PI / rewards.length;
-        ctx.clearRect(0, 0, size, size);
-
-        for (let i = 0; i < rewards.length; i++) {
-            ctx.beginPath();
-            ctx.moveTo(center, center);
-            ctx.arc(center, center, center - 8, angle + i * segAngle, angle + (i + 1) * segAngle);
-            ctx.fillStyle = rewards[i].color;
-            ctx.fill();
-
-            ctx.save();
-            ctx.translate(center, center);
-            ctx.rotate(angle + (i + 0.5) * segAngle);
-            ctx.textAlign = 'right';
-            ctx.font = 'bold 16px Arial';
-            ctx.fillStyle = '#fff';
-            ctx.fillText(rewards[i].label, center - 24, 8);
-            ctx.restore();
-        }
-
-        ctx.beginPath();
-        ctx.moveTo(center, 8);
-        ctx.lineTo(center - 16, 32);
-        ctx.lineTo(center + 16, 32);
-        ctx.fillStyle = '#ff5252';
-        ctx.fill();
+<style>
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: #dff6ff;
+        overflow: hidden;
     }
 
-    drawWheel(currentAngle);
+    /* ===== STADIUM ===== */
+    .stadium-bg {
+        background: url('/images/stadium.jpg') center/cover no-repeat;
+        min-height: 100vh;
+        padding: 20px 14px 200px;
+        position: relative;
+    }
 
-    let alreadySpun = false;
-    spinBtn.addEventListener('click', function() {
-        if (spinning || alreadySpun) return;
-        // Pick a random index for the reward
-        let idx = Math.floor(Math.random() * rewards.length);
-        // Call backend to check/record spin
-        spinning = true;
-        resultDiv.textContent = '';
-        const csrfMeta = document.querySelector('meta[name="csrf-token"]');
-        if (!csrfMeta) {
-            spinning = false;
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'CSRF token missing. Please refresh the page.',
-                confirmButtonColor: '#4f8cff'
-            });
-            return;
+    .stadium-bg::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, .8), rgba(255, 255, 255, .96));
+    }
+
+    .game-wrap {
+        position: relative;
+        z-index: 2;
+        max-width: 480px;
+        margin: auto
+    }
+
+    /* ===== TITLE ===== */
+    .game-title {
+        text-align: center;
+        font-size: 1.9rem;
+        font-weight: 800;
+        color: #1d4ed8;
+        margin: 18px 0 6px;
+        text-shadow: 0 4px 12px #93c5fd;
+    }
+
+    .spin-text {
+        text-align: center;
+        color: #2563eb;
+        font-size: .95rem;
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: .5
         }
-        fetch('/daily-checkin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfMeta.getAttribute('content')
-                },
-                body: JSON.stringify({
-                    index: idx
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (!data.success) {
-                    alreadySpun = true;
-                    spinning = false;
-                    // Show error popup
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Already Spun!',
-                        text: data.message || 'You have already spun today.',
-                        confirmButtonColor: '#4f8cff'
-                    });
-                    return;
-                }
-                // Animate wheel to the selected reward
-                let spinAngle = (360 * 4) + (360 / rewards.length) * idx + (Math.random() * (360 / rewards.length));
-                let start = null;
-                let duration = 3200 + Math.random() * 600;
-                let lastAngle = currentAngle;
 
-                function animateWheel(ts) {
-                    if (!start) start = ts;
-                    let progress = Math.min((ts - start) / duration, 1);
-                    let ease = 1 - Math.pow(1 - progress, 3);
-                    let angle = lastAngle + ease * (spinAngle * Math.PI / 180);
-                    drawWheel(angle);
-                    if (progress < 1) {
-                        requestAnimationFrame(animateWheel);
-                    } else {
-                        currentAngle = angle % (2 * Math.PI);
-                        resultDiv.textContent = 'You won: ' + rewards[idx].label + '!';
-                        spinning = false;
-                        alreadySpun = true;
-                        if (rewards[idx].label !== 'Try Again') {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Congratulations!',
-                                html: '🎉 You won <b>' + rewards[idx].label + '</b>!',
-                                confirmButtonColor: '#4f8cff'
-                            });
-                        }
-                    }
-                }
-                requestAnimationFrame(animateWheel);
+        50% {
+            opacity: 1
+        }
+    }
+
+    /* ===== CARDS ===== */
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 40px;
+        perspective: 1000px;
+    }
+
+    .reward-card {
+        height: 95px;
+        border-radius: 14px;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform .7s cubic-bezier(.2, .8, .2, 1);
+        cursor: pointer;
+    }
+
+    .card-inner {
+        position: absolute;
+        inset: 0;
+        border-radius: 14px;
+        backface-visibility: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card-front {
+        background: linear-gradient(145deg, #2563eb, #22d3ee);
+        box-shadow: 0 8px 18px #2563eb44;
+    }
+
+    .card-front img {
+        width: 42px;
+        opacity: .9
+    }
+
+    .card-back {
+        background: #fff;
+        transform: rotateY(180deg);
+        font-weight: 700;
+        color: #2563eb;
+    }
+
+    .reward-card.reveal {
+        transform: rotateY(180deg) scale(1.05)
+    }
+
+    /* glow */
+    .reward-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 14px;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, .5), transparent);
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        0% {
+            transform: translateX(-100%)
+        }
+
+        100% {
+            transform: translateX(100%)
+        }
+    }
+
+    /* ===== FIELD ===== */
+    .field {
+        height: 270px;
+        background: linear-gradient(to top, #16a34a, #4ade80);
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0 12px 20px #0003;
+    }
+
+    .field::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, transparent 70px, rgba(255, 255, 255, .25) 72px, transparent 74px);
+    }
+
+    /* ===== BALL ===== */
+    .ball {
+        width: 110px;
+        position: fixed;
+        bottom: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        touch-action: none;
+        z-index: 10;
+        filter: drop-shadow(0 10px 14px #0004);
+    }
+
+    .ball:active {
+        transform: translateX(-50%) scale(1.1)
+    }
+
+    @media(max-width:420px) {
+        .reward-card {
+            height: 82px
+        }
+
+        .ball {
+            width: 95px
+        }
+    }
+</style>
+
+<div class="stadium-bg">
+    <div class="game-wrap">
+
+        <div class="game-title">⚽ Flick & Win</div>
+        <div class="spin-text">Swipe UP on the ball with power</div>
+
+        <div class="cards-grid" id="cards">
+            @for($i=0;$i<9;$i++)
+                <div class="reward-card" data-index="{{ $i }}">
+                <div class="card-inner card-front">
+                    <img src="/images/card-back.png">
+                </div>
+                <div class="card-inner card-back"></div>
+        </div>
+        @endfor
+    </div>
+
+    <div class="field"></div>
+
+    <img src="/images/ball.png" id="ball" class="ball">
+
+</div>
+</div>
+
+<script>
+    const ball = document.getElementById('ball');
+    const cards = document.querySelectorAll('.reward-card');
+    const rewards = ['+1 NFT', '+10 Coins', 'Mystery Box', '+5 Coins', 'Try Again', '+3 Coins', '+2 Coins', '+1 Coin', 'Bonus'];
+
+    let startX, startY, isDragging = false;
+    let vx = 0,
+        vy = 0,
+        gravity = 0.6,
+        friction = 0.995;
+    let played = false,
+        spin = 0;
+
+    function pos(e) {
+        return e.touches ? e.touches[0] : e;
+    }
+
+    ball.addEventListener('mousedown', startDrag);
+    ball.addEventListener('touchstart', startDrag);
+
+    function startDrag(e) {
+        if (played) return;
+        let p = pos(e);
+        startX = p.clientX;
+        startY = p.clientY;
+        isDragging = true;
+    }
+
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+
+    function endDrag(e) {
+        if (!isDragging || played) return;
+        isDragging = false;
+
+        let p = pos(e.changedTouches ? e.changedTouches[0] : e);
+        let dx = p.clientX - startX;
+        let dy = startY - p.clientY;
+        if (dy < 40) return;
+
+        vx = dx * 0.18;
+        vy = -dy * 0.28;
+        played = true;
+        launch();
+    }
+
+    function launch() {
+        let rect = ball.getBoundingClientRect();
+        let x = rect.left,
+            y = rect.top;
+
+        function step() {
+            vy += gravity;
+            vx *= friction;
+            vy *= friction;
+            x += vx;
+            y += vy;
+            spin += 10;
+
+            ball.style.left = x + 'px';
+            ball.style.top = y + 'px';
+            ball.style.transform = `rotate(${spin}deg)`;
+
+            let hitIndex = detectHit(x, y);
+            if (hitIndex !== null) {
+                hitCard(hitIndex);
+                return;
+            }
+
+            requestAnimationFrame(step);
+        }
+        step();
+    }
+
+    /* 🎯 REAL COLLISION DETECTION */
+    function detectHit(x, y) {
+        let ballRect = ball.getBoundingClientRect();
+        for (let i = 0; i < cards.length; i++) {
+            let c = cards[i].getBoundingClientRect();
+            if (!(ballRect.right < c.left ||
+                    ballRect.left > c.right ||
+                    ballRect.bottom < c.top ||
+                    ballRect.top > c.bottom)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    /* 🎁 Reveal correct card */
+    function hitCard(i) {
+        fetch('/daily-checkin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({
+                index: i
             })
-            .catch(() => {
-                spinning = false;
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Could not spin. Please try again.',
-                    confirmButtonColor: '#4f8cff'
-                });
+        }).then(r => r.json()).then(data => {
+            let reward = rewards[i];
+            let card = cards[i];
+            card.querySelector('.card-back').textContent = reward;
+            card.classList.add('reveal');
+
+            confetti({
+                particleCount: 120,
+                spread: 90,
+                origin: {
+                    y: .6
+                }
             });
-    });
+
+            Swal.fire({
+                title: 'GOAL!!! ⚽🎉',
+                text: reward,
+                icon: 'success',
+                confirmButtonColor: '#2563eb'
+            }).then(() => location.reload());
+        });
+    }
 </script>
+
+
 @endsection
