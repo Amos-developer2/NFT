@@ -776,27 +776,18 @@
 
     .nft-quick-actions-wrapper {
         display: flex;
-        gap: 10px;
+        gap: 8px;
         margin-bottom: 24px;
-        overflow-x: auto;
-        padding-bottom: 4px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-
-    .nft-quick-actions-wrapper::-webkit-scrollbar {
-        display: none;
     }
 
     .action-item-card {
         flex: 1;
-        min-width: 70px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: 16px 12px;
+        padding: 10px 6px;
         background: #fff;
         border-radius: 12px;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
@@ -812,15 +803,16 @@
     }
 
     .action-item-card .action-icon {
-        font-size: 24px;
-        margin-bottom: 6px;
+        font-size: 22px;
+        margin-bottom: 4px;
         display: block;
     }
 
     .action-item-card .action-label {
-        font-size: 11px;
+        font-size: 10px;
         color: #64748b;
         font-weight: 600;
+        line-height: 1.2;
     }
 
     .nft-quick-stats-card .stat-divider {
