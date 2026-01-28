@@ -227,7 +227,7 @@ class NftController extends Controller
             \Log::error('Failed to send receipt email: ' . $e->getMessage());
         }
         
-        return redirect()->route('collection')->with('success', "Successfully purchased {$nft->name}! Receipt sent to {$user->email}");
+        return redirect()->route('my-nft')->with('success', "Successfully purchased {$nft->name}! Receipt sent to {$user->email}");
     }
 
     /**
