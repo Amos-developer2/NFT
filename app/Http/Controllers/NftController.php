@@ -237,7 +237,7 @@ class NftController extends Controller
     {
         $nft = Nft::with('user')->find($id);
         if (!$nft) {
-            return redirect()->route('collection')->with('error', 'NFT not found');
+            return redirect()->route('my-nft')->with('error', 'NFT not found');
         }
 
         // Example statistics logic (replace with real queries)
