@@ -63,31 +63,32 @@
         </div>
     </div>
 
-    <!-- Quick Stats -->
+    <!-- Quick Actions -->
     <div class="nft-quick-stats-card">
-        <div class="stat-item">
-            <span class="stat-value">{{ $userStats['nftsOwned'] ?? 0 }}</span>
-            <span class="stat-label">NFTs</span>
-        </div>
+        <a href="{{ route('daily.checkin') }}" class="action-item">
+            <span class="action-icon">🎁</span>
+            <span class="action-label">Check-In</span>
+        </a>
         <div class="stat-divider"></div>
-        <div class="stat-item">
-            <span class="stat-value">${{ number_format($userStats['netWorth'] ?? 0, 0) }}</span>
-            <span class="stat-label">Net Worth</span>
-        </div>
+        <a href="#" class="action-item">
+            <span class="action-icon">🎲</span>
+            <span class="action-label">Lucky Box</span>
+        </a>
         <div class="stat-divider"></div>
-        <div class="stat-item">
-            <span class="stat-value {{ ($userStats['profit'] ?? 0) >= 0 ? 'profit-up' : 'profit-down' }}">
-                {{ ($userStats['profit'] ?? 0) >= 0 ? '+' : '' }}${{ number_format($userStats['profit'] ?? 0, 2) }}
-            </span>
-            <span class="stat-label">Profit</span>
-        </div>
+        <a href="#" class="action-item">
+            <span class="action-icon">👥</span>
+            <span class="action-label">Invite</span>
+        </a>
         <div class="stat-divider"></div>
-        <div class="stat-item">
-            <span class="stat-value" id="change2m-value">
-                <span id="change2m-arrow"></span><span id="change2m-sign"></span><span id="change2m-num">{{ number_format($userStats['change24h'] ?? 0, 2) }}</span>%
-            </span>
-            <span class="stat-label">2m Change</span>
-        </div>
+        <a href="#" class="action-item">
+            <span class="action-icon">📖</span>
+            <span class="action-label">Guide</span>
+        </a>
+        <div class="stat-divider"></div>
+        <a href="#" class="action-item">
+            <span class="action-icon">💬</span>
+            <span class="action-label">Support</span>
+        </a>
     </div>
 
     <!-- Gamification Section -->
@@ -777,34 +778,34 @@
         border: 1px solid rgba(42, 108, 246, 0.08);
     }
 
-    .nft-quick-stats-card .stat-item {
+    .nft-quick-stats-card .action-item {
         flex: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         text-align: center;
-        padding: 0 4px;
+        padding: 8px 4px;
+        text-decoration: none;
+        border-radius: 10px;
+        transition: all 0.2s ease;
     }
 
-    .nft-quick-stats-card .stat-value {
-        font-size: 16px;
-        font-weight: 700;
-        color: #1e293b;
-        white-space: nowrap;
+    .nft-quick-stats-card .action-item:active {
+        transform: scale(0.95);
+        background: rgba(42, 108, 246, 0.05);
     }
 
-    .nft-quick-stats-card .stat-value.profit-up {
-        color: #22c55e;
+    .nft-quick-stats-card .action-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+        display: block;
     }
 
-    .nft-quick-stats-card .stat-value.profit-down {
-        color: #ef4444;
-    }
-
-    .nft-quick-stats-card .stat-label {
+    .nft-quick-stats-card .action-label {
         font-size: 11px;
         color: #64748b;
-        margin-top: 2px;
+        font-weight: 600;
     }
 
     .nft-quick-stats-card .stat-divider {
