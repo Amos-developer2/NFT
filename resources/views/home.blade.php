@@ -64,28 +64,24 @@
     </div>
 
     <!-- Quick Actions -->
-    <div class="nft-quick-stats-card">
-        <a href="{{ route('daily.checkin') }}" class="action-item">
+    <div class="nft-quick-actions-wrapper">
+        <a href="{{ route('daily.checkin') }}" class="action-item-card">
             <span class="action-icon">🎁</span>
             <span class="action-label">Check-In</span>
         </a>
-        <div class="stat-divider"></div>
-        <a href="#" class="action-item">
+        <a href="#" class="action-item-card">
             <span class="action-icon">🎲</span>
             <span class="action-label">Lucky Box</span>
         </a>
-        <div class="stat-divider"></div>
-        <a href="#" class="action-item">
+        <a href="#" class="action-item-card">
             <span class="action-icon">👥</span>
             <span class="action-label">Invite</span>
         </a>
-        <div class="stat-divider"></div>
-        <a href="#" class="action-item">
+        <a href="#" class="action-item-card">
             <span class="action-icon">📖</span>
             <span class="action-label">Guide</span>
         </a>
-        <div class="stat-divider"></div>
-        <a href="#" class="action-item">
+        <a href="#" class="action-item-card">
             <span class="action-icon">💬</span>
             <span class="action-label">Support</span>
         </a>
@@ -778,31 +774,50 @@
         border: 1px solid rgba(42, 108, 246, 0.08);
     }
 
-    .nft-quick-stats-card .action-item {
+    .nft-quick-actions-wrapper {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 24px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .nft-quick-actions-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    .action-item-card {
         flex: 1;
+        min-width: 70px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: 8px 4px;
+        padding: 16px 12px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(42, 108, 246, 0.08);
         text-decoration: none;
-        border-radius: 10px;
         transition: all 0.2s ease;
     }
 
-    .nft-quick-stats-card .action-item:active {
+    .action-item-card:active {
         transform: scale(0.95);
         background: rgba(42, 108, 246, 0.05);
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
     }
 
-    .nft-quick-stats-card .action-icon {
-        font-size: 20px;
-        margin-bottom: 4px;
+    .action-item-card .action-icon {
+        font-size: 24px;
+        margin-bottom: 6px;
         display: block;
     }
 
-    .nft-quick-stats-card .action-label {
+    .action-item-card .action-label {
         font-size: 11px;
         color: #64748b;
         font-weight: 600;
