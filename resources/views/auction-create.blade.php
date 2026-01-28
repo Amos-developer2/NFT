@@ -124,25 +124,17 @@
 </div>
 
 @if(session('success'))
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    window.onload = function() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Auction Started!',
-            html: '<div style="text-align: center;"><p style="margin-bottom: 8px;">{{ session("success") }}</p><p style="font-size: 13px; color: #64748b;">Both profit and capital will be credited after 2 hours.</p></div>',
-            confirmButtonColor: '#22c55e',
-            confirmButtonText: 'Go to My NFTs',
-            customClass: {
-                popup: 'swal2-mobile',
-                confirmButton: 'swal-confirm-btn'
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof nativeAlert === 'function') {
+            nativeAlert('{{ session("success") }}\n\nBoth profit and capital will be credited after 2 hours.', {
+                type: 'success',
+                title: 'Auction Started!'
+            }).then(() => {
                 window.location.href = '{{ route("my-nft") }}';
-            }
-        });
-    };
+            });
+        }
+    });
 </script>
 @endif
 
@@ -474,17 +466,6 @@
 .auction-submit-btn:active {
     transform: scale(0.98);
     box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
-}
-
-.swal2-mobile {
-    border-radius: 16px !important;
-    padding: 24px !important;
-}
-
-.swal-confirm-btn {
-    border-radius: 10px !important;
-    padding: 12px 24px !important;
-    font-weight: 600 !important;
 }
 </style>
 @endsection
