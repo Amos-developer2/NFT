@@ -5,23 +5,13 @@
 @push('styles')
 <style>
     :root {
-        --bg: #f8fafc;
-        --card: #ffffff;
-        --text: #0f172a;
-        --sub: #475569;
-        --accent: #22d3ee;
-        --accent2: #a78bfa;
-        --border: #e2e8f0;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --bg: #020617;
-            --card: #0f172a;
-            --text: #f1f5f9;
-            --sub: #94a3b8;
-            --border: #1e293b;
-        }
+        --bg: #f8fafc !important;
+        --card: #ffffff !important;
+        --text: #0f172a !important;
+        --sub: #475569 !important;
+        --accent: #22d3ee !important;
+        --accent2: #a78bfa !important;
+        --border: #e2e8f0 !important;
     }
 
     body {
