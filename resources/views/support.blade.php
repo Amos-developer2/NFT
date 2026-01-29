@@ -285,7 +285,23 @@
             btn.textContent = 'Start Live Chat';
             btn.onclick = function() {
                 if (window.Tawk_API && typeof Tawk_API.maximize === 'function') {
-                    Tawk_API.maximize();
+                    // Prompt for email and user ID before opening chat
+                    var email = prompt('Please enter your email for support:');
+                    if (!email) {
+                        alert('Email is required to start the chat.');
+                        return;
+                    }
+                    var userId = prompt('Please enter your User ID:');
+                    if (!userId) {
+                        alert('User ID is required to start the chat.');
+                        return;
+                    }
+                    Tawk_API.setAttributes({
+                        'email': email,
+                        'id': userId
+                    }, function(error) {
+                        Tawk_API.maximize();
+                    });
                 }
             };
         }
