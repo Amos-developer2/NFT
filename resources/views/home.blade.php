@@ -119,7 +119,7 @@
             </svg>
             <span class="action-label">Lucky Box</span>
         </a>
-        <a href="#" class="action-item-card">
+        <a href="{{ route('team') }}" class="action-item-card">
             <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M18 7.16c-.94-.51-2.08-.8-3.33-.8h-5.34c-1.25 0-2.39.29-3.33.8M9 16.2h6M9.5 12h5"
                     stroke-linecap="round" stroke-linejoin="round" />
