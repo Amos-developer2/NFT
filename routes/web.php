@@ -31,6 +31,10 @@ Route::view('/about', 'about')->name('about');
 // Load admin routes
 // Protected routes - require authentication
 Route::middleware(['auth'])->group(function () {
+    // Online Support page
+    Route::get('/support', function () {
+        return view('support');
+    })->name('support');
     // Guide page
     Route::get('/guide', function () {
         return view('guide');

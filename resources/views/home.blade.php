@@ -137,7 +137,7 @@
             </svg>
             <span class="action-label">Guide</span>
         </a>
-        <a href="#" class="action-item-card">
+        <a href="{{ route('support') }}" class="action-item-card">
             <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path
                     d="M17 9c3.87 0 5.5 1.5 5.5 5v3c0 3.5-1.63 5-5.5 5H7c-3.87 0-5.5-1.5-5.5-5v-3c0-3.5 1.63-5 5.5-5h10ZM17 2H7C3.13 2 1.5 3.5 1.5 7h21c0-3.5-1.63-5-5.5-5Z"
