@@ -101,11 +101,34 @@
     }
 
     .box-front img {
+
         width: 100%;
         height: 70%;
         object-fit: cover;
         filter: drop-shadow(0 0 12px #22d3ee);
         transition: transform .3s ease;
+    }
+
+    /* Animated Lucky Icon */
+    .lucky-animated-icon {
+        font-size: 2.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: bounce 1.2s infinite alternate;
+        filter: drop-shadow(0 0 8px #22d3ee);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    @keyframes bounce {
+        0% {
+            transform: translateY(0);
+        }
+
+        100% {
+            transform: translateY(-10px) scale(1.08);
+            box-shadow: 0 8px 18px #22d3ee44;
+        }
     }
 
     .box:hover .box-front img {
@@ -186,7 +209,9 @@
     @for($i=1;$i<=9;$i++)
         <div class="box" data-index="{{ $i-1 }}">
         <div class="box-inner box-front">
-            <!-- <img src="/images/luckybox_{{ $i }}.png" alt="Lucky Box"> -->
+            @if($i <= 9)
+                <span class="lucky-animated-icon">🎁</span>
+                @endif
         </div>
         <div class="box-inner box-back"></div>
 </div>
@@ -278,12 +303,18 @@
                         }
                     });
 
-                    Swal.fire({
-                        title: 'Reward Unlocked!',
-                        text: reward,
-                        icon: 'success',
-                        confirmButtonColor: '#8b5cf6'
+                    let reloaded = false;
+                    nativeAlert('Reward Unlocked!\n' + reward, {
+                        type: 'success',
+                        title: 'Success',
+                        callback: function() {
+                            reloaded = true;
+                            location.reload();
+                        }
                     });
+                    setTimeout(function() {
+                        if (!reloaded) location.reload();
+                    }, 3000);
                 });
         });
     });
