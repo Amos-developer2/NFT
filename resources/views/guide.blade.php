@@ -149,13 +149,13 @@
 @section('content')
 <div class="guide-container">
 
-    <div class="guide-title">Tradex Platform Guide</div>
+    <div class="guide-title">VortexNFT Platform Guide</div>
     <div class="guide-sub">Everything you need to register, earn, and manage your digital assets.</div>
 
     <div class="guide-section">
         <div class="section-title"><span class="section-icon">📝</span> Registration & Onboarding</div>
         <ul>
-            <li>Register for a Tradex account using your email and a secure password.</li>
+            <li>Register for a VortexNFT account using your email and a secure password.</li>
             <li>Verify your email address to activate your account.</li>
             <li>Complete your profile for a personalized experience.</li>
             <li>Enable Two-Factor Authentication for extra security.</li>
@@ -184,7 +184,7 @@
     <div class="guide-section">
         <div class="section-title"><span class="section-icon">🖼</span> NFT Marketplace</div>
         <ul>
-            <li>Buy and sell NFTs securely within the Tradex platform.</li>
+            <li>Buy and sell NFTs securely within the VortexNFT platform.</li>
             <li>Set your own price when listing NFTs for sale.</li>
             <li>Use earned coins and rewards to expand your collection.</li>
             <li>Rare NFTs may have higher value in the marketplace.</li>
@@ -206,7 +206,7 @@
 
         <div class="faq-item">
             <div class="faq-question">Where do rewards go? <span>+</span></div>
-            <div class="faq-answer">Rewards are instantly credited to your Tradex account.</div>
+            <div class="faq-answer">Rewards are instantly credited to your VortexNFT account.</div>
         </div>
 
         <div class="faq-item">
