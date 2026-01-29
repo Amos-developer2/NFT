@@ -278,14 +278,12 @@
                         }
                     });
 
-                    setTimeout(() => {
-                        Swal.fire({
-                            title: 'Reward Unlocked!',
-                            text: reward,
-                            icon: 'success',
-                            confirmButtonColor: '#8b5cf6'
-                        }).then(() => location.reload());
-                    }, 900);
+                    Swal.fire({
+                        title: 'Reward Unlocked!',
+                        text: reward,
+                        icon: 'success',
+                        confirmButtonColor: '#8b5cf6'
+                    });
                 });
         });
     });
