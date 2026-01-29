@@ -33,6 +33,8 @@ Route::view('/about', 'about')->name('about');
 Route::middleware(['auth'])->group(function () {
     // Set language
     Route::post('/account/language', [App\Http\Controllers\AccountController::class, 'setLanguage'])->name('account.language.set');
+    // Switch account mode
+    Route::post('/account/mode', [App\Http\Controllers\AccountController::class, 'switchMode'])->name('account.mode.switch');
     // Language selection page
     Route::get('/account/language', [App\Http\Controllers\AccountController::class, 'editLanguage'])->name('account.language');
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

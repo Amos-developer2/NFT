@@ -168,10 +168,12 @@
 @if(session('success'))
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        nativeAlert(@json(session('success')), {
-            type: 'success',
-            title: 'Success'
-        });
+        setTimeout(function() {
+            nativeAlert(@json(session('success')), {
+                type: 'success',
+                title: 'Success'
+            });
+        }, 200);
     });
 </script>
 @endif
@@ -361,8 +363,19 @@
                     <img src="/icons/star.svg" alt="Mode">
                 </div>
                 <div class="action-text">
-                    <span class="action-title">Account Mode</span>
-                    <span class="action-desc">Light Mode</span>
+                    <form action="{{ route('account.mode.switch') }}" method="POST" style="margin:0; width:100%;">
+                        @csrf
+                        <input type="hidden" name="account_mode" value="{{ (Auth::user()->account_mode ?? 'Live') == 'Live' ? 'Demo' : 'Live' }}">
+                        <div onclick="this.closest('form').submit()" style="display:flex;align-items:center;justify-content:space-between;width:100%;cursor:pointer;padding:2px 0;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='none'">
+                            <div>
+                                <span class="action-title" style="font-weight: bold;">Account Mode</span>
+                                <div class="action-desc" style="margin-top:2px; font-size: 0.98em; color: #94a3b8;">Tap to switch to {{ (Auth::user()->account_mode ?? 'Live') == 'Live' ? 'Demo' : 'Live' }} Mode</div>
+                            </div>
+                            <span style="display:inline-block;padding:2px 18px;border-radius:8px;border:1.5px solid #3b82f6;font-weight:600;font-size:0.98em;color:#3b82f6;letter-spacing:1px;min-width:54px;text-align:center;">
+                                {{ strtoupper(Auth::user()->account_mode ?? 'Live') }}
+                            </span>
+                        </div>
+                    </form>
                 </div>
                 <img src="/icons/arrow-left.svg" alt="Go" class="action-arrow">
             </a>
