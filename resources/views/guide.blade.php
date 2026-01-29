@@ -27,7 +27,7 @@
     body {
         margin: 0;
         font-family: 'Inter', sans-serif;
-        background: radial-gradient(circle at 50% -20%, #1e293b, var(--bg) 70%);
+        background: var(--bg);
         color: var(--text);
     }
 
@@ -38,7 +38,6 @@
         border-radius: 22px;
         background: var(--card);
         border: 1px solid var(--border);
-        /* box-shadow: 0 10px 40px rgba(0, 0, 0, .08); */
         animation: fadeIn .6s ease;
     }
 
