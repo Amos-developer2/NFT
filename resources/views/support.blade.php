@@ -256,35 +256,41 @@
         </div>
     </div>
 
-    <!-- FAQ SEARCH -->
-    <div class="faq-search">
-        <input type="text" placeholder="Search help articles or questions...">
-    </div>
 
     <!-- CHAT BUTTON -->
-    <button class="support-btn" onclick="openChat()">Start Live Chat</button>
-
-    <!-- TICKET SYSTEM -->
-    <button class="ticket-btn" onclick="openTicket()">Submit a Support Ticket</button>
-
-    <!-- TYPING ANIMATION -->
-    <div class="typing">
-        Agent typing
-        <span class="dots">
-            <span></span><span></span><span></span>
-        </span>
-    </div>
+    <button id="liveChatBtn" class="support-btn" disabled>Loading chat...</button>
 
 </div>
 
-<script>
-    function openChat() {
-        alert("Live chat system opening...");
-    }
 
-    function openTicket() {
-        alert("Redirecting to ticket system...");
-    }
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API = Tawk_API || {},
+        Tawk_LoadStart = new Date();
+    (function() {
+        var s1 = document.createElement("script"),
+            s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/697bbf7135a2d2198418f9a2/1jg5m7m1l';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+
+    // Enable chat button when Tawk is ready
+    Tawk_API.onLoad = function() {
+        var btn = document.getElementById('liveChatBtn');
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = 'Start Live Chat';
+            btn.onclick = function() {
+                if (window.Tawk_API && typeof Tawk_API.maximize === 'function') {
+                    Tawk_API.maximize();
+                }
+            };
+        }
+    };
 </script>
+<!--End of Tawk.to Script-->
 
 @endsection
