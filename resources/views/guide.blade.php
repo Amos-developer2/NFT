@@ -38,7 +38,7 @@
         border-radius: 22px;
         background: var(--card);
         border: 1px solid var(--border);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
+        /* box-shadow: 0 10px 40px rgba(0, 0, 0, .08); */
         animation: fadeIn .6s ease;
     }
 
