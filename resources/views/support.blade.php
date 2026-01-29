@@ -263,21 +263,56 @@
 </div>
 
 
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    var Tawk_API = Tawk_API || {},
-        Tawk_LoadStart = new Date();
-    (function() {
-        var s1 = document.createElement("script"),
-            s0 = document.getElementsByTagName("script")[0];
-        s1.async = true;
-        s1.src = 'https://embed.tawk.to/697bbf7135a2d2198418f9a2/1jg5m7m1l';
-        s1.charset = 'UTF-8';
-        s1.setAttribute('crossorigin', '*');
-        s0.parentNode.insertBefore(s1, s0);
-    })();
+<!--Start of LiveChat (text.com) Script-->
+<script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 19479756; // TODO: Replace with your LiveChat license number
+    (function(n, t, c) {
+        function i(n) {
+            return e._h ? e._h.apply(null, n) : e._q.push(n)
+        }
+        var e = {
+            _q: [],
+            _h: null,
+            _v: "2.0",
+            on: function() {
+                i(["on", [].slice.call(arguments)])
+            },
+            once: function() {
+                i(["once", [].slice.call(arguments)])
+            },
+            off: function() {
+                i(["off", [].slice.call(arguments)])
+            },
+            get: function() {
+                if (!e._h) throw new Error("LiveChatWidget: the widget is not initialized yet");
+                return i(["get", [].slice.call(arguments)])
+            },
+            call: function() {
+                i(["call", [].slice.call(arguments)])
+            },
+            init: function() {
+                var n = t.createElement("script");
+                n.async = !0, n.type = "text/javascript", n.src = "https://cdn.livechatinc.com/tracking.js", t.head.appendChild(n)
+            }
+        };
+        !n.__lc.asyncInit && e.init(), n.LiveChatWidget = n.LiveChatWidget || e
+    })(window, document);
 
-   </script>
-<!--End of Tawk.to Script-->
+    // Enable chat button when LiveChat is ready
+    window.__lc.asyncInit = function() {
+        var btn = document.getElementById('liveChatBtn');
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = 'Start Live Chat';
+            btn.onclick = function() {
+                if (window.LiveChatWidget && typeof LiveChatWidget.call === 'function') {
+                    LiveChatWidget.call('maximize');
+                }
+            };
+        }
+    };
+</script>
+<!--End of LiveChat (text.com) Script-->
 
 @endsection
