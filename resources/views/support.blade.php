@@ -277,36 +277,7 @@
         s0.parentNode.insertBefore(s1, s0);
     })();
 
-    // Enable chat button when Tawk is ready
-    Tawk_API.onLoad = function() {
-        var btn = document.getElementById('liveChatBtn');
-        if (btn) {
-            btn.disabled = false;
-            btn.textContent = 'Start Live Chat';
-            btn.onclick = function() {
-                if (window.Tawk_API && typeof Tawk_API.maximize === 'function') {
-                    // Prompt for email and user ID before opening chat
-                    var email = prompt('Please enter your email for support:');
-                    if (!email) {
-                        alert('Email is required to start the chat.');
-                        return;
-                    }
-                    var userId = prompt('Please enter your User ID:');
-                    if (!userId) {
-                        alert('User ID is required to start the chat.');
-                        return;
-                    }
-                    Tawk_API.setAttributes({
-                        'email': email,
-                        'id': userId
-                    }, function(error) {
-                        Tawk_API.maximize();
-                    });
-                }
-            };
-        }
-    };
-</script>
+   </script>
 <!--End of Tawk.to Script-->
 
 @endsection
