@@ -13,14 +13,13 @@
         margin: 0;
         font-family: 'Inter', sans-serif;
         background: #dff6ff;
-        overflow: hidden;
     }
 
-    /* ===== STADIUM ===== */
+    /* STADIUM */
     .stadium-bg {
         background: url('/images/stadium.jpg') center/cover no-repeat;
         min-height: 100vh;
-        padding: 20px 14px 200px;
+        padding: 20px 14px 120px;
         position: relative;
     }
 
@@ -28,7 +27,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, .8), rgba(255, 255, 255, .96));
+        background: linear-gradient(to bottom, rgba(255, 255, 255, .85), rgba(255, 255, 255, .97));
     }
 
     .game-wrap {
@@ -38,7 +37,7 @@
         margin: auto
     }
 
-    /* ===== TITLE ===== */
+    /* TITLE */
     .game-title {
         text-align: center;
         font-size: 1.9rem;
@@ -67,22 +66,30 @@
         }
     }
 
-    /* ===== CARDS ===== */
+    /* FIELD */
+    .field {
+        height: 420px;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(to top, #16a34a, #4ade80);
+        box-shadow: inset 0 12px 20px #0003;
+        padding: 16px;
+    }
+
+    /* CARDS inside field */
     .cards-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
-        margin-bottom: 40px;
-        perspective: 1000px;
     }
 
     .reward-card {
         height: 95px;
         border-radius: 14px;
-        position: relative;
         transform-style: preserve-3d;
         transition: transform .7s cubic-bezier(.2, .8, .2, 1);
-        cursor: pointer;
+        position: relative;
     }
 
     .card-inner {
@@ -101,8 +108,7 @@
     }
 
     .card-front img {
-        width: 42px;
-        opacity: .9
+        width: 42px
     }
 
     .card-back {
@@ -116,67 +122,15 @@
         transform: rotateY(180deg) scale(1.05)
     }
 
-    /* glow */
-    .reward-card::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 14px;
-        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, .5), transparent);
-        animation: shine 3s infinite;
-    }
-
-    @keyframes shine {
-        0% {
-            transform: translateX(-100%)
-        }
-
-        100% {
-            transform: translateX(100%)
-        }
-    }
-
-    /* ===== FIELD ===== */
-    .field {
-        height: 270px;
-        background: linear-gradient(to top, #16a34a, #4ade80);
-        border-radius: 20px;
-        position: relative;
-        overflow: hidden;
-        box-shadow: inset 0 12px 20px #0003;
-    }
-
-    .field::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at center, transparent 70px, rgba(255, 255, 255, .25) 72px, transparent 74px);
-    }
-
-    /* ===== BALL ===== */
+    /* BALL */
     .ball {
         width: 110px;
-        position: fixed;
-        bottom: 90px;
+        position: absolute;
+        bottom: 15px;
         left: 50%;
         transform: translateX(-50%);
         touch-action: none;
-        z-index: 10;
-        filter: drop-shadow(0 10px 14px #0004);
-    }
-
-    .ball:active {
-        transform: translateX(-50%) scale(1.1)
-    }
-
-    @media(max-width:420px) {
-        .reward-card {
-            height: 82px
-        }
-
-        .ball {
-            width: 95px
-        }
+        z-index: 5;
     }
 </style>
 
@@ -186,25 +140,27 @@
         <div class="game-title">⚽ Flick & Win</div>
         <div class="spin-text">Swipe UP on the ball with power</div>
 
-        <div class="cards-grid" id="cards">
-            @for($i=0;$i<9;$i++)
-                <div class="reward-card" data-index="{{ $i }}">
-                <div class="card-inner card-front">
-                    <img src="/images/card-back.png">
-                </div>
-                <div class="card-inner card-back"></div>
+        <div class="field" id="field">
+
+            <div class="cards-grid" id="cards">
+                @for($i=0;$i<9;$i++)
+                    <div class="reward-card" data-index="{{ $i }}">
+                    <div class="card-inner card-front">
+                        <img src="/images/card-back.png">
+                    </div>
+                    <div class="card-inner card-back"></div>
+            </div>
+            @endfor
         </div>
-        @endfor
+
+        <img src="/images/ball.png" id="ball" class="ball">
     </div>
-
-    <div class="field"></div>
-
-    <img src="/images/ball.png" id="ball" class="ball">
 
 </div>
 </div>
 
 <script>
+    const field = document.getElementById('field');
     const ball = document.getElementById('ball');
     const cards = document.querySelectorAll('.reward-card');
     const rewards = ['+1 NFT', '+10 Coins', 'Mystery Box', '+5 Coins', 'Try Again', '+3 Coins', '+2 Coins', '+1 Coin', 'Bonus'];
@@ -238,7 +194,6 @@
     function endDrag(e) {
         if (!isDragging || played) return;
         isDragging = false;
-
         let p = pos(e.changedTouches ? e.changedTouches[0] : e);
         let dx = p.clientX - startX;
         let dy = startY - p.clientY;
@@ -251,9 +206,9 @@
     }
 
     function launch() {
-        let rect = ball.getBoundingClientRect();
-        let x = rect.left,
-            y = rect.top;
+        const ballSize = ball.offsetWidth;
+        let x = ball.offsetLeft;
+        let y = ball.offsetTop;
 
         function step() {
             vy += gravity;
@@ -263,13 +218,31 @@
             y += vy;
             spin += 10;
 
+            // WALL BOUNCE
+            if (x <= 0) {
+                x = 0;
+                vx *= -0.7;
+            }
+            if (x + ballSize >= field.clientWidth) {
+                x = field.clientWidth - ballSize;
+                vx *= -0.7;
+            }
+            if (y <= 0) {
+                y = 0;
+                vy *= -0.7;
+            }
+            if (y + ballSize >= field.clientHeight) {
+                y = field.clientHeight - ballSize;
+                vy *= -0.6;
+            }
+
             ball.style.left = x + 'px';
             ball.style.top = y + 'px';
             ball.style.transform = `rotate(${spin}deg)`;
 
-            let hitIndex = detectHit(x, y);
-            if (hitIndex !== null) {
-                hitCard(hitIndex);
+            let hit = detectHit();
+            if (hit !== null) {
+                hitCard(hit);
                 return;
             }
 
@@ -278,22 +251,17 @@
         step();
     }
 
-    /* 🎯 REAL COLLISION DETECTION */
-    function detectHit(x, y) {
+    function detectHit() {
         let ballRect = ball.getBoundingClientRect();
         for (let i = 0; i < cards.length; i++) {
             let c = cards[i].getBoundingClientRect();
-            if (!(ballRect.right < c.left ||
-                    ballRect.left > c.right ||
-                    ballRect.bottom < c.top ||
-                    ballRect.top > c.bottom)) {
+            if (!(ballRect.right < c.left || ballRect.left > c.right || ballRect.bottom < c.top || ballRect.top > c.bottom)) {
                 return i;
             }
         }
         return null;
     }
 
-    /* 🎁 Reveal correct card */
     function hitCard(i) {
         fetch('/daily-checkin', {
             method: 'POST',
@@ -317,7 +285,6 @@
                     y: .6
                 }
             });
-
             Swal.fire({
                 title: 'GOAL!!! ⚽🎉',
                 text: reward,
@@ -327,6 +294,5 @@
         });
     }
 </script>
-
 
 @endsection

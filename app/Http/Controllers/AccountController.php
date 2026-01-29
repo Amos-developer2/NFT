@@ -8,8 +8,26 @@
     use Illuminate\Support\Facades\Hash;
 
 
-    class AccountController extends Controller
+    class AccountController extends Controller{
+
+    /**
+     * Handle Lucky Box spin and reward.
+     */
+    public function spinLuckyBox(Request $request)
     {
+        $rewards = ['+1 NFT', '+10 Coins', 'Mystery Box', '+5 Coins', 'Try Again', '+3 Coins', '+2 Coins', '+1 Coin', 'Bonus'];
+        $reward = $rewards[array_rand($rewards)];
+        return redirect()->route('lucky-box')->with('lucky_reward', $reward);
+    }
+
+        /**
+         * Show the Lucky Box page.
+         */
+        public function luckyBox()
+        {
+            return view('lucky-box');
+        }
+    
 
 
         /**
@@ -41,8 +59,7 @@
         /**
          * Show the language selection page.
          */
-        public function editLanguage()
-        {
+        public function editLanguage(){
             return view('account-language');
         }
 

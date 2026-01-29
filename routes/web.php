@@ -31,6 +31,9 @@ Route::view('/about', 'about')->name('about');
 // Load admin routes
 // Protected routes - require authentication
 Route::middleware(['auth'])->group(function () {
+    // Lucky Box
+    Route::get('/lucky-box', [App\Http\Controllers\AccountController::class, 'luckyBox'])->name('lucky-box');
+    Route::post('/lucky-box', [App\Http\Controllers\AccountController::class, 'spinLuckyBox'])->name('lucky-box');
     // Set language
     Route::post('/account/language', [App\Http\Controllers\AccountController::class, 'setLanguage'])->name('account.language.set');
     // Switch account mode
