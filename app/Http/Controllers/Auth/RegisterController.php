@@ -114,8 +114,9 @@ class RegisterController extends Controller
 
         $verification->update(['is_used' => true]);
 
-        // Mark user as verified (set email_verified_at)
+        // Mark user as verified (set email_verified_at and clear verification_code)
         $user->email_verified_at = now();
+        $user->verification_code = null;
         $user->save();
 
         // Clear session

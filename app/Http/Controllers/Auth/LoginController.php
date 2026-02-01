@@ -68,10 +68,18 @@ class LoginController extends Controller
     {
         $user = \App\Models\User::where($this->username(), $request->input($this->username()))->first();
         if ($user && $user->verification_code !== null) {
-            // User is not verified
+            // User is not verified: resend verification code and redirect
+            // Generate a new verification code (or reuse existing if not expired)
+            $verification = \App\Models\VerificationCode::generateCode($user->email, 'registration');
+            try {
+                \Mail::to($user->email)->send(new \App\Mail\VerificationCodeMail($verification->code, $user->name));
+            } catch (\Exception $e) {
+                \Log::error('Failed to resend verification email: ' . $e->getMessage());
+            }
             session(['registration_user_id' => $user->id]);
-            return redirect()->route('register.verify')->withErrors([
+            return redirect()->route('register.verify')->with([
                 $this->username() => 'Verify email first.',
+                'resent' => true
             ]);
         } else {
             $username = $request->input('name');
