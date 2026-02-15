@@ -8,6 +8,8 @@
 
 @section('content')
 <div class="collection-wrapper">
+    <!-- Page Header -->
+    @include('partials.header', ['title' => 'NFT Collection'])
     <!-- Portfolio Summary Card -->
     <div class="portfolio-card">
         <div class="portfolio-card-bg"></div>
